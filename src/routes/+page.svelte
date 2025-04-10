@@ -26,7 +26,6 @@
         <option value={species}>{species}</option>
       {/each}
     </select>
-    <button onclick={() => console.log(character)}>Log Character</button>
   </div>
   <Stats bind:character />
   <Proficiencies bind:character />
@@ -57,13 +56,18 @@
     max-height: 100%;
     font-size: 1.2em;
     display: grid;
-    grid-template-columns: 1fr auto 1fr 1fr;
-    grid-template-rows: 120px max-content max-content 200px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: min-content 8rem auto;
+    // grid-template-areas:
+    //   "species speed         equipment header"
+    //   "stats   speed         equipment about"
+    //   "stats   proficiencies equipment about"
+    //   "hp   proficiencies equipment about";
     grid-template-areas:
-      "species header        header    about"
-      "hp      proficiencies equipment about"
-      "stats   proficiencies equipment about"
-      "stats   proficiencies equipment speed";
+      "header   speed hp species"
+      "about speed hp equipment"
+      "about stats proficiencies equipment"
+      "about stats proficiencies equipment";
     gap: 15px;
   }
 

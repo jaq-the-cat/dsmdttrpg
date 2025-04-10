@@ -22,7 +22,7 @@
 </script>
 
 <div id="hp">
-  <h2>HP</h2>
+  <div>HP</div>
   <div id="hpDisplay">
     <input
       style={currentHp > maxHp ? invalidText : ""}

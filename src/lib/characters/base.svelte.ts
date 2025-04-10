@@ -56,7 +56,11 @@ export class Character {
 
     left: string = ""
     right: string = ""
-    inventory: string[] = $state(["Hand", "Hand", "fill", "fill", "fill", "fill", "fill", "fill", "fill", "fill", "fill", "fill", "fill", "fill", "fill", "fill", "fill", "fill", "fill", "fill", "fill", "fill", "fill", "fill", "fill", "fill", "fill", "fill", "fill", "fill", "fill"])
+    inventory: string = $state("Hands, Hands, fill")
+    inventoryList = $derived(this.inventory.replaceAll(", ", ",").split(","))
+
+    weight = $state(0)
+    maxWeight = $state(0)
 
     constructor() {
     }
@@ -64,6 +68,7 @@ export class Character {
     refresh() {
         this.speed = getSpeed(this.species);
         this.bars = getBars(this.species);
+        this.maxWeight = getBaseMaxWeight(this)
     }
 }
 
@@ -81,16 +86,16 @@ export function getSpeed(species: Species) {
                 ["Walk", 5],
                 ["Run", 10],
                 ["Jump", 5],
-                ["Flight (Horizontal)", 30],
-                ["Flight (Vertical)", 15],
+                ["Flight (Hor)", 30],
+                ["Flight (Ver)", 15],
             ]);
         case Species.Disassembly:
             return new SvelteMap([
                 ["Walk", 5],
                 ["Run", 12],
                 ["Jump", 5],
-                ["Flight (Horizontal)", 20],
-                ["Flight (Vertical)", 10],
+                ["Flight (Hor)", 20],
+                ["Flight (Ver)", 10],
             ]);
         case Species.Solver:
         case Species.Worker:
@@ -123,6 +128,19 @@ export function getBars(species: Species) {
                 ["Absolute Solver", 1],
                 ["Heat", 0],
             ]);
+    }
+}
+
+export function getBaseMaxWeight(character: Character) {
+    switch (character.species) {
+        case Species.Human:
+            return 5 + character.stats.get('Strength')! * 3
+        case Species.Avian:
+        case Species.Worker:
+        case Species.Solver:
+            return 5 + character.stats.get('Strength')! * 4
+        case Species.Disassembly:
+            return 5 + character.stats.get('Strength')! * 5
     }
 }
 
