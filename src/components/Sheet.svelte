@@ -14,14 +14,11 @@
 
   async function save() {
     if (character.id) {
-      setDoc(
-        doc(db.firestore!, "sheets", character.id),
-        character.toFirebase()
-      );
+      setDoc(doc(db.firestore!, "sheets", character.id), character.serialize());
     } else {
       const doc = await addDoc(
         collection(db.firestore!, "sheets"),
-        character.toFirebase()
+        character.serialize()
       );
       character.id = doc.id;
       goto(`/sheets/${doc.id}`);

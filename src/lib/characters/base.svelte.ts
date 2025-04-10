@@ -1,3 +1,4 @@
+import { orderedToSvelte, svelteToOrdered } from "$lib/db";
 import { SvelteMap } from "svelte/reactivity";
 
 export enum Species {
@@ -58,11 +59,11 @@ export class Character {
 
     left: string = ""
     right: string = ""
-    inventory: string = $state("Hands, Hands")
+    inventory: string = $state("Hands")
     inventoryList = $derived(this.inventory.replaceAll(", ", ",").split(","))
 
     weight = $state(0)
-    maxWeight = $state(0)
+    maxWeight = $state(getBaseMaxWeight(this))
 
     constructor() {
     }
@@ -73,18 +74,18 @@ export class Character {
         this.maxWeight = getBaseMaxWeight(this)
     }
 
-    toFirebase() {
+    serialize() {
         return {
             currentHp: this.currentHp,
             species: this.species,
             biography: this.biography,
             fna: this.fna,
 
-            about: Object.fromEntries(this.about.entries()),
-            stats: Object.fromEntries(this.stats.entries()),
-            proficiencies: Object.fromEntries(this.proficiencies.entries()),
-            bars: Object.fromEntries(this.bars.entries()),
-            speed: Object.fromEntries(this.speed.entries()),
+            about: svelteToOrdered(this.about),
+            stats: svelteToOrdered(this.stats),
+            proficiencies: svelteToOrdered(this.proficiencies),
+            bars: svelteToOrdered(this.bars),
+            speed: svelteToOrdered(this.speed),
 
             left: this.left,
             right: this.right,
@@ -93,6 +94,26 @@ export class Character {
             weight: this.weight,
             maxWeight: this.maxWeight,
         }
+    }
+
+    static deserialize(doc: any) {
+        if (!doc) return
+        const char = new Character();
+        char.currentHp = doc.currentHp;
+        char.species = doc.species;
+        char.biography = doc.biography;
+        char.fna = doc.fna;
+        char.about = orderedToSvelte(doc.about ?? []);
+        char.stats = orderedToSvelte(doc.stats ?? []);
+        char.proficiencies = orderedToSvelte(doc.proficiencies ?? []);
+        char.bars = orderedToSvelte(doc.bars ?? []);
+        char.speed = orderedToSvelte(doc.speed ?? []);
+        char.left = doc.left;
+        char.right = doc.right;
+        char.inventory = doc.inventory;
+        char.weight = doc.weight;
+        char.maxWeight = doc.maxWeight;
+        return char;
     }
 
     static fromFirebase(doc: any) {
