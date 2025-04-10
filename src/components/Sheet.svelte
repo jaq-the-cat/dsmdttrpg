@@ -27,7 +27,11 @@
   }
 </script>
 
-<button onclick={() => (character = new Character())}>Create New</button>
+<button
+  onclick={() => {
+    goto(`/`);
+  }}>Create New</button
+>
 {#if character.id}
   <button
     onclick={() =>
