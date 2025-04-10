@@ -7,6 +7,8 @@
 
 {#if character}
   <Sheet bind:character />
+{:else}
+  <h1>Not Found</h1>
 {/if}
 
 <style lang="scss">

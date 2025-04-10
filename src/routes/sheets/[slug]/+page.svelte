@@ -17,4 +17,6 @@
 
 {#if character.char}
   <Sheet bind:character={character.char} />
+{:else}
+  <h1>404: Not Found</h1>
 {/if}
