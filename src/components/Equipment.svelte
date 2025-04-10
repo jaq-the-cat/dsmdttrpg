@@ -15,20 +15,18 @@
     newItem.name = "";
     newItem.weight = 1;
     character.weight = character.getWeight();
-    character.itemList = character.getItemList();
   }
 
   function addContainer() {
     character.containers.push(new Container(newItem.name, newItem.weight));
     newItem.name = "";
     newItem.weight = 1;
-    character.weight = character.getWeight();
     character.maxWeight = character.getMaxWeight();
-    character.itemList = character.getItemList();
   }
 
   function removeItem(container: Container, index: number) {
     container.inventory.splice(index, 1);
+    character.weight = character.getWeight();
   }
 </script>
 
