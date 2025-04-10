@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Character, Species } from "$lib/characters/base.svelte";
+  import { Character, Species } from "$lib/rpg/character.svelte";
   import { set } from "firebase/database";
 
   let { character = $bindable() as Character } = $props();

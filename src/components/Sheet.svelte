@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Character, Species } from "$lib/characters/base.svelte";
+  import { Character, Species } from "$lib/rpg/character.svelte";
   import Stats from "../components/Stats.svelte";
   import Proficiencies from "../components/Proficiencies.svelte";
   import HP from "../components/HP.svelte";

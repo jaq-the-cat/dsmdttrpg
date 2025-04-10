@@ -1,6 +1,6 @@
 <script lang="ts">
   import { invalidText } from "$lib";
-  import { Character, Species } from "$lib/characters/base.svelte";
+  import { Character, Species } from "$lib/rpg/character.svelte";
   import Bars from "./Bars.svelte";
 
   let { character = $bindable() as Character } = $props();
@@ -13,19 +13,15 @@
           ? 6
           : 4)
   );
-
-  let currentHp = $state(0);
-
-  function onChange() {
-    character.currentHp = currentHp;
-  }
 </script>
 
 <div id="hp">
   <div>HP</div>
   <div id="hpDisplay">
     <input
-      style={currentHp > maxHp || currentHp < 0 ? invalidText : ""}
+      style={character.currentHp > maxHp || character.currentHp < 0
+        ? invalidText
+        : ""}
       bind:value={() => character.currentHp, (v) => (character.currentHp = v)}
       type="number"
     />
