@@ -74,11 +74,21 @@
     {/each}
     <li>
       <span>Passive Perception</span>
-      <span>{Math.min(character.stats.get("Perception")! * 2 - 4, 14)}</span>
+      <span
+        >{Math.max(
+          0,
+          Math.min(character.stats.get("Perception")! * 2 - 4, 14)
+        )}</span
+      >
     </li>
     <li>
       <span>Passive Dodge</span>
-      <span>{Math.min(character.stats.get("Agility")! * 2 - 4, 12)}</span>
+      <span
+        >{Math.max(
+          0,
+          Math.min(character.stats.get("Agility")! * 2 - 4, 12)
+        )}</span
+      >
     </li>
   </ul>
 </div>
