@@ -151,6 +151,8 @@ export class Character {
         char.right = doc.right;
         char.back = doc.back;
         char.weight = doc.weight;
+
+        char.itemList = char.getItemList()
         return char;
     }
 
