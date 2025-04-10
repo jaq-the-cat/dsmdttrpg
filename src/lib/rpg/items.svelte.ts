@@ -1,54 +1,75 @@
-export enum EquipOn {
-    Hand = "Hand", Hands = "Hands", Front = "Front", Back = "Back", Pockets = "Pockets"
-}
-
 export class Item {
     name: string
-    weight: number
+    weight?: number
 
-    constructor(name: string, weight: number) {
+    constructor(name: string, weight?: number) {
         this.name = name;
         this.weight = weight;
+    }
+
+    static serializeList(items: Item[]) {
+        return items.map(item => ({
+            name: item.name,
+            weight: item.weight
+        }))
+    }
+
+    static deserializeList(list: any[]) {
+        return list.map(c => new Item(
+            c.name, c.weight,
+        ))
     }
 }
 
 export class Container {
     name: string
-    equip: EquipOn;
     carry?: number;
-    inventoryText: string = $state("");
-    inventory: Item[];
+    inventory: Item[] = $state([]);
 
-    constructor(name: string, carry?: number, equip: EquipOn = EquipOn.Back) {
+    constructor(name: string, carry?: number, items?: Item[]) {
         this.name = name;
         this.carry = carry;
-        this.equip = equip;
-        this.inventory = []
+        if (items)
+            this.inventory = items
     }
 
-    refreshInventory() {
-        this.inventory = []
-        this.inventoryText.split(", ").forEach((name) => {
-            const match = name.match(/\d*\.?\d+kg$/);
-            if (match) {
-                const weight = Number.parseFloat(match[0].match(/\d*\.?\d+/)![0])
-                this.inventory.push(new Item(name, weight))
-            }
+    add(list: Item[]) {
+        list.forEach((item) => {
+            this.inventory.push(item)
         })
+        return this;
     }
 
     get weight() {
-        return this.inventory.reduce((totalWeight, item) => totalWeight + item.weight, 0)
+        return this.inventory.reduce((totalWeight, item) => totalWeight + (item.weight ?? 0), 0)
+    }
+
+    static serializeList(containers: Container[]) {
+        return containers.map(c => ({
+            name: c.name,
+            carry: c.carry,
+            inventory: Item.serializeList(c.inventory)
+        }))
+    }
+
+    static deserializeList(list: any[]) {
+        return list.map(c => new Container(
+            c.name,
+            c.carry,
+            Item.deserializeList(c.inventory)
+        ))
     }
 }
 
-export const hand = (name?: string) => new Container(name ?? "Hand", undefined, EquipOn.Hand);
-export const pockets = (name?: string) => new Container(name ?? "Pockets", 5, EquipOn.Hand);
-export const shopping = (name?: string) => new Container("Shopping Bag", 4, EquipOn.Hand)
-export const fanny = (name?: string) => new Container("Fanny Pack", 6, EquipOn.Front);
-export const purse = (name?: string) => new Container("Purse", 8);
-export const suit = (name?: string) => new Container("Suitcase", 10);
-export const satchel = (name?: string) => new Container("Satchel", 20);
-export const backpack = (name?: string) => new Container("Backpack", 30);
-export const hiking = (name?: string) => new Container("Hiking Bag", 40);
-export const cart = (name?: string) => new Container("Shopping Cart", 100, EquipOn.Hands);
+export const ddWeapon = (name: string) => new Item(name, undefined);
+
+export const hand = (name?: string) => new Container(name ?? "Hand", undefined);
+export const pockets = (name?: string) => new Container(name ?? "Pockets", 5);
+export const shopping = (name?: string) => new Container(name ?? "Shopping Bag", 4);
+export const fanny = (name?: string) => new Container(name ?? "Fanny Pack", 6);
+export const purse = (name?: string) => new Container(name ?? "Purse", 8);
+export const suit = (name?: string) => new Container(name ?? "Suitcase", 10);
+export const satchel = (name?: string) => new Container(name ?? "Satchel", 20);
+export const backpack = (name?: string) => new Container(name ?? "Backpack", 30);
+export const hiking = (name?: string) => new Container(name ?? "Hiking Bag", 40);
+export const cart = (name?: string) => new Container(name ?? "Shopping Cart", 100);

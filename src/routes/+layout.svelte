@@ -40,6 +40,11 @@
     height: 15px;
   }
 
+  :global(button:hover) {
+    background-color: #1d2e06;
+    cursor: pointer;
+  }
+
   :global(main) {
     :global(h2) {
       margin: 0 0 10px 0;

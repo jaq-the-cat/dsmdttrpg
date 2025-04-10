@@ -1,6 +1,6 @@
 import { orderedToSvelte, svelteToOrdered } from "$lib/db";
 import { SvelteMap } from "svelte/reactivity";
-import { Container, EquipOn, hand, pockets } from "./items.svelte";
+import { backpack, Container, ddWeapon, pockets } from "./items.svelte";
 
 export enum Species {
     Human = "Human",
@@ -64,8 +64,27 @@ export class Character {
     right = $state(0)
     front = $state(0)
     back = $state(0)
-    // inventory: string = $state("Hands")
-    // inventoryList = $derived(this.inventory.replaceAll(", ", ",").split(","))
+
+    itemList = $state(this.getItemList());
+
+    getItemList() {
+        let list: string[] = [];
+        this.containers.forEach((container) => {
+            if (excludeIntangible(container.name)) {
+                list.push(
+                    `${container.name} (${container.weight}/${container.carry}kg)`
+                );
+            }
+            container.inventory.forEach((item) => {
+                if (excludeIntangible(container.name)) {
+                    list.push(`- ${item.name}`);
+                } else {
+                    list.push(`${item.name}`);
+                }
+            });
+        });
+        return list;
+    }
 
     weight = $state(this.getWeight())
     maxWeight = $state(this.getMaxWeight())
@@ -86,6 +105,8 @@ export class Character {
         this.bars = getBars(this.species);
         this.weight = this.getWeight();
         this.maxWeight = this.getMaxWeight();
+        this.containers = initializeSpeciesInventory(this.species);
+        this.itemList = this.getItemList();
     }
 
     serialize() {
@@ -105,6 +126,9 @@ export class Character {
             left: this.left,
             right: this.right,
             back: this.back,
+            front: this.front,
+
+            containers: Container.serializeList(this.containers),
 
             weight: this.weight,
         }
@@ -122,7 +146,7 @@ export class Character {
         char.proficiencies = orderedToSvelte(doc.proficiencies ?? []);
         char.bars = orderedToSvelte(doc.bars ?? []);
         char.speed = orderedToSvelte(doc.speed ?? []);
-        // char.pockets = doc.pockets;
+        char.containers = Container.deserializeList(doc.containers);
         char.left = doc.left;
         char.right = doc.right;
         char.back = doc.back;
@@ -140,21 +164,18 @@ export function initializeSpeciesInventory(species: Species) {
     switch (species) {
         case Species.Disassembly:
             return [
-                hand("Left Hand"),
-                hand("Right Hand"),
-                pockets(),
+                pockets().add([
+                    ddWeapon('Claws'),
+                    ddWeapon('MP5'),
+                ]),
             ]
         case Species.Solver:
             return [
-                hand("Left Hand"),
-                hand("Right Hand"),
-                hand("Tail"),
                 pockets(),
             ]
         default:
             return [
-                hand("Left Hand"),
-                hand("Right Hand"),
+                backpack(),
                 pockets(),
             ]
     }

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { invalidText } from "$lib";
-  import { Character, excludeIntangible } from "$lib/rpg/character.svelte";
+  import { Character } from "$lib/rpg/character.svelte";
   import { Container, Item } from "$lib/rpg/items.svelte";
 
   let { character = $bindable() as Character } = $props();
@@ -10,24 +10,12 @@
   let selectedContainer = $state(0);
   let container = $derived(character.containers[selectedContainer]);
 
-  let itemList = $derived.by(() => {
-    let list: string[] = [];
-    character.containers.forEach((container) => {
-      if (excludeIntangible(container.name)) list.push(container.name);
-
-      container.inventory.forEach((item) => {
-        list.push(item.name);
-      });
-    });
-    return list;
-  });
-
   function addItem() {
-    container.inventoryText += `${newItem.name} ${newItem.weight}kg, `;
     container.inventory.push(new Item(newItem.name, newItem.weight));
     newItem.name = "";
     newItem.weight = 1;
     character.weight = character.getWeight();
+    character.itemList = character.getItemList();
   }
 
   function addContainer() {
@@ -36,6 +24,11 @@
     newItem.weight = 1;
     character.weight = character.getWeight();
     character.maxWeight = character.getMaxWeight();
+    character.itemList = character.getItemList();
+  }
+
+  function removeItem(container: Container, index: number) {
+    container.inventory.splice(index, 1);
   }
 </script>
 
@@ -55,16 +48,19 @@
       <input bind:value={newItem.weight} type="number" />
       <button onclick={() => addItem()}>Add as Item</button>
       <button onclick={() => addContainer()}>Add as Container</button>
-      <textarea
-        bind:value={
-          () => container.inventoryText,
-          (v) => {
-            container.inventoryText = v;
-            container.refreshInventory();
-            character.weight = character.getWeight();
-          }
-        }
-      ></textarea>
+      <div class="itemList">
+        {#each container.inventory as item, index}
+          <div class="itemName">
+            {item.name}
+          </div>
+          <div class="itemWeight">
+            {#if item.weight}
+              [{item.weight}kg]
+            {/if}
+          </div>
+          <button onclick={() => removeItem(container, index)}>Delete</button>
+        {/each}
+      </div>
     </div>
     <span class="weight">
       <span
@@ -84,28 +80,28 @@
     <span>Left Hand</span>
     <select bind:value={character.left}>
       <option value={undefined}></option>
-      {#each itemList as item}
+      {#each character.itemList as item}
         <option value={item}>{item}</option>
       {/each}
     </select>
     <span>Right Hand</span>
     <select>
       <option value={undefined}></option>
-      {#each itemList as item}
+      {#each character.itemList as item}
         <option value={item}>{item}</option>
       {/each}
     </select>
     <span>Front</span>
     <select>
       <option value={undefined}></option>
-      {#each itemList as item}
+      {#each character.itemList as item}
         <option value={item}>{item}</option>
       {/each}
     </select>
     <span>Back</span>
     <select>
       <option value={undefined}></option>
-      {#each itemList as item}
+      {#each character.itemList as item}
         <option value={item}>{item}</option>
       {/each}
     </select>
@@ -127,8 +123,29 @@
       grid-column: 1 / 3;
     }
 
-    textarea {
+    .itemList {
+      display: grid;
+      max-width: 100%;
+      grid-template-columns: min-content auto min-content;
+      max-height: 40vh;
+      overflow-y: auto;
       grid-column: 1 / 3;
+      gap: 5px;
+      column-gap: 10px;
+
+      .itemName,
+      .itemWeight {
+        justify-self: start;
+        align-self: center;
+      }
+
+      .itemWeight {
+        justify-self: end;
+      }
+
+      button {
+        padding: 5px 20px;
+      }
     }
   }
   #equipment {
@@ -147,11 +164,5 @@
     // display: grid;
     // grid-template-columns: 11ch auto;
     gap: 5px;
-  }
-
-  textarea {
-    resize: none;
-    width: 100%;
-    height: 10lh;
   }
 </style>
