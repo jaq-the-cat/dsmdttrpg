@@ -9,6 +9,8 @@ export enum Species {
 }
 
 export class Character {
+    id: string | undefined = $state(undefined)
+
     currentHp = 0
 
     species = $state(Species.Worker)
@@ -56,7 +58,7 @@ export class Character {
 
     left: string = ""
     right: string = ""
-    inventory: string = $state("Hands, Hands, fill")
+    inventory: string = $state("Hands, Hands")
     inventoryList = $derived(this.inventory.replaceAll(", ", ",").split(","))
 
     weight = $state(0)
@@ -69,6 +71,48 @@ export class Character {
         this.speed = getSpeed(this.species);
         this.bars = getBars(this.species);
         this.maxWeight = getBaseMaxWeight(this)
+    }
+
+    toFirebase() {
+        return {
+            currentHp: this.currentHp,
+            species: this.species,
+            biography: this.biography,
+            fna: this.fna,
+
+            about: Object.fromEntries(this.stats.entries()),
+            stats: Object.fromEntries(this.stats.entries()),
+            proficiencies: Object.fromEntries(this.proficiencies.entries()),
+            bars: Object.fromEntries(this.bars.entries()),
+            speed: Object.fromEntries(this.speed.entries()),
+
+            left: this.left,
+            right: this.right,
+            inventory: this.inventory,
+
+            weight: this.weight,
+            maxWeight: this.maxWeight,
+        }
+    }
+
+    static fromFirebase(doc: any) {
+        if (!doc) return
+        const char = new Character();
+        char.currentHp = doc.currentHp;
+        char.species = doc.species;
+        char.biography = doc.biography;
+        char.fna = doc.fna;
+        char.about = new SvelteMap(Object.entries(doc.about ?? {}));
+        char.stats = new SvelteMap(Object.entries(doc.stats ?? {}));
+        char.proficiencies = new SvelteMap(Object.entries(doc.proficiencies ?? {}));
+        char.bars = new SvelteMap(Object.entries(doc.bars ?? {}));
+        char.speed = new SvelteMap(Object.entries(doc.speed ?? {}));
+        char.left = doc.left;
+        char.right = doc.right;
+        char.inventory = doc.inventory;
+        char.weight = doc.weight;
+        char.maxWeight = doc.maxWeight;
+        return char;
     }
 }
 

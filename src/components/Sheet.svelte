@@ -1,16 +1,39 @@
 <script lang="ts">
-  import { Character, getSpeed, Species } from "$lib/characters/base.svelte";
-  import { setContext } from "svelte";
+  import { Character, Species } from "$lib/characters/base.svelte";
   import Stats from "../components/Stats.svelte";
-  import Bars from "../components/Bars.svelte";
   import Proficiencies from "../components/Proficiencies.svelte";
   import HP from "../components/HP.svelte";
   import Speed from "../components/Speed.svelte";
   import Equipment from "../components/Equipment.svelte";
   import About from "../components/About.svelte";
+  import { db } from "$lib/db";
+  import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+  import { redirect } from "@sveltejs/kit";
 
-  let character = $state(new Character());
+  let { character = $bindable() as Character } = $props();
+
+  async function save() {
+    if (character.id) {
+      setDoc(
+        doc(db.firestore!, "sheets", character.id),
+        character.toFirebase()
+      );
+    } else {
+      const doc = await addDoc(
+        collection(db.firestore!, "sheets"),
+        character.toFirebase()
+      );
+      character.id = doc.id;
+      redirect(301, `/sheets/${doc.id}`);
+    }
+  }
 </script>
+
+<a href="/" onclick={() => (character = new Character())}>Create New</a>
+{#if character.id}
+  <a href="/sheets/{character.id}">Share Link</a>
+{/if}
+<a href="/" onclick={save}>Save</a>
 
 <main id="sheet">
   <div id="species">
@@ -35,17 +58,22 @@
   <About bind:character />
   <header>
     <h1>Murder Drones: Flesh & Oil</h1>
+    <!-- <h1>Murder Drones: Flesh & Oil</h1> -->
   </header>
   <!-- <Bars bind:character /> -->
 </main>
 
 <style lang="scss">
+  a {
+    display: inline-block;
+    margin-bottom: 5px;
+    border: 1px solid #9fe644;
+    padding: 5px;
+  }
   header {
     grid-area: header;
-    h1 {
-      text-align: center;
-      text-shadow: 2px 2px 5px rgb(89, 107, 65);
-    }
+    min-height: 2.5lh;
+    text-align: center;
   }
 
   #species {
@@ -67,15 +95,12 @@
   }
 
   @media (max-width: 1720px) {
-    header {
-      display: none;
-    }
     main {
       grid-template-columns: 1fr 1fr 1fr;
       grid-template-rows: repeat(min-content, 5);
       grid-template-areas:
+        "header    hp speed"
         "species   hp speed"
-        "about     hp speed"
         "about     stats proficiencies"
         "about     stats proficiencies"
         "equipment equipment equipment";

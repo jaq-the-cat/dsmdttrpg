@@ -26,8 +26,7 @@
   <div id="hpDisplay">
     <input
       style={currentHp > maxHp || currentHp < 0 ? invalidText : ""}
-      onchange={onChange}
-      bind:value={currentHp}
+      bind:value={() => character.currentHp, (v) => (character.currentHp = v)}
       type="number"
     />
     <span>/ {maxHp}</span>

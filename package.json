@@ -20,5 +20,9 @@
 		"svelte-check": "^4.0.0",
 		"typescript": "^5.0.0",
 		"vite": "^6.0.0"
+	},
+	"dependencies": {
+		"firebase": "^11.6.0",
+		"sveltefire": "^0.4.5"
 	}
 }

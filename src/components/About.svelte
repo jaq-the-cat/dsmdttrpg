@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Character, Species } from "$lib/characters/base.svelte";
+  import { set } from "firebase/database";
 
   let { character = $bindable() as Character } = $props();
 </script>
@@ -10,7 +11,13 @@
     {#each character.about as ss}
       <li>
         <span>{ss[0]}</span>
-        <input type="text" value={ss[1]} />
+        <input
+          bind:value={
+            () => character.about.get(ss[0]),
+            (v) => character.about.set(ss[0], v ?? "")
+          }
+          type="text"
+        />
       </li>
     {/each}
   </ul>

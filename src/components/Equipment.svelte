@@ -15,22 +15,28 @@
   <h2>Equipment</h2>
   <section>
     <span>Left Hand</span>
-    <select>
+    <select bind:value={() => character.left, (v) => (character.left = v)}>
       {#each character.inventoryList as item}
         <option value={item}>{item}</option>
       {/each}
     </select>
     <span>Right Hand</span>
-    <select>
+    <select bind:value={() => character.right, (v) => (character.right = v)}>
       {#each character.inventoryList as item}
         <option value={item}>{item}</option>
       {/each}
     </select>
     <span>Weight</span>
     <span class="weight">
-      <input type="text" bind:value={character.weight} />
+      <input
+        type="text"
+        bind:value={() => character.weight, (v) => (character.weight = v)}
+      />
       /
-      <input type="text" bind:value={character.maxWeight} />
+      <input
+        type="text"
+        bind:value={() => character.maxWeight, (v) => (character.maxWeight = v)}
+      />
     </span>
     <button onclick={onSubmit}>Add Item</button>
     <input type="text" bind:value={newItem.name} />
