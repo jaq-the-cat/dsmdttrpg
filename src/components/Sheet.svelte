@@ -21,7 +21,7 @@
         character.serialize()
       );
       character.id = doc.id;
-      goto(`/sheets/${doc.id}`);
+      goto(`/sheet/${doc.id}`);
     }
     alert("Saved!");
   }
