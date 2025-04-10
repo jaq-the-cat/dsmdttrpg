@@ -44,10 +44,18 @@
           </option>
         {/each}
       </select>
-      <input bind:value={newItem.name} type="text" />
-      <input bind:value={newItem.weight} type="number" />
-      <button onclick={() => addItem()}>Add as Item</button>
-      <button onclick={() => addContainer()}>Add as Container</button>
+      <div class="newItem">
+        <input class="newItemName" bind:value={newItem.name} type="text" />
+        <input
+          class="newItemWeight"
+          bind:value={newItem.weight}
+          type="number"
+        />
+      </div>
+      <button class="addItem" onclick={() => addItem()}>Add as Item</button>
+      <button class="addContainer" onclick={() => addContainer()}>
+        Add as Container
+      </button>
       <div class="itemList">
         {#each container.inventory as item, index}
           <div class="itemName">
@@ -85,21 +93,21 @@
       {/each}
     </select>
     <span>Right Hand</span>
-    <select>
+    <select bind:value={character.right}>
       <option value={undefined}></option>
       {#each character.itemList as item}
         <option value={item}>{item}</option>
       {/each}
     </select>
     <span>Front</span>
-    <select>
+    <select bind:value={character.front}>
       <option value={undefined}></option>
       {#each character.itemList as item}
         <option value={item}>{item}</option>
       {/each}
     </select>
     <span>Back</span>
-    <select>
+    <select bind:value={character.back}>
       <option value={undefined}></option>
       {#each character.itemList as item}
         <option value={item}>{item}</option>
@@ -119,6 +127,30 @@
     grid-template-columns: 1fr 1fr;
     gap: 5px;
 
+    .newItem {
+      display: flex;
+      gap: 5px;
+      justify-content: space-between;
+      grid-column: 1 / 3;
+
+      .newItemName {
+        flex-grow: 2;
+      }
+
+      .newItemWeight {
+        min-width: 6ch;
+        max-width: 30%;
+      }
+    }
+
+    .addItem {
+      grid-column: 1;
+    }
+
+    .addContainer {
+      grid-column: 2;
+    }
+
     select {
       grid-column: 1 / 3;
     }
@@ -129,7 +161,7 @@
       grid-template-columns: min-content auto min-content;
       max-height: 40vh;
       overflow-y: auto;
-      grid-column: 1 / 3;
+      grid-column: 1 / 4;
       gap: 5px;
       column-gap: 10px;
 
