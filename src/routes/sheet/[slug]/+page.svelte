@@ -10,13 +10,11 @@
     char: undefined,
   });
   docRef.subscribe((value) => {
-    character.char = Character.deserializeOld(value);
+    character.char = Character.deserialize(value);
     if (character.char) character.char.id = data.slug;
   });
 </script>
 
 {#if character.char}
   <Sheet bind:character={character.char} />
-{:else}
-  <h1>404: Not Found</h1>
 {/if}

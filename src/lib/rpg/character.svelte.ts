@@ -1,5 +1,6 @@
 import { orderedToSvelte, svelteToOrdered } from "$lib/db";
 import { SvelteMap } from "svelte/reactivity";
+import { backpack, Container, ddWeapon, pockets } from "./items.svelte";
 
 export enum Species {
     Human = "Human",
@@ -12,7 +13,7 @@ export enum Species {
 export class Character {
     id: string | undefined = $state(undefined)
 
-    currentHp = 0
+    currentHp = $state(0)
 
     species = $state(Species.Worker)
 
@@ -27,15 +28,15 @@ export class Character {
     biography: string = $state("")
     fna: string = $state("")
 
-    stats = new SvelteMap([
+    stats = $state(new SvelteMap([
         ["Vitality", 6],
         ["Agility", 6],
         ["Strength", 6],
-        ["Dexterity", 6,],
+        ["Dexterity", 6],
         ["Charisma", 6],
         ["Perception", 6,],
         ["Intelligence", 6],
-    ]);
+    ]));
 
     proficiencies = new SvelteMap([
         ["Athletics", " "],
@@ -57,13 +58,44 @@ export class Character {
     bars = $state(getBars(this.species))
     speed = $state(getSpeed(this.species))
 
-    left: string = ""
-    right: string = ""
-    inventory: string = $state("Hands")
-    inventoryList = $derived(this.inventory.replaceAll(", ", ",").split(","))
+    containers: Container[] = $state(initializeSpeciesInventory(this.species))
 
-    weight = $state(0)
-    maxWeight = $state(getBaseMaxWeight(this))
+    left?: number = $state(0)
+    right?: number = $state(0)
+    front?: number = $state(0)
+    back?: number = $state(0)
+
+    itemList = $state(this.getItemList());
+
+    getItemList() {
+        let list: string[] = [];
+        this.containers.forEach((container) => {
+            if (excludeIntangible(container.name)) {
+                list.push(
+                    `${container.name} (${container.weight}/${container.carry}kg)`
+                );
+            }
+            container.inventory.forEach((item) => {
+                if (excludeIntangible(container.name)) {
+                    list.push(`- ${item.name}`);
+                } else {
+                    list.push(`${item.name}`);
+                }
+            });
+        });
+        return list;
+    }
+
+    weight = $state(this.getWeight())
+    maxWeight = $state(this.getMaxWeight())
+
+    getWeight() {
+        return this.containers.reduce((totalWeight, value) => totalWeight + (value.weight ?? 0), 0)
+    }
+
+    getMaxWeight() {
+        return getBaseMaxWeight(this) + this.containers.reduce((totalCapacity, value) => totalCapacity + (value.carry ?? 0), 0)
+    }
 
     constructor() {
     }
@@ -71,7 +103,10 @@ export class Character {
     refresh() {
         this.speed = getSpeed(this.species);
         this.bars = getBars(this.species);
-        this.maxWeight = getBaseMaxWeight(this)
+        this.weight = this.getWeight();
+        this.maxWeight = this.getMaxWeight();
+        this.containers = initializeSpeciesInventory(this.species);
+        this.itemList = this.getItemList();
     }
 
     serialize() {
@@ -87,12 +122,15 @@ export class Character {
             bars: svelteToOrdered(this.bars),
             speed: svelteToOrdered(this.speed),
 
-            left: this.left,
-            right: this.right,
-            inventory: this.inventory,
+            // pockets: this.pockets,
+            left: this.left ?? 0,
+            right: this.right ?? 0,
+            back: this.back ?? 0,
+            front: this.front ?? 0,
+
+            containers: Container.serializeList(this.containers),
 
             weight: this.weight,
-            maxWeight: this.maxWeight,
         }
     }
 
@@ -108,32 +146,63 @@ export class Character {
         char.proficiencies = orderedToSvelte(doc.proficiencies ?? []);
         char.bars = orderedToSvelte(doc.bars ?? []);
         char.speed = orderedToSvelte(doc.speed ?? []);
+        char.containers = Container.deserializeList(doc.containers);
         char.left = doc.left;
         char.right = doc.right;
-        char.inventory = doc.inventory;
+        char.back = doc.back;
         char.weight = doc.weight;
-        char.maxWeight = doc.maxWeight;
         return char;
     }
 
-    static fromFirebase(doc: any) {
+    static deserializeOld(doc: any) {
         if (!doc) return
         const char = new Character();
         char.currentHp = doc.currentHp;
         char.species = doc.species;
         char.biography = doc.biography;
         char.fna = doc.fna;
-        char.about = new SvelteMap(Object.entries(doc.about ?? {}));
-        char.stats = new SvelteMap(Object.entries(doc.stats ?? {}));
-        char.proficiencies = new SvelteMap(Object.entries(doc.proficiencies ?? {}));
-        char.bars = new SvelteMap(Object.entries(doc.bars ?? {}));
-        char.speed = new SvelteMap(Object.entries(doc.speed ?? {}));
-        char.left = doc.left;
-        char.right = doc.right;
-        char.inventory = doc.inventory;
+        char.about = orderedToSvelte(doc.about ?? []);
+        char.stats = orderedToSvelte(doc.stats ?? []);
+        char.proficiencies = orderedToSvelte(doc.proficiencies ?? []);
+        char.bars = orderedToSvelte(doc.bars ?? []);
+        char.speed = orderedToSvelte(doc.speed ?? []);
+        char.containers = initializeSpeciesInventory(char.species);
+        char.left = undefined;
+        char.right = undefined;
+        char.back = undefined;
+        char.right = undefined;
         char.weight = doc.weight;
         char.maxWeight = doc.maxWeight;
         return char;
+    }
+}
+
+
+export function excludeIntangible(name: string) {
+    return (name !== "Pockets" && name !== "Right Hand" && name !== "Left Hand");
+}
+
+export function initializeSpeciesInventory(species: Species) {
+    switch (species) {
+        case Species.Disassembly:
+            return [
+                pockets().add([
+                    ddWeapon('Claws'),
+                    ddWeapon('MP5'),
+                    ddWeapon('Laser'),
+                    ddWeapon('Missile'),
+                    ddWeapon('Ninja Stars'),
+                    ddWeapon('EMP'),
+                ]),
+            ]
+        case Species.Solver:
+            return [
+                pockets(),
+            ]
+        default:
+            return [
+                pockets(),
+            ]
     }
 }
 
@@ -199,13 +268,13 @@ export function getBars(species: Species) {
 export function getBaseMaxWeight(character: Character) {
     switch (character.species) {
         case Species.Human:
-            return 5 + character.stats.get('Strength')! * 3
+            return 5 + character.stats.get('Strength')! * 2
         case Species.Avian:
         case Species.Worker:
         case Species.Solver:
-            return 5 + character.stats.get('Strength')! * 4
+            return 5 + character.stats.get('Strength')! * 3
         case Species.Disassembly:
-            return 5 + character.stats.get('Strength')! * 5
+            return 5 + character.stats.get('Strength')! * 4
     }
 }
 

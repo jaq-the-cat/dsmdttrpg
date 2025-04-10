@@ -5,7 +5,7 @@
     getProfModifier,
     getProfStat,
     Species,
-  } from "$lib/characters/base.svelte";
+  } from "$lib/rpg/character.svelte";
   import { SvelteMap } from "svelte/reactivity";
 
   let { character = $bindable() as Character } = $props();
