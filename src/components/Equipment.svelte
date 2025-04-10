@@ -15,6 +15,7 @@
     newItem.name = "";
     newItem.weight = 1;
     character.weight = character.getWeight();
+    character.itemList = character.getItemList();
   }
 
   function addContainer() {
@@ -22,11 +23,13 @@
     newItem.name = "";
     newItem.weight = 1;
     character.maxWeight = character.getMaxWeight();
+    character.itemList = character.getItemList();
   }
 
   function removeItem(container: Container, index: number) {
     container.inventory.splice(index, 1);
     character.weight = character.getWeight();
+    character.itemList = character.getItemList();
   }
 </script>
 
