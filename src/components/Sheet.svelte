@@ -8,7 +8,7 @@
   import About from "../components/About.svelte";
   import { db } from "$lib/db";
   import { addDoc, collection, doc, setDoc } from "firebase/firestore";
-  import { redirect } from "@sveltejs/kit";
+  import { goto } from "$app/navigation";
 
   let { character = $bindable() as Character } = $props();
 
@@ -24,14 +24,20 @@
         character.toFirebase()
       );
       character.id = doc.id;
-      redirect(301, `/sheets/${doc.id}`);
+      goto(`/sheets/${doc.id}`);
     }
   }
 </script>
 
 <a href="/" onclick={() => (character = new Character())}>Create New</a>
 {#if character.id}
-  <a href="/sheets/{character.id}">Share Link</a>
+  <a
+    href="/sheets/{character.id}"
+    onclick={() =>
+      navigator.clipboard.writeText(
+        `https://fleshandoil.vercel.app/sheets/${character.id}`
+      )}>Share Link</a
+  >
 {/if}
 <a href="/" onclick={save}>Save</a>
 

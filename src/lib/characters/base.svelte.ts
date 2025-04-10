@@ -80,7 +80,7 @@ export class Character {
             biography: this.biography,
             fna: this.fna,
 
-            about: Object.fromEntries(this.stats.entries()),
+            about: Object.fromEntries(this.about.entries()),
             stats: Object.fromEntries(this.stats.entries()),
             proficiencies: Object.fromEntries(this.proficiencies.entries()),
             bars: Object.fromEntries(this.bars.entries()),
