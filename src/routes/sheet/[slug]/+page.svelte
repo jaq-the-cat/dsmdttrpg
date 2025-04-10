@@ -10,7 +10,7 @@
     char: undefined,
   });
   docRef.subscribe((value) => {
-    character.char = Character.deserializeOld(value);
+    character.char = Character.deserialize(value);
     if (character.char) character.char.id = data.slug;
   });
 </script>

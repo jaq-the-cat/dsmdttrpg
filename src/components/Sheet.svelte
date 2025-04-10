@@ -23,20 +23,20 @@
       character.id = doc.id;
       goto(`/sheets/${doc.id}`);
     }
+    alert("Saved!");
   }
 </script>
 
-<a href="/" onclick={() => (character = new Character())}>Create New</a>
+<button onclick={() => (character = new Character())}>Create New</button>
 {#if character.id}
-  <a
-    href="/sheets/{character.id}"
+  <button
     onclick={() =>
       navigator.clipboard.writeText(
-        `https://fleshandoil.vercel.app/sheets/${character.id}`
-      )}>Share Link</a
+        `https://fleshandoil.vercel.app/sheet/${character.id}`
+      )}>Share Link</button
   >
 {/if}
-<a href="/" onclick={save}>Save</a>
+<button onclick={save}>Save</button>
 
 <main id="sheet">
   <div id="species">
@@ -67,7 +67,7 @@
 </main>
 
 <style lang="scss">
-  a {
+  button {
     display: inline-block;
     margin-bottom: 5px;
     border: 1px solid #9fe644;

@@ -60,10 +60,10 @@ export class Character {
 
     containers: Container[] = $state(initializeSpeciesInventory(this.species))
 
-    left = $state(0)
-    right = $state(0)
-    front = $state(0)
-    back = $state(0)
+    left?: number = $state(0)
+    right?: number = $state(0)
+    front?: number = $state(0)
+    back?: number = $state(0)
 
     itemList = $state(this.getItemList());
 
@@ -123,10 +123,10 @@ export class Character {
             speed: svelteToOrdered(this.speed),
 
             // pockets: this.pockets,
-            left: this.left,
-            right: this.right,
-            back: this.back,
-            front: this.front,
+            left: this.left ?? 0,
+            right: this.right ?? 0,
+            back: this.back ?? 0,
+            front: this.front ?? 0,
 
             containers: Container.serializeList(this.containers),
 
@@ -153,6 +153,28 @@ export class Character {
         char.weight = doc.weight;
         return char;
     }
+
+    static deserializeOld(doc: any) {
+        if (!doc) return
+        const char = new Character();
+        char.currentHp = doc.currentHp;
+        char.species = doc.species;
+        char.biography = doc.biography;
+        char.fna = doc.fna;
+        char.about = orderedToSvelte(doc.about ?? []);
+        char.stats = orderedToSvelte(doc.stats ?? []);
+        char.proficiencies = orderedToSvelte(doc.proficiencies ?? []);
+        char.bars = orderedToSvelte(doc.bars ?? []);
+        char.speed = orderedToSvelte(doc.speed ?? []);
+        char.containers = initializeSpeciesInventory(char.species);
+        char.left = undefined;
+        char.right = undefined;
+        char.back = undefined;
+        char.right = undefined;
+        char.weight = doc.weight;
+        char.maxWeight = doc.maxWeight;
+        return char;
+    }
 }
 
 
@@ -167,6 +189,10 @@ export function initializeSpeciesInventory(species: Species) {
                 pockets().add([
                     ddWeapon('Claws'),
                     ddWeapon('MP5'),
+                    ddWeapon('Laser'),
+                    ddWeapon('Missile'),
+                    ddWeapon('Ninja Stars'),
+                    ddWeapon('EMP'),
                 ]),
             ]
         case Species.Solver:
@@ -175,7 +201,6 @@ export function initializeSpeciesInventory(species: Species) {
             ]
         default:
             return [
-                backpack(),
                 pockets(),
             ]
     }

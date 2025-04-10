@@ -19,7 +19,6 @@ export function svelteToOrdered<K, V>(map: SvelteMap<K, V>): OrderedMap<K, V> {
 
 export function orderedToSvelte<K, V>(omap: OrderedMap<K, V>): SvelteMap<K, V> {
     let map = new SvelteMap<K, V>();
-    console.log(omap)
     omap.forEach((entry) => map.set(entry.key, entry.value))
     return map;
 }
