@@ -34,13 +34,6 @@
 </script>
 
 <div id="equipment">
-  <button
-    onclick={() => {
-      console.log($state.snapshot(character.containers));
-      console.log($state.snapshot(character.left));
-      console.log($state.snapshot(character.back));
-    }}>asdkaslskdl</button
-  >
   <h2>Equipment</h2>
   <section>
     <div class="container">
