@@ -47,6 +47,7 @@ export class Character {
         ["Firearms", " "],
         ["Persuasion", " "],
         ["Intimidation", " "],
+        ["Investigation", " "],
         ["Knowledge", " "],
         ["Technology", " "],
         ["Melee", " "],
