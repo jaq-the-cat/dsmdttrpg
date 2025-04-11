@@ -19,6 +19,10 @@ export class Item {
             c.name, c.weight,
         ))
     }
+
+    toString() {
+        return this.name;
+    }
 }
 
 export class Container {
@@ -41,7 +45,8 @@ export class Container {
     }
 
     get weight() {
-        return this.inventory.reduce((totalWeight, item) => totalWeight + (item.weight ?? 0), 0)
+        const value = this.inventory.reduce((totalWeight, item) => totalWeight + (item.weight ?? 0), 0)
+        return parseFloat(value.toFixed(2))
     }
 
     static serializeList(containers: Container[]) {
@@ -58,6 +63,10 @@ export class Container {
             c.carry,
             Item.deserializeList(c.inventory)
         ))
+    }
+
+    toString() {
+        return `${this.name} (${this.weight}/${this.carry}kg)`
     }
 }
 

@@ -1,6 +1,7 @@
 import { orderedToSvelte, svelteToOrdered } from "$lib/db";
 import { SvelteMap } from "svelte/reactivity";
 import { backpack, Container, ddWeapon, pockets } from "./items.svelte";
+import { ItemList } from "./itemList.svelte";
 
 export enum Species {
     Human = "Human",
@@ -60,39 +61,25 @@ export class Character {
 
     containers: Container[] = $state(initializeSpeciesInventory(this.species))
 
-    left: number | null = $state(null)
-    right: number | null = $state(null)
-    front: number | null = $state(null)
-    back: number | null = $state(null)
+    left: string | null = $state(null)
+    right: string | null = $state(null)
+    front: string | null = $state(null)
+    back: string | null = $state(null)
 
-    itemList = $state(this.getItemList());
-
-    getItemList() {
-        let list: string[] = [];
-        this.containers.at(0)?.inventory.forEach((item => list.push(item.name)))
-        this.containers.splice(1).forEach((container) => {
-            list.push(
-                `${container.name} (${container.weight}/${container.carry}kg)`
-            );
-            container.inventory.forEach((item) => {
-                list.push(item.name);
-            });
-        });
-        return list;
-    }
+    // itemList = $state(this.getItemList());
+    itemList = $state(new ItemList());
 
     weight = $state(this.getWeight())
     maxWeight = $state(this.getMaxWeight())
 
     getWeight() {
-        return this.containers.reduce((totalWeight, value) => totalWeight + (value.weight ?? 0), 0)
+        const value = this.containers.reduce((totalWeight, value) => totalWeight + (value.weight ?? 0), 0);
+        return parseFloat(value.toFixed(2));
     }
 
     getMaxWeight() {
-        return getBaseMaxWeight(this) + this.containers.reduce((totalCapacity, value) => totalCapacity + (value.carry ?? 0), 0)
-    }
-
-    constructor() {
+        const value = getBaseMaxWeight(this) + this.containers.reduce((totalCapacity, value) => totalCapacity + (value.carry ?? 0), 0);
+        return parseFloat(value.toFixed(2));
     }
 
     refresh() {
@@ -101,7 +88,7 @@ export class Character {
         this.weight = this.getWeight();
         this.maxWeight = this.getMaxWeight();
         this.containers = initializeSpeciesInventory(this.species);
-        this.itemList = this.getItemList();
+        this.itemList.refresh(this.containers);
     }
 
     serialize() {
@@ -146,29 +133,7 @@ export class Character {
         char.back = doc.back;
         char.weight = doc.weight;
 
-        char.itemList = char.getItemList()
-        return char;
-    }
-
-    static deserializeOld(doc: any) {
-        if (!doc) return
-        const char = new Character();
-        char.currentHp = doc.currentHp;
-        char.species = doc.species;
-        char.biography = doc.biography;
-        char.fna = doc.fna;
-        char.about = orderedToSvelte(doc.about ?? []);
-        char.stats = orderedToSvelte(doc.stats ?? []);
-        char.proficiencies = orderedToSvelte(doc.proficiencies ?? []);
-        char.bars = orderedToSvelte(doc.bars ?? []);
-        char.speed = orderedToSvelte(doc.speed ?? []);
-        char.containers = initializeSpeciesInventory(char.species);
-        char.left = null;
-        char.right = null;
-        char.back = null;
-        char.right = null;
-        char.weight = doc.weight;
-        char.maxWeight = doc.maxWeight;
+        char.itemList.refresh(char.containers)
         return char;
     }
 }
