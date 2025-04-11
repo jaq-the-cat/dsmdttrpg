@@ -60,27 +60,22 @@ export class Character {
 
     containers: Container[] = $state(initializeSpeciesInventory(this.species))
 
-    left?: number = $state(0)
-    right?: number = $state(0)
-    front?: number = $state(0)
-    back?: number = $state(0)
+    left: number | null = $state(null)
+    right: number | null = $state(null)
+    front: number | null = $state(null)
+    back: number | null = $state(null)
 
     itemList = $state(this.getItemList());
 
     getItemList() {
         let list: string[] = [];
-        this.containers.forEach((container) => {
-            if (excludeIntangible(container.name)) {
-                list.push(
-                    `${container.name} (${container.weight}/${container.carry}kg)`
-                );
-            }
+        this.containers.at(0)?.inventory.forEach((item => list.push(item.name)))
+        this.containers.splice(1).forEach((container) => {
+            list.push(
+                `${container.name} (${container.weight}/${container.carry}kg)`
+            );
             container.inventory.forEach((item) => {
-                if (excludeIntangible(container.name)) {
-                    list.push(`- ${item.name}`);
-                } else {
-                    list.push(`${item.name}`);
-                }
+                list.push(item.name);
             });
         });
         return list;
@@ -122,11 +117,10 @@ export class Character {
             bars: svelteToOrdered(this.bars),
             speed: svelteToOrdered(this.speed),
 
-            // pockets: this.pockets,
-            left: this.left ?? 0,
-            right: this.right ?? 0,
-            back: this.back ?? 0,
-            front: this.front ?? 0,
+            left: this.left,
+            right: this.right,
+            back: this.back,
+            front: this.front,
 
             containers: Container.serializeList(this.containers),
 
@@ -169,10 +163,10 @@ export class Character {
         char.bars = orderedToSvelte(doc.bars ?? []);
         char.speed = orderedToSvelte(doc.speed ?? []);
         char.containers = initializeSpeciesInventory(char.species);
-        char.left = undefined;
-        char.right = undefined;
-        char.back = undefined;
-        char.right = undefined;
+        char.left = null;
+        char.right = null;
+        char.back = null;
+        char.right = null;
         char.weight = doc.weight;
         char.maxWeight = doc.maxWeight;
         return char;

@@ -88,28 +88,28 @@
   <div class="equipped">
     <span>Left Hand</span>
     <select bind:value={character.left}>
-      <option value={undefined}></option>
+      <option value={null}></option>
       {#each character.itemList as item, i}
         <option value={i}>{item}</option>
       {/each}
     </select>
     <span>Right Hand</span>
     <select bind:value={character.right}>
-      <option value={undefined}></option>
+      <option value={null}></option>
       {#each character.itemList as item, i}
         <option value={i}>{item}</option>
       {/each}
     </select>
     <span>Front</span>
     <select bind:value={character.front}>
-      <option value={undefined}></option>
+      <option value={null}></option>
       {#each character.itemList as item, i}
         <option value={i}>{item}</option>
       {/each}
     </select>
     <span>Back</span>
     <select bind:value={character.back}>
-      <option value={undefined}></option>
+      <option value={null}></option>
       {#each character.itemList as item, i}
         <option value={i}>{item}</option>
       {/each}
