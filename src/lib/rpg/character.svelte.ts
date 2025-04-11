@@ -259,6 +259,8 @@ export function getProfStat(skill: string) {
         case "Persuasion":
         case "Intimidation":
             return "CHA"
+        case "Investigation":
+            return "PER"
         case "Knowledge":
         case "Technology":
             return "INT"
