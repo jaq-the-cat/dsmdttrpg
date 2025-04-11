@@ -34,6 +34,13 @@
 </script>
 
 <div id="equipment">
+  <button
+    onclick={() => {
+      console.log($state.snapshot(character.containers));
+      console.log($state.snapshot(character.left));
+      console.log($state.snapshot(character.back));
+    }}>asdkaslskdl</button
+  >
   <h2>Equipment</h2>
   <section>
     <div class="container">
@@ -89,29 +96,29 @@
     <span>Left Hand</span>
     <select bind:value={character.left}>
       <option value={undefined}></option>
-      {#each character.itemList as item}
-        <option value={item}>{item}</option>
+      {#each character.itemList as item, i}
+        <option value={i}>{item}</option>
       {/each}
     </select>
     <span>Right Hand</span>
     <select bind:value={character.right}>
       <option value={undefined}></option>
-      {#each character.itemList as item}
-        <option value={item}>{item}</option>
+      {#each character.itemList as item, i}
+        <option value={i}>{item}</option>
       {/each}
     </select>
     <span>Front</span>
     <select bind:value={character.front}>
       <option value={undefined}></option>
-      {#each character.itemList as item}
-        <option value={item}>{item}</option>
+      {#each character.itemList as item, i}
+        <option value={i}>{item}</option>
       {/each}
     </select>
     <span>Back</span>
     <select bind:value={character.back}>
       <option value={undefined}></option>
-      {#each character.itemList as item}
-        <option value={item}>{item}</option>
+      {#each character.itemList as item, i}
+        <option value={i}>{item}</option>
       {/each}
     </select>
   </div>
