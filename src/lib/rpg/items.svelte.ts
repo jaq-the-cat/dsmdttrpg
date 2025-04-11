@@ -27,10 +27,10 @@ export class Item {
 
 export class Container {
     name: string
-    carry?: number;
+    carry: number | null;
     inventory: Item[] = $state([]);
 
-    constructor(name: string, carry?: number, items?: Item[]) {
+    constructor(name: string, carry: number | null, items?: Item[]) {
         this.name = name;
         this.carry = carry;
         if (items)
@@ -66,14 +66,14 @@ export class Container {
     }
 
     toString() {
-        return `${this.name} (${this.weight}/${this.carry}kg)`
+        return `${this.name}` + (this.carry ? ` (${this.weight}/${this.carry}kg)` : '')
     }
 }
 
 export const ddWeapon = (name: string) => new Item(name, undefined);
 
-export const hand = (name?: string) => new Container(name ?? "Hand", undefined);
-export const pockets = (name?: string) => new Container(name ?? "Pockets", 5);
+export const hand = (name?: string) => new Container(name ?? "Hand", null);
+export const pockets = (name?: string) => new Container(name ?? "Pockets", null);
 export const shopping = (name?: string) => new Container(name ?? "Shopping Bag", 4);
 export const fanny = (name?: string) => new Container(name ?? "Fanny Pack", 6);
 export const purse = (name?: string) => new Container(name ?? "Purse", 8);

@@ -11,7 +11,6 @@
   let selectedContainer = $state(0);
   let container = $derived(containers[selectedContainer]);
 
-  let transferWindowOpen = $state(false);
   let itemToTransfer: Item | null = $state(null);
   let transferToContainer: number = $state(0);
 
@@ -57,7 +56,6 @@
 
   function transferClicked(item: Item) {
     itemToTransfer = item;
-    transferWindowOpen = true;
   }
 
   function transferItem(item: Item, targetContainerIndex: number | null) {
