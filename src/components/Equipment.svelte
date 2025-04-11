@@ -19,8 +19,6 @@
     let item = new Item(newItem.name, newItem.weight);
     container.inventory.push(item);
     character.weight += newItem.weight;
-    newItem.name = "";
-    newItem.weight = 1;
     character.itemList.refresh(containers);
   }
 
@@ -281,7 +279,7 @@
     .itemList {
       display: grid;
       max-width: 100%;
-      grid-template-columns: min-content auto min-content min-content;
+      grid-template-columns: auto auto min-content min-content;
       max-height: 40vh;
       overflow-y: auto;
       grid-column: 1 / 4;

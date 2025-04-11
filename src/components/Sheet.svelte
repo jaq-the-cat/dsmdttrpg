@@ -94,10 +94,10 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: min-content 8rem auto;
     grid-template-areas:
-      "header   speed hp species"
-      "about speed hp equipment"
-      "about stats proficiencies equipment"
-      "about stats proficiencies equipment";
+      "header speed hp            species"
+      "about  speed hp            equipment"
+      "about  stats proficiencies equipment"
+      "about  stats proficiencies equipment";
     gap: 15px;
   }
 
@@ -106,10 +106,10 @@
       grid-template-columns: 1fr 1fr 1fr;
       grid-template-rows: repeat(min-content, 5);
       grid-template-areas:
-        "header    hp speed"
-        "species   hp speed"
-        "about     stats proficiencies"
-        "about     stats proficiencies"
+        "header    hp        speed"
+        "species   hp        speed"
+        "about     stats     proficiencies"
+        "about     stats     proficiencies"
         "equipment equipment equipment";
     }
   }
@@ -126,8 +126,8 @@
         "hp        speed"
         "about     stats"
         "about     stats"
-        "about proficiencies"
-        "about proficiencies"
+        "about     proficiencies"
+        "about     proficiencies"
         "equipment equipment";
     }
   }
