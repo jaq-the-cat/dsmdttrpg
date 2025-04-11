@@ -27,6 +27,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>FnO Sheet: {character.about.get("Name") ?? "New"}</title>
+</svelte:head>
+
 <button
   onclick={() => {
     goto(`/`);

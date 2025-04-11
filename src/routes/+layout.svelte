@@ -22,6 +22,10 @@
   db.firestore = firestore;
 </script>
 
+<svelte:head>
+  <title>Murder Drones: Flesh and Oil</title>
+</svelte:head>
+
 <FirebaseApp {auth} {firestore}>
   <slot />
 </FirebaseApp>
