@@ -121,7 +121,7 @@
     max-height: 100%;
     font-size: 1.2em;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr max-content;
     grid-template-rows: min-content 8rem auto;
     grid-template-areas:
       "header speed hp            species"
@@ -153,11 +153,11 @@
       grid-template-rows: min-content max-content auto;
       grid-template-areas:
         "species   header"
+        "about     stats"
+        "about     stats"
+        "about     proficiencies"
+        "about     proficiencies"
         "hp        speed"
-        "about     stats"
-        "about     stats"
-        "about     proficiencies"
-        "about     proficiencies"
         "equipment equipment";
     }
   }
@@ -170,10 +170,10 @@
         "header"
         "species"
         "about"
-        "stats"
         "speed"
-        "hp"
+        "stats"
         "proficiencies"
+        "hp"
         "equipment";
     }
   }

@@ -34,6 +34,11 @@ export class ItemList {
         return this._list.findIndex((listItem) => listItem.id === item.id);
     }
 
+    updateName(item: Item, name: string) {
+        const index = this.findIndex(item);
+        this._list[index].name = name;
+    }
+
     removeElement(item: Item | Container) {
         const index = this.findIndex(item)
         this.remove(index);

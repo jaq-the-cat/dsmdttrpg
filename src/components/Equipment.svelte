@@ -109,9 +109,17 @@
       </button>
       <div class="itemList">
         {#each container.inventory as item, index}
-          <div class="itemName">
-            {item}
-          </div>
+          <span class="itemName">
+            <input
+              type="text"
+              bind:value={
+                () => item.name,
+                (v) => {
+                  item.name = v;
+                }
+              }
+            /></span
+          >
           <div class="itemWeight">
             {#if item.weight}
               [{item.weight}kg]
@@ -245,8 +253,12 @@
 
   .equipped {
     display: grid;
-    grid-template-columns: max-content auto;
+    grid-template-columns: max-content minmax(auto, 30ch);
     gap: 5px;
+
+    select {
+      max-width: 100%;
+    }
   }
 
   .containerSelect {
@@ -303,19 +315,30 @@
       gap: 5px;
       column-gap: 10px;
 
-      .itemName,
-      .itemWeight {
+      .itemName {
         justify-self: start;
         align-self: center;
+        width: 100%;
       }
 
-      .itemName {
-        max-width: 100%;
-        overflow: scroll;
+      input {
+        position: relative;
+        top: 2px;
+        padding: 0;
+        border: 0;
+        background: none;
+        border-bottom: 1px dashed transparent;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: #9fe644;
       }
 
       .itemWeight {
         justify-self: end;
+        justify-self: start;
+        align-self: center;
       }
 
       button {

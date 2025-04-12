@@ -1,6 +1,6 @@
 export class Item {
     id: string
-    name: string
+    name: string = $state("")
     weight: number | null
 
     constructor(name: string, weight: number | null, id?: string) {
