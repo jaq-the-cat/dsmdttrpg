@@ -37,26 +37,43 @@
   function removeContainer(index: number) {
     if (index === 0) return;
     const container = containers.splice(index, 1)[0];
-    container.inventory.forEach((item) =>
-      character.itemList.removeElement(item)
-    );
+
+    let equipmentRemoved: { [key: string]: null } = {};
+    container.inventory.forEach((item) => {
+      character.itemList.removeElement(item);
+      equipmentRemoved = {
+        ...equipmentRemoved,
+        ...character.checkItemWasRemoved(item.id),
+      };
+    });
     character.itemList.removeElement(container);
+    equipmentRemoved = {
+      ...equipmentRemoved,
+      ...character.checkItemWasRemoved(container.id),
+    };
+
+    character.uploadMultiple({
+      containers,
+      ...equipmentRemoved,
+    });
 
     character.weight = character.getWeight();
     character.maxWeight = character.getMaxWeight();
     selectedContainer = index - 1;
-    character.upload("containers", containers);
   }
 
   function removeItem(item: Item, index: number) {
     container.inventory.splice(index, 1);
     character.itemList.removeElement(item);
-    if (character.left === item.name) character.left = null;
-    if (character.right === item.name) character.right = null;
-    if (character.front === item.name) character.front = null;
-    if (character.back === item.name) character.back = null;
+
+    const equipmentRemoved = character.checkItemWasRemoved(item.id);
+
     character.weight = character.getWeight();
-    character.upload("containers", containers);
+
+    character.uploadMultiple({
+      containers,
+      ...equipmentRemoved,
+    });
   }
 
   function transferClicked(item: Item) {

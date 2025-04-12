@@ -18,7 +18,10 @@
 </script>
 
 <span>{slotName}</span>
-<select bind:value={slot} onchange={() => character.upload(fieldName, slot)}>
+<select
+  bind:value={slot}
+  onchange={(e) => character.upload(fieldName, e.currentTarget.value)}
+>
   <option value={null}></option>
   {#each character.itemList.list as item}
     <option value={item.id}>{item.toString()}</option>

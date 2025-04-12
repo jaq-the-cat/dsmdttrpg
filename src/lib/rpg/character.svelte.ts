@@ -1,6 +1,6 @@
-import { db, orderedToSvelte, svelteToOrdered } from "$lib/db";
+import { db, orderedToSvelte, svelteToOrdered, type OrderedMap } from "$lib/db";
 import { SvelteMap } from "svelte/reactivity";
-import { Container, ddWeapon, pockets } from "./items.svelte";
+import { Container, ddWeapon, Item, pockets } from "./items.svelte";
 import { doc, setDoc, type Firestore } from "firebase/firestore";
 import { ItemList } from "./itemList.svelte";
 
@@ -26,8 +26,61 @@ export class Character {
     } else {
       data = { [field]: svelteToOrdered(value) }
     }
-    await setDoc(doc(db.firestore, "sheets", this.id), data, { merge: true });
+    setDoc(doc(db.firestore, "sheets", this.id), data, { merge: true });
   }
+
+  async uploadMultiple(data: { [field: string]: string | number | SvelteMap<string, any> | any[] | null }) {
+    if (!this.id || !db.firestore) return;
+    for (const key in data) {
+      const el = data[key]
+      if (el && typeof el === 'object') {
+        if (Array.isArray(el))
+          data[key] = Container.serializeList(el)
+        else
+          data[key] = svelteToOrdered(el)
+      }
+    }
+    setDoc(doc(db.firestore, "sheets", this.id), data, { merge: true });
+  }
+
+  checkItemWasRemoved(itemId: string) {
+    if (!this.id || !db.firestore) return;
+
+    let data: { [key: string]: null } = {}
+    if (this.left === itemId) {
+      data.left = null;
+    }
+    if (this.leftShoulder === itemId) {
+      data.leftShoulder = null;
+    }
+    if (this.right === itemId) {
+      data.right = null;
+    }
+    if (this.rightShoulder === itemId) {
+      data.rightShoulder = null;
+    }
+    if (this.front === itemId) {
+      data.front = null;
+    }
+    if (this.back === itemId) {
+      data.back = null;
+    }
+    return data;
+  }
+
+  // async uploadRemovedItem() {
+  //   if (!this.id || !db.firestore) return;
+  //   const data = {
+  //     "containers": Container.serializeList(this.containers),
+  //     "left": this.left,
+  //     "leftShoulder": this.leftShoulder,
+  //     "right": this.right,
+  //     "rightShoulder": this.rightShoulder,
+  //     "front": this.front,
+  //     "back": this.back,
+  //   }
+  //   setDoc(doc(db.firestore, "sheets", this.id), data, { merge: true });
+  // }
 
   currentHp = $state(0);
 
@@ -146,16 +199,17 @@ export class Character {
     char.bars = orderedToSvelte(doc.bars ?? []);
     char.speed = orderedToSvelte(doc.speed ?? []);
     char.containers = Container.deserializeList(doc.containers);
+
+    char.weight = char.getWeight()
+    char.maxWeight = char.getMaxWeight()
+    char.itemList.refresh(char.containers)
+
     char.left = doc.left ?? null;
     char.leftShoulder = doc.leftShoulder ?? null;
     char.right = doc.right ?? null;
     char.rightShoulder = doc.rightShoulder ?? null;
     char.front = doc.front ?? null;
     char.back = doc.back ?? null;
-
-    char.weight = char.getWeight()
-    char.maxWeight = char.getMaxWeight()
-    char.itemList.refresh(char.containers)
     return char;
   }
 }
