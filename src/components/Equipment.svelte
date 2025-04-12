@@ -3,6 +3,7 @@
   import { Character } from "$lib/rpg/character.svelte";
   import { ItemList } from "$lib/rpg/itemList.svelte";
   import { Container, Item } from "$lib/rpg/items.svelte";
+  import EquipmentSlot from "./EquipmentSlot.svelte";
 
   let { character = $bindable() as Character } = $props();
 
@@ -14,10 +15,6 @@
 
   let itemList = $state(new ItemList(character.containers));
 
-  //   $effect(() => {
-  //     itemList.refresh(containers);
-  //   });
-
   let itemToTransfer: Item | null = $state(null);
   let transferToContainer: number = $state(0);
 
@@ -26,6 +23,7 @@
     container.inventory.push(item);
     character.weight += newItem.weight;
     itemList.refresh(containers);
+    character.upload("containers", containers);
   }
 
   function addContainer() {
@@ -36,6 +34,7 @@
     newItem.name = "";
     newItem.weight = 1;
     itemList.refresh(containers);
+    character.upload("containers", containers);
   }
 
   function removeContainer(index: number) {
@@ -47,6 +46,7 @@
     character.weight = character.getWeight();
     character.maxWeight = character.getMaxWeight();
     selectedContainer = index - 1;
+    character.upload("containers", containers);
   }
 
   function removeItem(item: Item, index: number) {
@@ -57,6 +57,7 @@
     if (character.front === item.name) character.front = null;
     if (character.back === item.name) character.back = null;
     character.weight = character.getWeight();
+    character.upload("containers", containers);
   }
 
   function transferClicked(item: Item) {
@@ -78,6 +79,7 @@
     containers[targetContainerIndex].inventory.push(item);
     itemList.refresh(containers);
     itemToTransfer = null;
+    character.upload("containers", containers);
   }
 </script>
 
@@ -112,6 +114,7 @@
           <span class="itemName">
             <input
               type="text"
+              onfocusout={() => character.upload("containers", containers)}
               bind:value={
                 () => item.name,
                 (v) => {
@@ -145,48 +148,48 @@
   </section>
   <h2>Equipped</h2>
   <div class="equipped">
-    <span>Left Hand</span>
-    <select bind:value={character.left}>
-      <option value={null}></option>
-      {#each itemList.list as item}
-        <option value={item.id}>{item.toString()}</option>
-      {/each}
-    </select>
-    <span>Left Shoulder</span>
-    <select bind:value={character.leftShoulder}>
-      <option value={null}></option>
-      {#each itemList.list as item}
-        <option value={item.id}>{item.toString()}</option>
-      {/each}
-    </select>
-    <span>Right Hand</span>
-    <select bind:value={character.right}>
-      <option value={null}></option>
-      {#each itemList.list as item}
-        <option value={item.id}>{item.toString()}</option>
-      {/each}
-    </select>
-    <span>Right Shoulder</span>
-    <select bind:value={character.rightShoulder}>
-      <option value={null}></option>
-      {#each itemList.list as item}
-        <option value={item.id}>{item.toString()}</option>
-      {/each}
-    </select>
-    <span>Front</span>
-    <select bind:value={character.front}>
-      <option value={null}></option>
-      {#each itemList.list as item}
-        <option value={item.id}>{item.toString()}</option>
-      {/each}
-    </select>
-    <span>Back</span>
-    <select bind:value={character.back}>
-      <option value={null}></option>
-      {#each itemList.list as item}
-        <option value={item.id}>{item.toString()}</option>
-      {/each}
-    </select>
+    <EquipmentSlot
+      slotName="Left Hand"
+      fieldName="left"
+      bind:character
+      bind:itemList
+      bind:slot={character.left}
+    />
+    <EquipmentSlot
+      slotName="Left Shoulder"
+      fieldName="leftShoulder"
+      bind:character
+      bind:itemList
+      bind:slot={character.leftShoulder}
+    />
+    <EquipmentSlot
+      slotName="Right Hand"
+      fieldName="right"
+      bind:character
+      bind:itemList
+      bind:slot={character.right}
+    />
+    <EquipmentSlot
+      slotName="Right Shoulder"
+      fieldName="rightShoulder"
+      bind:character
+      bind:itemList
+      bind:slot={character.rightShoulder}
+    />
+    <EquipmentSlot
+      slotName="Front"
+      fieldName="front"
+      bind:character
+      bind:itemList
+      bind:slot={character.front}
+    />
+    <EquipmentSlot
+      slotName="Back"
+      fieldName="back"
+      bind:character
+      bind:itemList
+      bind:slot={character.back}
+    />
   </div>
 </div>
 
@@ -248,16 +251,6 @@
 
     button.transferBtn {
       margin-top: auto;
-    }
-  }
-
-  .equipped {
-    display: grid;
-    grid-template-columns: max-content minmax(auto, 30ch);
-    gap: 5px;
-
-    select {
-      max-width: 100%;
     }
   }
 
@@ -346,6 +339,13 @@
       }
     }
   }
+
+  .equipped {
+    display: grid;
+    grid-template-columns: max-content minmax(auto, 30ch);
+    gap: 5px;
+  }
+
   #equipment {
     grid-area: equipment;
   }

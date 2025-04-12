@@ -15,13 +15,17 @@ export class Character {
     firestore?: Firestore
     id: string | undefined = $state(undefined);
 
-    async upload(field: string, value: string | number | SvelteMap<string, any> | null) {
-        if (!this.id) return;
-        let data =
-            value == null || typeof value !== 'object'
-                ? { [field]: value }
-                : { [field]: svelteToOrdered(value) }
-        await setDoc(doc(db.firestore!, "sheets", this.id), data, { merge: true });
+    async upload(field: string, value: string | number | SvelteMap<string, any> | Container[] | null) {
+        if (!this.id || !db.firestore) return;
+        let data
+        if (value == null || typeof value !== 'object') {
+            data = { [field]: value }
+        } else if (Array.isArray(value)) {
+            data = { [field]: Container.serializeList(value) }
+        } else {
+            data = { [field]: svelteToOrdered(value) }
+        }
+        await setDoc(doc(db.firestore, "sheets", this.id), data, { merge: true });
     }
 
     currentHp = $state(0);

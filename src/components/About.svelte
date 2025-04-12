@@ -13,17 +13,28 @@
         <input
           bind:value={
             () => character.about.get(ss[0]),
-            (v) => character.about.set(ss[0], v ?? "")
+            (v) => {
+              character.about.set(ss[0], v ?? "");
+            }
           }
+          onfocusout={() => character.upload("about", character.about)}
           type="text"
         />
       </li>
     {/each}
   </ul>
   <h2>Appearance</h2>
-  <textarea class="appearance" bind:value={character.appearance}></textarea>
+  <textarea
+    class="appearance"
+    bind:value={character.appearance}
+    onfocusout={() => character.upload("appearance", character.appearance)}
+  ></textarea>
   <h2>Biography</h2>
-  <textarea class="bio" bind:value={character.biography}></textarea>
+  <textarea
+    class="bio"
+    bind:value={character.biography}
+    onfocusout={() => character.upload("biography", character.biography)}
+  ></textarea>
 </div>
 
 <style lang="scss">

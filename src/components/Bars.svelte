@@ -12,8 +12,6 @@
   }
 </script>
 
-<!-- <div id="bars">
-  <h2>Bars</h2> -->
 <ul>
   {#each character.bars as bar}
     <li>
@@ -26,6 +24,7 @@
           () => character.bars.get(bar[0]),
           (v) => character.bars.set(bar[0], v ?? 0)
         }
+        onfocusout={() => character.upload("bars", character.bars)}
         type="number"
       />
       / {getMaxBarValue(bar[0], character)}
@@ -36,10 +35,6 @@
 <!-- </div> -->
 
 <style lang="scss">
-  //   #bars {
-  //     grid-area: bars;
-  //   }
-
   li {
     margin-bottom: 5px;
   }
