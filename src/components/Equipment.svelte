@@ -145,7 +145,7 @@
     <h2>Add Prefab</h2>
     <select bind:value={selectedPrefab} class="prefabSelect">
       {#each prefabs[selectedPrefabCategory] as prefab, i}
-        <option value={i}>{prefab}</option>
+        <option value={i}>{prefab.toStringWeight()}</option>
       {/each}
     </select>
     <select bind:value={selectedPrefabCategory} class="prefabCategory">

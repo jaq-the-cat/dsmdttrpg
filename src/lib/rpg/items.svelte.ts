@@ -40,6 +40,8 @@ export class Item {
           return MeleeWeapon.deserialize(c);
         case "ranged":
           return RangedWeapon.deserialize(c);
+        case "heal":
+          return Healing.deserialize(c);
       }
       return Item.deserialize(c);
     });
@@ -47,6 +49,11 @@ export class Item {
 
   toString() {
     return this.name;
+  }
+
+  toStringWeight() {
+    const weight = this.weight ? `(${this.weight}kg)` : '';
+    return this.name + ' ' + weight;
   }
 }
 
@@ -81,11 +88,9 @@ export class MeleeWeapon extends Item {
   }
 }
 
-export type RangedHit = "Firearms" | "Technology"
-
 export class RangedWeapon extends Item {
   type = "ranged"
-  hit: RangedHit = "Firearms";
+  hit = "Firearms";
   damage: string;
   range: number
   rate: number
@@ -93,7 +98,7 @@ export class RangedWeapon extends Item {
   reloadTurns: number
   info: string | null;
 
-  constructor(name: string, weight: number | null, hit: RangedHit, damage: string, range: number, rate: number, capacity: number, reloadTurns: number, info: string | null, id?: string) {
+  constructor(name: string, weight: number | null, hit: string, damage: string, range: number, rate: number, capacity: number, reloadTurns: number, info: string | null, id?: string) {
     super(name, weight, id);
     this.hit = hit ?? "Firearms";
     this.damage = damage ?? "1 Pierce";
@@ -131,6 +136,43 @@ export class RangedWeapon extends Item {
 
 export type EquipOn = "hand" | "shoulder" | "front" | "back"
 
+export class Healing extends Item {
+  type = "heal";
+  worksOn: "humans" | "drones" | "both";
+  heal: string;
+  revive: string | null;
+  requirements: string | null;
+
+  constructor(name: string, weight: number | null, worksOn: "humans" | "drones" | "both", heal: string, revive: string | null, requirements: string | null, id?: string) {
+    super(name, weight, id);
+    this.worksOn = worksOn;
+    this.heal = heal;
+    this.revive = revive;
+    this.requirements = requirements;
+  }
+
+  clone() {
+    return new Healing(this.name, this.weight, this.worksOn, this.heal, this.revive, this.requirements);
+  }
+
+  serialize() {
+    return {
+      type: "heal",
+      id: this.id,
+      name: this.name,
+      weight: this.weight,
+      worksOn: this.worksOn,
+      heal: this.heal,
+      revive: this.revive,
+      requirements: this.requirements,
+    }
+  }
+
+  static deserialize(c: any) {
+    return new Healing(c.name, c.weight, c.worksOn, c.heal, c.revive, c.requirements, c.id);
+  }
+
+}
 export class Container {
   id: string
   name: string
@@ -186,6 +228,10 @@ export class Container {
 
   toString() {
     return `${this.name}` + (this.carry ? ` (${this.weight}/${this.carry}kg)` : '')
+  }
+
+  toStringWeight() {
+    return `${this.name}` + (this.carry ? ` (${this.carry}kg)` : '')
   }
 }
 
