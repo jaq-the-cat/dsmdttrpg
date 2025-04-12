@@ -34,7 +34,7 @@ export const prefabs: { [type: string]: (Container | MeleeWeapon | RangedWeapon 
     new RangedWeapon("JCJ Railgun", 2, "Technology", "28 Energy", 15, 1, 1, 2, null),
     new RangedWeapon("Sentinel Gun", null, "Technology", "Bootloops in a 5m cone", 5, 1, 1, 1, "Looking away costs your reaction"),
     new RangedWeapon("Grenade", null, "Technology", "Bootloops in a 5m cone", 5, 1, 1, 1, "Looking away costs your reaction"),
-    new RangedWeapon("Sentinel Gun", null, "1d15", "1d12 + Explosives + 1 Explosive", 5, 1, 1, 1, "Explodes after 1 turn"),
+    new RangedWeapon("EMP Grenade", null, "1d15", "1d12 + Explosives + 1 Explosive", 5, 1, 1, 1, "Explodes after 1 turn"),
   ],
   'DD': [
     new MeleeWeapon("Sword", null, "1d6 + Strength + 1 Slash", "-1 Hit, -1 Block"),
