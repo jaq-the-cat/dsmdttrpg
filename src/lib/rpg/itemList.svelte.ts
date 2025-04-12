@@ -3,6 +3,12 @@ import type { Item, Container } from "./items.svelte";
 export class ItemList {
     private _list: (Item | Container)[] = $state([])
 
+    constructor(containers?: Container[]) {
+        if (containers) {
+            this.refresh(containers);
+        }
+    }
+
     refresh(containers: Container[]) {
         this._list = []
         containers.at(0)?.inventory.forEach((item => this._list.push(item)))

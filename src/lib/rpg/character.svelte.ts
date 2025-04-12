@@ -1,7 +1,6 @@
 import { orderedToSvelte, svelteToOrdered } from "$lib/db";
 import { SvelteMap } from "svelte/reactivity";
-import { backpack, Container, ddWeapon, pockets } from "./items.svelte";
-import { ItemList } from "./itemList.svelte";
+import { Container, ddWeapon, pockets } from "./items.svelte";
 
 export enum Species {
     Human = "Human",
@@ -67,9 +66,6 @@ export class Character {
     front: string | null = $state(null)
     back: string | null = $state(null)
 
-    // itemList = $state(this.getItemList());
-    itemList = $state(new ItemList());
-
     weight = $state(this.getWeight())
     maxWeight = $state(this.getMaxWeight())
 
@@ -89,7 +85,6 @@ export class Character {
         this.weight = this.getWeight();
         this.maxWeight = this.getMaxWeight();
         this.containers = initializeSpeciesInventory(this.species);
-        this.itemList.refresh(this.containers);
     }
 
     serialize() {
@@ -131,10 +126,9 @@ export class Character {
         char.containers = Container.deserializeList(doc.containers);
         char.left = doc.left;
         char.right = doc.right;
+        char.front = doc.front;
         char.back = doc.back;
         char.weight = doc.weight;
-
-        char.itemList.refresh(char.containers)
         return char;
     }
 }

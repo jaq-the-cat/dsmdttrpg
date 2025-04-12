@@ -12,6 +12,13 @@
 
   let { character = $bindable() as Character } = $props();
 
+  let showingSaved = $state(false);
+
+  async function showSaved() {
+    showingSaved = true;
+    setTimeout(() => (showingSaved = false), 1000);
+  }
+
   async function save() {
     if (character.id) {
       setDoc(doc(db.firestore!, "sheets", character.id), character.serialize());
@@ -23,9 +30,13 @@
       character.id = doc.id;
       goto(`/sheet/${doc.id}`);
     }
-    alert("Saved!");
+    showSaved();
   }
+
+  const autosave = setInterval(save, 10 * 1000);
 </script>
+
+<div class="saving" style={showingSaved ? "" : "display: none;"}>Saved!</div>
 
 <svelte:head>
   <title>FnO Sheet: {character.about.get("Name") ?? "New"}</title>
@@ -54,6 +65,7 @@
       onchange={(ev) => {
         character.species = ev.currentTarget.value as Species;
         character.refresh();
+        save();
       }}
     >
       {#each Object.values(Species) as species}
@@ -75,6 +87,20 @@
 </main>
 
 <style lang="scss">
+  .saving {
+    position: fixed;
+    text-align: center;
+    display: inline-block;
+    width: 20ch;
+    padding: 1rem 0;
+    left: calc(50% - 10ch);
+    background-color: #000;
+    border: 1px solid #9fe644;
+    vertical-align: middle;
+    top: 20px;
+    font-size: 2rem;
+  }
+
   button {
     display: inline-block;
     margin-bottom: 5px;

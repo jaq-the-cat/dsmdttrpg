@@ -10,8 +10,6 @@
 
   let { character = $bindable() as Character } = $props();
 
-  let modifiers = new SvelteMap([]);
-
   let proficiencies = $derived(getProficienciesCount(character.proficiencies));
 
   function getProficienciesCount(profList: SvelteMap<string, string>) {
@@ -55,13 +53,12 @@
       <li>
         <span>{prof[0]} [{getProfStat(prof[0])}]</span>
         <span>
-          <span>{modifiers.get(prof[0])}</span>
+          <span>{getProfModifier(prof[1])}</span>
           <select
             bind:value={
               () => character.proficiencies.get(prof[0]),
               (v) => {
                 character.proficiencies.set(prof[0], v ?? " ");
-                modifiers.set(prof[0], getProfModifier(v ?? " "));
               }
             }
           >

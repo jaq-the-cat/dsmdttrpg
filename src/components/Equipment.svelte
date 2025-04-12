@@ -1,6 +1,7 @@
 <script lang="ts">
   import { invalidText } from "$lib";
   import { Character } from "$lib/rpg/character.svelte";
+  import { ItemList } from "$lib/rpg/itemList.svelte";
   import { Container, Item } from "$lib/rpg/items.svelte";
 
   let { character = $bindable() as Character } = $props();
@@ -11,6 +12,8 @@
   let selectedContainer = $state(0);
   let container = $derived(containers[selectedContainer]);
 
+  let itemList = $state(new ItemList(character.containers));
+
   let itemToTransfer: Item | null = $state(null);
   let transferToContainer: number = $state(0);
 
@@ -18,26 +21,24 @@
     let item = new Item(newItem.name, newItem.weight);
     container.inventory.push(item);
     character.weight += newItem.weight;
-    character.itemList.refresh(containers);
+    itemList.refresh(containers);
   }
 
   function addContainer() {
     const newContainer = new Container(newItem.name, newItem.weight);
     containers.push(newContainer);
     character.maxWeight += newItem.weight;
-    character.itemList.push(newContainer);
+    itemList.push(newContainer);
     newItem.name = "";
     newItem.weight = 1;
-    character.itemList.refresh(containers);
+    itemList.refresh(containers);
   }
 
   function removeContainer(index: number) {
     if (index === 0) return;
     const container = containers.splice(index, 1)[0];
-    container.inventory.forEach((item) =>
-      character.itemList.removeElement(item)
-    );
-    character.itemList.removeElement(container);
+    container.inventory.forEach((item) => itemList.removeElement(item));
+    itemList.removeElement(container);
 
     character.weight = character.getWeight();
     character.maxWeight = character.getMaxWeight();
@@ -46,7 +47,7 @@
 
   function removeItem(item: Item, index: number) {
     container.inventory.splice(index, 1);
-    character.itemList.removeElement(item);
+    itemList.removeElement(item);
     if (character.left === item.name) character.left = null;
     if (character.right === item.name) character.right = null;
     if (character.front === item.name) character.front = null;
@@ -64,14 +65,14 @@
       (itemCheck) => itemCheck.toString() === item.toString()
     );
     container.inventory.splice(index, 1);
-    character.itemList.removeElement(item);
+    itemList.removeElement(item);
     if (character.left === item.name) character.left = null;
     if (character.right === item.name) character.right = null;
     if (character.front === item.name) character.front = null;
     if (character.back === item.name) character.back = null;
     character.weight = character.getWeight();
     containers[targetContainerIndex].inventory.push(item);
-    character.itemList.refresh(containers);
+    itemList.refresh(containers);
     itemToTransfer = null;
   }
 </script>
@@ -135,28 +136,28 @@
     <span>Left Hand</span>
     <select bind:value={character.left}>
       <option value={null}></option>
-      {#each character.itemList.list as item}
+      {#each itemList.list as item}
         <option value={item.name}>{item.toString()}</option>
       {/each}
     </select>
     <span>Right Hand</span>
     <select bind:value={character.right}>
       <option value={null}></option>
-      {#each character.itemList.list as item}
+      {#each itemList.list as item}
         <option value={item.name}>{item.toString()}</option>
       {/each}
     </select>
     <span>Front</span>
     <select bind:value={character.front}>
       <option value={null}></option>
-      {#each character.itemList.list as item}
+      {#each itemList.list as item}
         <option value={item.name}>{item.toString()}</option>
       {/each}
     </select>
     <span>Back</span>
     <select bind:value={character.back}>
       <option value={null}></option>
-      {#each character.itemList.list as item}
+      {#each itemList.list as item}
         <option value={item.name}>{item.toString()}</option>
       {/each}
     </select>
