@@ -9,38 +9,45 @@
   );
 
   export function statSumInvalid(sum: number) {
-    return sum !== 42;
+    // return sum !== 42;
+    return false;
   }
 
   export function statInvalid(stat: number) {
     return stat < 0 || stat > 10;
   }
+
+  function statModifier(stat: number): string {
+    let modifier = stat - 4;
+    if (modifier < 0) return `${modifier}`;
+    else if (modifier == 0) return `${modifier}`;
+    return `+${modifier}`;
+  }
 </script>
 
 <div id="stats">
-  <h2>Stats</h2>
-  <p><span style={statSumInvalid(sum) ? invalidText : ""}>{sum}</span>/42</p>
-  <ul>
+  <h2>Stats [{sum}]</h2>
+  <section class="statList">
     {#each character.stats as stat}
-      <li>
-        <span>{stat[0]}</span>
-        <input
-          style={statInvalid(character.stats.get(stat[0])!) ? invalidText : ""}
-          bind:value={
-            () => character.stats.get(stat[0]),
-            (v) => {
-              // if (v && v > 0 && v < 10)
-              character.stats.set(stat[0], v!);
-              if (stat[0] === "Strength") {
-                character.maxWeight = character.getMaxWeight();
-              }
+      <!-- <li> -->
+      <span>{stat[0]}</span>
+      <span class="modifier">{statModifier(stat[1])}</span>
+      <input
+        style={statInvalid(character.stats.get(stat[0])!) ? invalidText : ""}
+        bind:value={
+          () => character.stats.get(stat[0]),
+          (v) => {
+            character.stats.set(stat[0], v!);
+            if (stat[0] === "Strength") {
+              character.maxWeight = character.getMaxWeight();
             }
           }
-          type="number"
-        />
-      </li>
+        }
+        type="number"
+      />
+      <!-- </li> -->
     {/each}
-  </ul>
+  </section>
 </div>
 
 <style lang="scss">
@@ -52,15 +59,15 @@
     margin: 0;
   }
 
-  p {
-    display: block;
-    margin: 5px 0 5px 0;
+  .statList {
+    display: grid;
+    grid-template-columns: auto min-content minmax(auto, 10ch);
+    align-items: center;
+    row-gap: 5px;
+    column-gap: 10px;
   }
 
-  li {
-    display: flex;
-    justify-content: space-between;
-    column-gap: 5px;
-    margin-bottom: 5px;
+  .modifier {
+    justify-self: end;
   }
 </style>

@@ -48,28 +48,29 @@
       </span>
     </p>
   </div>
-  <ul>
+  <section class="profList">
     {#each character.proficiencies as prof}
-      <li>
-        <span>{prof[0]} [{getProfStat(prof[0])}]</span>
-        <span>
-          <span>{getProfModifier(prof[1])}</span>
-          <select
-            bind:value={
-              () => character.proficiencies.get(prof[0]),
-              (v) => {
-                character.proficiencies.set(prof[0], v ?? " ");
-              }
-            }
-          >
-            {#each [" ", "P", "E"] as profLevel}
-              <option value={profLevel}>{profLevel}</option>
-            {/each}
-          </select>
-        </span>
-      </li>
+      <!-- <li> -->
+      <span>{prof[0]} [{getProfStat(prof[0])}]</span>
+      <span>{getProfModifier(prof[1])}</span>
+      <select
+        bind:value={
+          () => character.proficiencies.get(prof[0]),
+          (v) => {
+            character.proficiencies.set(prof[0], v ?? " ");
+            // character.upload('proficiencies', character.proficiencies);
+          }
+        }
+      >
+        {#each [" ", "P", "E"] as profLevel}
+          <option value={profLevel}>{profLevel}</option>
+        {/each}
+      </select>
+      <!-- </li> -->
     {/each}
-    <li>
+  </section>
+  <div>
+    <p>
       <span>Passive Perception</span>
       <span
         >{Math.max(
@@ -77,8 +78,8 @@
           Math.min(character.stats.get("Perception")! * 2 - 4, 14)
         )}</span
       >
-    </li>
-    <li>
+    </p>
+    <p>
       <span>Passive Dodge</span>
       <span
         >{Math.max(
@@ -86,13 +87,21 @@
           Math.min(character.stats.get("Agility")! * 2 - 4, 12)
         )}</span
       >
-    </li>
-  </ul>
+    </p>
+  </div>
 </div>
 
 <style lang="scss">
   #proficiencies {
     grid-area: proficiencies;
+
+    .profList {
+      display: grid;
+      grid-template-columns: auto min-content min-content;
+      align-items: center;
+      row-gap: 5px;
+      column-gap: 10px;
+    }
 
     > div > p {
       display: flex;
@@ -106,13 +115,6 @@
     p {
       display: block;
       margin: 5px 0 5px 0;
-    }
-
-    ul li {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      margin-bottom: 5px;
     }
 
     select {

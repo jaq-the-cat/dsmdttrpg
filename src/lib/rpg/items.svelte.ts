@@ -1,14 +1,17 @@
 export class Item {
+    id: string
     name: string
-    weight?: number
+    weight: number | null
 
-    constructor(name: string, weight?: number) {
+    constructor(name: string, weight: number | null, id?: string) {
+        this.id = id ?? crypto.randomUUID()
         this.name = name;
         this.weight = weight;
     }
 
     static serializeList(items: Item[]) {
         return items.map(item => ({
+            id: item.id,
             name: item.name,
             weight: item.weight
         }))
@@ -16,7 +19,7 @@ export class Item {
 
     static deserializeList(list: any[]) {
         return list.map(c => new Item(
-            c.name, c.weight,
+            c.name, c.weight, c.id,
         ))
     }
 
@@ -26,11 +29,13 @@ export class Item {
 }
 
 export class Container {
+    id: string
     name: string
     carry: number | null;
     inventory: Item[] = $state([]);
 
-    constructor(name: string, carry: number | null, items?: Item[]) {
+    constructor(name: string, carry: number | null, items?: Item[], id?: string) {
+        this.id = id ?? crypto.randomUUID()
         this.name = name;
         this.carry = carry;
         if (items)
@@ -51,6 +56,7 @@ export class Container {
 
     static serializeList(containers: Container[]) {
         return containers.map(c => ({
+            id: c.id,
             name: c.name,
             carry: c.carry,
             inventory: Item.serializeList(c.inventory)
@@ -61,7 +67,8 @@ export class Container {
         return list.map(c => new Container(
             c.name,
             c.carry,
-            Item.deserializeList(c.inventory)
+            Item.deserializeList(c.inventory),
+            c.id,
         ))
     }
 
@@ -70,7 +77,7 @@ export class Container {
     }
 }
 
-export const ddWeapon = (name: string) => new Item(name, undefined);
+export const ddWeapon = (name: string) => new Item(name, null);
 
 export const hand = (name?: string) => new Container(name ?? "Hand", null);
 export const pockets = (name?: string) => new Container(name ?? "Pockets", null);

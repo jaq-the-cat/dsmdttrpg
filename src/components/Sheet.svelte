@@ -33,7 +33,7 @@
     showSaved();
   }
 
-  const autosave = setInterval(save, 10 * 1000);
+  //   const autosave = setInterval(save, 10 * 1000);
 </script>
 
 <div class="saving" style={showingSaved ? "" : "display: none;"}>Saved!</div>

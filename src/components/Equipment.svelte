@@ -14,6 +14,10 @@
 
   let itemList = $state(new ItemList(character.containers));
 
+  //   $effect(() => {
+  //     itemList.refresh(containers);
+  //   });
+
   let itemToTransfer: Item | null = $state(null);
   let transferToContainer: number = $state(0);
 
@@ -137,28 +141,42 @@
     <select bind:value={character.left}>
       <option value={null}></option>
       {#each itemList.list as item}
-        <option value={item.name}>{item.toString()}</option>
+        <option value={item.id}>{item.toString()}</option>
+      {/each}
+    </select>
+    <span>Left Shoulder</span>
+    <select bind:value={character.leftShoulder}>
+      <option value={null}></option>
+      {#each itemList.list as item}
+        <option value={item.id}>{item.toString()}</option>
       {/each}
     </select>
     <span>Right Hand</span>
     <select bind:value={character.right}>
       <option value={null}></option>
       {#each itemList.list as item}
-        <option value={item.name}>{item.toString()}</option>
+        <option value={item.id}>{item.toString()}</option>
+      {/each}
+    </select>
+    <span>Right Shoulder</span>
+    <select bind:value={character.rightShoulder}>
+      <option value={null}></option>
+      {#each itemList.list as item}
+        <option value={item.id}>{item.toString()}</option>
       {/each}
     </select>
     <span>Front</span>
     <select bind:value={character.front}>
       <option value={null}></option>
       {#each itemList.list as item}
-        <option value={item.name}>{item.toString()}</option>
+        <option value={item.id}>{item.toString()}</option>
       {/each}
     </select>
     <span>Back</span>
     <select bind:value={character.back}>
       <option value={null}></option>
       {#each itemList.list as item}
-        <option value={item.name}>{item.toString()}</option>
+        <option value={item.id}>{item.toString()}</option>
       {/each}
     </select>
   </div>
@@ -227,7 +245,7 @@
 
   .equipped {
     display: grid;
-    grid-template-columns: 10ch auto;
+    grid-template-columns: max-content auto;
     gap: 5px;
   }
 
@@ -291,6 +309,11 @@
         align-self: center;
       }
 
+      .itemName {
+        max-width: 100%;
+        overflow: scroll;
+      }
+
       .itemWeight {
         justify-self: end;
       }
@@ -313,8 +336,6 @@
 
   section {
     margin-bottom: 5px;
-    // display: grid;
-    // grid-template-columns: 11ch auto;
     gap: 5px;
   }
 </style>

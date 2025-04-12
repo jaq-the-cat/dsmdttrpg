@@ -31,7 +31,7 @@ export class ItemList {
     }
 
     findIndex(item: Item | Container) {
-        return this._list.findIndex((listItem) => listItem.toString() == item.toString());
+        return this._list.findIndex((listItem) => listItem.id === item.id);
     }
 
     removeElement(item: Item | Container) {

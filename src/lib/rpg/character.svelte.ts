@@ -1,6 +1,7 @@
-import { orderedToSvelte, svelteToOrdered } from "$lib/db";
+import { db, orderedToSvelte, svelteToOrdered } from "$lib/db";
 import { SvelteMap } from "svelte/reactivity";
 import { Container, ddWeapon, pockets } from "./items.svelte";
+import { doc, setDoc, type Firestore } from "firebase/firestore";
 
 export enum Species {
     Human = "Human",
@@ -11,11 +12,21 @@ export enum Species {
 }
 
 export class Character {
-    id: string | undefined = $state(undefined)
+    firestore?: Firestore
+    id: string | undefined = $state(undefined);
 
-    currentHp = $state(0)
+    async upload(field: string, value: string | number | SvelteMap<string, any> | null) {
+        if (!this.id) return;
+        let data =
+            value == null || typeof value !== 'object'
+                ? { [field]: value }
+                : { [field]: svelteToOrdered(value) }
+        await setDoc(doc(db.firestore!, "sheets", this.id), data, { merge: true });
+    }
 
-    species = $state(Species.Worker)
+    currentHp = $state(0);
+
+    species = $state(Species.Worker);
 
     about = new SvelteMap([
         ["Name", "",],
@@ -23,10 +34,11 @@ export class Character {
         ["Weight", "",],
         ["Gender", "",],
         ["Alignment", ""],
-    ])
+    ]);
 
-    biography: string = $state("")
-    fna: string = $state("")
+    biography: string = $state("");
+    appearance: string = $state("");
+    fna: string = $state("");
 
     stats = $state(new SvelteMap([
         ["Vitality", 6],
@@ -56,18 +68,20 @@ export class Character {
         ["Willpower", " "],
     ]);
 
-    bars = $state(getBars(this.species))
-    speed = $state(getSpeed(this.species))
+    bars = $state(getBars(this.species));
+    speed = $state(getSpeed(this.species));
 
-    containers: Container[] = $state(initializeSpeciesInventory(this.species))
+    containers: Container[] = $state(initializeSpeciesInventory(this.species));
 
-    left: string | null = $state(null)
-    right: string | null = $state(null)
-    front: string | null = $state(null)
-    back: string | null = $state(null)
+    left: string | null = $state(null);
+    leftShoulder: string | null = $state(null);
+    right: string | null = $state(null);
+    rightShoulder: string | null = $state(null);
+    front: string | null = $state(null);
+    back: string | null = $state(null);
 
-    weight = $state(this.getWeight())
-    maxWeight = $state(this.getMaxWeight())
+    weight = $state(this.getWeight());
+    maxWeight = $state(this.getMaxWeight());
 
     getWeight() {
         const value = this.containers.reduce((totalWeight, value) => totalWeight + (value.weight ?? 0), 0);
@@ -92,6 +106,7 @@ export class Character {
             currentHp: this.currentHp,
             species: this.species,
             biography: this.biography,
+            appearance: this.appearance,
             fna: this.fna,
 
             about: svelteToOrdered(this.about),
@@ -101,34 +116,39 @@ export class Character {
             speed: svelteToOrdered(this.speed),
 
             left: this.left,
+            leftShoulder: this.leftShoulder,
             right: this.right,
+            rightShoulder: this.rightShoulder,
             back: this.back,
             front: this.front,
 
             containers: Container.serializeList(this.containers),
-
-            weight: this.weight,
         }
     }
 
     static deserialize(doc: any) {
         if (!doc) return
         const char = new Character();
-        char.currentHp = doc.currentHp;
-        char.species = doc.species;
-        char.biography = doc.biography;
-        char.fna = doc.fna;
+        char.currentHp = doc.currentHp ?? 0;
+        char.species = doc.species ?? Species.Worker;
+        char.biography = doc.biography ?? "";
+        char.appearance = doc.appearance ?? "";
+        char.fna = doc.fna ?? "";
         char.about = orderedToSvelte(doc.about ?? []);
         char.stats = orderedToSvelte(doc.stats ?? []);
         char.proficiencies = orderedToSvelte(doc.proficiencies ?? []);
         char.bars = orderedToSvelte(doc.bars ?? []);
         char.speed = orderedToSvelte(doc.speed ?? []);
         char.containers = Container.deserializeList(doc.containers);
-        char.left = doc.left;
-        char.right = doc.right;
-        char.front = doc.front;
-        char.back = doc.back;
-        char.weight = doc.weight;
+        char.left = doc.left ?? null;
+        char.leftShoulder = doc.leftShoulder ?? null;
+        char.right = doc.right ?? null;
+        char.rightShoulder = doc.rightShoulder ?? null;
+        char.front = doc.front ?? null;
+        char.back = doc.back ?? null;
+
+        char.weight = char.getWeight()
+        char.maxWeight = char.getMaxWeight()
         return char;
     }
 }
