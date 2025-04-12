@@ -23,6 +23,7 @@
         ? invalidText
         : ""}
       bind:value={() => character.currentHp, (v) => (character.currentHp = v)}
+      onfocusout={() => character.upload("currentHp", character.currentHp)}
       type="number"
     />
     <span>/ {maxHp}</span>

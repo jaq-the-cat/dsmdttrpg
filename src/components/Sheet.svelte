@@ -30,7 +30,6 @@
       character.id = doc.id;
       goto(`/sheet/${doc.id}`);
     }
-    showSaved();
   }
 
   //   const autosave = setInterval(save, 10 * 1000);
@@ -81,9 +80,7 @@
   <About bind:character />
   <header>
     <h1>Murder Drones: Flesh & Oil</h1>
-    <!-- <h1>Murder Drones: Flesh & Oil</h1> -->
   </header>
-  <!-- <Bars bind:character /> -->
 </main>
 
 <style lang="scss">

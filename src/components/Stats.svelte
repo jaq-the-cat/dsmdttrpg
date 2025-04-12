@@ -44,6 +44,7 @@
             }
           }
         }
+        onfocusout={() => character.upload("stats", character.stats)}
         type="number"
       />
       <!-- </li> -->

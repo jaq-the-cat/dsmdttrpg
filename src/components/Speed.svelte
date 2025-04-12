@@ -16,6 +16,7 @@
             () => character.speed.get(speedEntry[0]),
             (v) => character.speed.set(speedEntry[0], v ?? 0)
           }
+          onfocusout={() => character.upload("speed", character.speed)}
           type="number"
         />
       </li>

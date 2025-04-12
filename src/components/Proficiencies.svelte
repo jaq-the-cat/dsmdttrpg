@@ -58,7 +58,7 @@
           () => character.proficiencies.get(prof[0]),
           (v) => {
             character.proficiencies.set(prof[0], v ?? " ");
-            // character.upload('proficiencies', character.proficiencies);
+            character.upload("proficiencies", character.proficiencies);
           }
         }
       >
