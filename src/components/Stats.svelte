@@ -1,6 +1,6 @@
 <script lang="ts">
   import { invalidText } from "$lib";
-  import { Character } from "$lib/rpg/character.svelte";
+  import { Character, getBaseMaxWeight } from "$lib/rpg/character.svelte";
 
   let { character = $bindable() as Character } = $props();
 
@@ -39,7 +39,8 @@
           (v) => {
             character.stats.set(stat[0], v!);
             if (stat[0] === "Strength") {
-              character.maxWeight = character.getMaxWeight();
+              character.maxWeight = getBaseMaxWeight(character);
+              character.containers.at(0)!.carry = character.maxWeight;
             }
           }
         }

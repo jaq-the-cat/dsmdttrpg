@@ -129,7 +129,9 @@ export class Character {
   bars = $state(getBars(this.species));
   speed = $state(getSpeed(this.species));
 
-  containers: Container[] = $state(initializeSpeciesInventory(this.species));
+  containers: Container[] = $state([
+    pockets(this)
+  ]);
   itemList: ItemList = $state(new ItemList(this.containers))
 
   left: string | null = $state(null);
@@ -148,7 +150,7 @@ export class Character {
   }
 
   getMaxWeight() {
-    const value = getBaseMaxWeight(this) + this.containers.reduce((totalCapacity, value) => totalCapacity + (value.carry ?? 0), 0);
+    const value = this.containers.reduce((totalCapacity, value) => totalCapacity + (value.carry ?? 0), 0);
     return parseFloat(value.toFixed(2));
   }
 
@@ -157,7 +159,6 @@ export class Character {
     this.bars = getBars(this.species);
     this.weight = this.getWeight();
     this.maxWeight = this.getMaxWeight();
-    this.containers = initializeSpeciesInventory(this.species);
   }
 
   serialize() {
@@ -214,34 +215,19 @@ export class Character {
   }
 }
 
+// export function initializeInventory(character: Character) {
+//   if (character.species === Species.Disassembly) {
+//     character.containers.at(0)!.add([
+//       ddWeapon('Claws'),
+//       ddWeapon('MP5'),
+//       ddWeapon('Laser'),
+//       ddWeapon('Missile'),
+//       ddWeapon('Ninja Stars'),
+//       ddWeapon('EMP'),
 
-export function excludeIntangible(name: string) {
-  return (name !== "Pockets" && name !== "Right Hand" && name !== "Left Hand");
-}
-
-export function initializeSpeciesInventory(species: Species) {
-  switch (species) {
-    case Species.Disassembly:
-      return [
-        pockets().add([
-          ddWeapon('Claws'),
-          ddWeapon('MP5'),
-          ddWeapon('Laser'),
-          ddWeapon('Missile'),
-          ddWeapon('Ninja Stars'),
-          ddWeapon('EMP'),
-        ]),
-      ]
-    case Species.Solver:
-      return [
-        pockets(),
-      ]
-    default:
-      return [
-        pockets(),
-      ]
-  }
-}
+//     ])
+//   }
+// }
 
 export function getSpeed(species: Species) {
   switch (species) {

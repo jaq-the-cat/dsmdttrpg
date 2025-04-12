@@ -1,8 +1,15 @@
 <script lang="ts">
   import { invalidText } from "$lib";
   import { Character } from "$lib/rpg/character.svelte";
-  import { Container, Item } from "$lib/rpg/items.svelte";
+  import {
+    Container,
+    Item,
+    MeleeWeapon,
+    RangedWeapon,
+  } from "$lib/rpg/items.svelte";
+  import { prefabs } from "$lib/rpg/objectLists.svelte";
   import EquipmentSlot from "./EquipmentSlot.svelte";
+  import InspectItem from "./InspectItem.svelte";
 
   let { character = $bindable() as Character } = $props();
 
@@ -12,8 +19,10 @@
   let selectedContainer = $state(0);
   let container = $derived(containers[selectedContainer]);
 
-  let itemToTransfer: Item | null = $state(null);
-  let transferToContainer: number = $state(0);
+  let itemInspect: Item | null = $state(null);
+
+  let selectedPrefabCategory = $state("Containers");
+  let selectedPrefab = $state(0);
 
   function addItem() {
     let item = new Item(newItem.name, newItem.weight);
@@ -26,10 +35,23 @@
   function addContainer() {
     const newContainer = new Container(newItem.name, newItem.weight);
     containers.push(newContainer);
-    character.maxWeight += newItem.weight;
+    character.maxWeight += newContainer.carry ?? 0;
     character.itemList.push(newContainer);
     newItem.name = "";
     newItem.weight = 1;
+    character.itemList.refresh(containers);
+    character.upload("containers", containers);
+  }
+
+  function addPrefab(item: Item | Container) {
+    const cloned = item.clone();
+    if ("inventory" in cloned) {
+      containers.push(cloned);
+      character.maxWeight += cloned.carry ?? 0;
+    } else {
+      container.inventory.push(cloned);
+      character.weight += cloned.weight ?? 0;
+    }
     character.itemList.refresh(containers);
     character.upload("containers", containers);
   }
@@ -76,8 +98,8 @@
     });
   }
 
-  function transferClicked(item: Item) {
-    itemToTransfer = item;
+  function inspectClicked(item: Item) {
+    itemInspect = item;
   }
 
   function transferItem(item: Item, targetContainerIndex: number | null) {
@@ -94,74 +116,70 @@
     character.weight = character.getWeight();
     containers[targetContainerIndex].inventory.push(item);
     character.itemList.refresh(containers);
-    itemToTransfer = null;
+    itemInspect = null;
     character.upload("containers", containers);
   }
 </script>
 
 <div id="equipment">
-  <h2>Equipment</h2>
-  <section>
-    <div class="container">
-      <div class="containerSelect">
-        <select bind:value={selectedContainer}>
-          {#each containers as container, i}
-            <option value={i}>{container}</option>
-          {/each}
-        </select>
-        <button onclick={() => removeContainer(selectedContainer)}
-          >Delete</button
-        >
-      </div>
-      <div class="newItem">
-        <input class="newItemName" bind:value={newItem.name} type="text" />
-        <input
-          class="newItemWeight"
-          bind:value={newItem.weight}
-          type="number"
-        />
-      </div>
-      <button class="addItem" onclick={() => addItem()}>Add as Item</button>
-      <button class="addContainer" onclick={() => addContainer()}>
-        Add as Container
-      </button>
-      <div class="itemList">
-        {#each container.inventory as item, index}
-          <span class="itemName">
-            <input
-              type="text"
-              onfocusout={() => character.upload("containers", containers)}
-              bind:value={
-                () => item.name,
-                (v) => {
-                  item.name = v;
-                }
-              }
-            /></span
-          >
-          <div class="itemWeight">
-            {#if item.weight}
-              [{item.weight}kg]
-            {/if}
-          </div>
-          <button onclick={() => transferClicked(item)}>TRF</button>
-          <button onclick={() => removeItem(item, index)}>DEL</button>
-        {/each}
-      </div>
-    </div>
-    <span class="weight">
-      <span
-        style={character.weight < 0 || character.weight > character.maxWeight
-          ? invalidText
-          : ""}
-      >
-        {character.weight}
-      </span>
-      <div>
-        / {character.maxWeight} kg
-      </div>
+  <header>
+    <h2>Equipment</h2>
+    <span
+      style={character.weight < 0 || character.weight > character.maxWeight
+        ? invalidText
+        : ""}
+    >
+      {character.weight}/{character.maxWeight} kg
     </span>
-  </section>
+  </header>
+  <div class="container">
+    <h2>Add Custom Item</h2>
+    <div class="newItem">
+      <input class="newItemName" bind:value={newItem.name} type="text" />
+      <input class="newItemWeight" bind:value={newItem.weight} type="number" />
+    </div>
+    <button class="addItem" onclick={() => addItem()}>Add as Item</button>
+    <button class="addContainer" onclick={() => addContainer()}>
+      Add as Container
+    </button>
+    <h2>Add Prefab</h2>
+    <select bind:value={selectedPrefab} class="prefabSelect">
+      {#each prefabs[selectedPrefabCategory] as prefab, i}
+        <option value={i}>{prefab}</option>
+      {/each}
+    </select>
+    <select bind:value={selectedPrefabCategory} class="prefabCategory">
+      {#each Object.keys(prefabs) as category}
+        <option value={category}>{category}</option>
+      {/each}
+    </select>
+    <button
+      class="prefabAdd"
+      onclick={() => addPrefab(prefabs[selectedPrefabCategory][selectedPrefab])}
+      >Add Prefab</button
+    >
+    <h2>Container</h2>
+    <div class="containerSelect">
+      <select bind:value={selectedContainer}>
+        {#each containers as container, i}
+          <option value={i}>{container}</option>
+        {/each}
+      </select>
+      <button onclick={() => removeContainer(selectedContainer)}>Delete</button>
+    </div>
+    <div class="itemList">
+      {#each container.inventory as item, index}
+        <span class="itemName">{item}</span>
+        <div class="itemWeight">
+          {#if item.weight}
+            [{item.weight}kg]
+          {/if}
+        </div>
+        <button onclick={() => inspectClicked(item)}>EDT</button>
+        <button onclick={() => removeItem(item, index)}>DEL</button>
+      {/each}
+    </div>
+  </div>
   <h2>Equipped</h2>
   <div class="equipped">
     <EquipmentSlot
@@ -202,66 +220,18 @@
     />
   </div>
 </div>
-
-<div class="transfer" style={itemToTransfer === null ? "display: none" : ""}>
-  <h2>Transfer Item</h2>
-  <span class="itemToTransfer">{itemToTransfer}</span>
-  <h2>To</h2>
-  <select bind:value={transferToContainer}>
-    {#each containers as container, i}
-      <option value={i}>{container}</option>
-    {/each}
-  </select>
-  <button
-    class="transferBtn"
-    onclick={() => transferItem(itemToTransfer!, transferToContainer)}
-    >Transfer</button
-  >
-  <button class="cancel" onclick={() => (itemToTransfer = null)}>Cancel</button>
-</div>
+<InspectItem
+  bind:itemInspect
+  bind:containers={character.containers}
+  {transferItem}
+/>
 
 <style scoped lang="scss">
-  .transfer {
-    grid-area: equipment;
-    width: 75%;
-    margin-top: 5rem;
-    align-self: flex-start;
-    justify-self: center;
-    opacity: 95%;
-    background-color: #080e00;
-    padding: 20px;
-    border: 1px solid #9fe644;
-    box-shadow: 2px 2px 4px 0 #9fe644;
-
+  header {
     display: flex;
-    flex-direction: column;
-
-    row-gap: 5px;
-
-    * {
-      margin: 0;
-    }
-
-    .itemToTransfer {
-      font-size: 2rem;
-      text-align: center;
-    }
-
-    select {
-      font-size: 1.5rem;
-      text-align: center;
-      padding: 10px 0;
-    }
-
-    button {
-      display: block;
-      width: 100%;
-      padding: 10px 0;
-    }
-
-    button.transferBtn {
-      margin-top: auto;
-    }
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .containerSelect {
@@ -276,12 +246,18 @@
   }
 
   .container {
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 5px;
 
     .containerSelect {
       grid-column: 1 / 3;
+    }
+
+    h2 {
+      grid-column: 1 / 3;
+      margin: 0;
     }
 
     .newItem {
@@ -307,6 +283,15 @@
     .addContainer {
       grid-column: 2;
     }
+    .prefabSelect {
+      grid-column: 1;
+    }
+    .prefabCategory {
+      grid-column: 2;
+    }
+    .prefabAdd {
+      grid-column: 1 / 3;
+    }
 
     .itemList {
       display: grid;
@@ -324,23 +309,8 @@
         width: 100%;
       }
 
-      input {
-        position: relative;
-        top: 2px;
-        padding: 0;
-        border: 0;
-        background: none;
-        border-bottom: 1px dashed transparent;
-      }
-
-      input:focus {
-        outline: none;
-        border-color: #9fe644;
-      }
-
       .itemWeight {
         justify-self: end;
-        justify-self: start;
         align-self: center;
       }
 
@@ -352,23 +322,11 @@
 
   .equipped {
     display: grid;
-    grid-template-columns: max-content minmax(auto, 30ch);
+    grid-template-columns: max-content auto;
     gap: 5px;
   }
 
   #equipment {
     grid-area: equipment;
-  }
-
-  .weight {
-    display: grid;
-    grid-template-columns: 1fr max-content;
-    grid-template-rows: 1fr;
-    column-gap: 1ch;
-  }
-
-  section {
-    margin-bottom: 5px;
-    gap: 5px;
   }
 </style>
