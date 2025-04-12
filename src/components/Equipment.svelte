@@ -1,7 +1,6 @@
 <script lang="ts">
   import { invalidText } from "$lib";
   import { Character } from "$lib/rpg/character.svelte";
-  import { ItemList } from "$lib/rpg/itemList.svelte";
   import { Container, Item } from "$lib/rpg/items.svelte";
   import EquipmentSlot from "./EquipmentSlot.svelte";
 
@@ -13,8 +12,6 @@
   let selectedContainer = $state(0);
   let container = $derived(containers[selectedContainer]);
 
-  let itemList = $state(new ItemList(character.containers));
-
   let itemToTransfer: Item | null = $state(null);
   let transferToContainer: number = $state(0);
 
@@ -22,7 +19,7 @@
     let item = new Item(newItem.name, newItem.weight);
     container.inventory.push(item);
     character.weight += newItem.weight;
-    itemList.refresh(containers);
+    character.itemList.refresh(containers);
     character.upload("containers", containers);
   }
 
@@ -30,18 +27,20 @@
     const newContainer = new Container(newItem.name, newItem.weight);
     containers.push(newContainer);
     character.maxWeight += newItem.weight;
-    itemList.push(newContainer);
+    character.itemList.push(newContainer);
     newItem.name = "";
     newItem.weight = 1;
-    itemList.refresh(containers);
+    character.itemList.refresh(containers);
     character.upload("containers", containers);
   }
 
   function removeContainer(index: number) {
     if (index === 0) return;
     const container = containers.splice(index, 1)[0];
-    container.inventory.forEach((item) => itemList.removeElement(item));
-    itemList.removeElement(container);
+    container.inventory.forEach((item) =>
+      character.itemList.removeElement(item)
+    );
+    character.itemList.removeElement(container);
 
     character.weight = character.getWeight();
     character.maxWeight = character.getMaxWeight();
@@ -51,7 +50,7 @@
 
   function removeItem(item: Item, index: number) {
     container.inventory.splice(index, 1);
-    itemList.removeElement(item);
+    character.itemList.removeElement(item);
     if (character.left === item.name) character.left = null;
     if (character.right === item.name) character.right = null;
     if (character.front === item.name) character.front = null;
@@ -70,14 +69,14 @@
       (itemCheck) => itemCheck.toString() === item.toString()
     );
     container.inventory.splice(index, 1);
-    itemList.removeElement(item);
+    character.itemList.removeElement(item);
     if (character.left === item.name) character.left = null;
     if (character.right === item.name) character.right = null;
     if (character.front === item.name) character.front = null;
     if (character.back === item.name) character.back = null;
     character.weight = character.getWeight();
     containers[targetContainerIndex].inventory.push(item);
-    itemList.refresh(containers);
+    character.itemList.refresh(containers);
     itemToTransfer = null;
     character.upload("containers", containers);
   }
@@ -152,42 +151,36 @@
       slotName="Left Hand"
       fieldName="left"
       bind:character
-      bind:itemList
       bind:slot={character.left}
     />
     <EquipmentSlot
       slotName="Left Shoulder"
       fieldName="leftShoulder"
       bind:character
-      bind:itemList
       bind:slot={character.leftShoulder}
     />
     <EquipmentSlot
       slotName="Right Hand"
       fieldName="right"
       bind:character
-      bind:itemList
       bind:slot={character.right}
     />
     <EquipmentSlot
       slotName="Right Shoulder"
       fieldName="rightShoulder"
       bind:character
-      bind:itemList
       bind:slot={character.rightShoulder}
     />
     <EquipmentSlot
       slotName="Front"
       fieldName="front"
       bind:character
-      bind:itemList
       bind:slot={character.front}
     />
     <EquipmentSlot
       slotName="Back"
       fieldName="back"
       bind:character
-      bind:itemList
       bind:slot={character.back}
     />
   </div>

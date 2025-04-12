@@ -30,7 +30,6 @@
   <p class="total">Total Points <span>{sum}</span></p>
   <section class="statList">
     {#each character.stats as stat}
-      <!-- <li> -->
       <span>{stat[0]}</span>
       <span class="modifier">{statModifier(stat[1])}</span>
       <input
@@ -47,7 +46,6 @@
         onfocusout={() => character.upload("stats", character.stats)}
         type="number"
       />
-      <!-- </li> -->
     {/each}
   </section>
   <div class="passive">
@@ -67,7 +65,12 @@
     >
   </div>
   <h2>Features & Abilities</h2>
-  <textarea bind:value={character.fna}></textarea>
+  <textarea
+    bind:value={character.fna}
+    onfocusout={() => {
+      character.upload("fna", character.fna);
+    }}
+  ></textarea>
 </div>
 
 <style lang="scss">

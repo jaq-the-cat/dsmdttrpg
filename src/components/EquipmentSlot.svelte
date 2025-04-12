@@ -9,20 +9,18 @@
     slotName,
     fieldName,
     slot = $bindable(),
-    itemList = $bindable(),
   }: {
     character: Character;
     slotName: string;
     fieldName: string;
     slot: string | null;
-    itemList: ItemList;
   } = $props();
 </script>
 
 <span>{slotName}</span>
 <select bind:value={slot} onchange={() => character.upload(fieldName, slot)}>
   <option value={null}></option>
-  {#each itemList.list as item}
+  {#each character.itemList.list as item}
     <option value={item.id}>{item.toString()}</option>
   {/each}
 </select>
