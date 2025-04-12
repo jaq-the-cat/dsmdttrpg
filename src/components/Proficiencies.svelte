@@ -69,26 +69,6 @@
       <!-- </li> -->
     {/each}
   </section>
-  <div>
-    <p>
-      <span>Passive Perception</span>
-      <span
-        >{Math.max(
-          0,
-          Math.min(character.stats.get("Perception")! * 2 - 4, 14)
-        )}</span
-      >
-    </p>
-    <p>
-      <span>Passive Dodge</span>
-      <span
-        >{Math.max(
-          0,
-          Math.min(character.stats.get("Agility")! * 2 - 4, 12)
-        )}</span
-      >
-    </p>
-  </div>
 </div>
 
 <style lang="scss">

@@ -30,3 +30,9 @@
       box-shadow: 2px 2px 4px 0 #9fe644;
     }
   }
+
+  textarea {
+    height: 8lh;
+    max-height: 16lh;
+    resize: vertical;
+  }

@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { Character, Species } from "$lib/rpg/character.svelte";
-  import { set } from "firebase/database";
+  import { Character } from "$lib/rpg/character.svelte";
 
   let { character = $bindable() as Character } = $props();
 </script>
@@ -21,10 +20,10 @@
       </li>
     {/each}
   </ul>
+  <h2>Appearance</h2>
+  <textarea class="appearance" bind:value={character.appearance}></textarea>
   <h2>Biography</h2>
-  <textarea bind:value={character.biography}></textarea>
-  <h2>Features & Abilities</h2>
-  <textarea bind:value={character.fna}></textarea>
+  <textarea class="bio" bind:value={character.biography}></textarea>
 </div>
 
 <style lang="scss">
@@ -32,6 +31,11 @@
     grid-area: about;
     display: flex;
     flex-direction: column;
+    gap: 5px;
+
+    h2 {
+      margin: 0;
+    }
 
     ul {
       display: flex;
@@ -44,9 +48,12 @@
       justify-content: space-between;
     }
 
-    textarea {
-      height: 10lh;
-      resize: vertical;
+    .appearance {
+      height: 5lh;
+    }
+
+    .bio {
+      flex-grow: 2;
     }
   }
 </style>

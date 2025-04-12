@@ -26,7 +26,8 @@
 </script>
 
 <div id="stats">
-  <h2>Stats [{sum}]</h2>
+  <h2>Stats</h2>
+  <p class="total">Total Points <span>{sum}</span></p>
   <section class="statList">
     {#each character.stats as stat}
       <!-- <li> -->
@@ -48,15 +49,46 @@
       <!-- </li> -->
     {/each}
   </section>
+  <div class="passive">
+    <span>Passive Perception</span>
+    <span
+      >{Math.max(
+        0,
+        Math.min(character.stats.get("Perception")! * 2 - 4, 14)
+      )}</span
+    >
+    <span>Passive Dodge</span>
+    <span
+      >{Math.max(
+        0,
+        Math.min(character.stats.get("Agility")! * 2 - 4, 12)
+      )}</span
+    >
+  </div>
+  <h2>Features & Abilities</h2>
+  <textarea bind:value={character.fna}></textarea>
 </div>
 
 <style lang="scss">
   #stats {
     grid-area: stats;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
   }
 
-  h2 {
+  textarea {
+    flex-grow: 2;
+  }
+
+  h2,
+  p {
     margin: 0;
+  }
+
+  .total {
+    display: flex;
+    justify-content: space-between;
   }
 
   .statList {
@@ -69,5 +101,12 @@
 
   .modifier {
     justify-self: end;
+  }
+
+  .passive {
+    display: grid;
+    grid-template-columns: auto max-content;
+    align-items: center;
+    gap: 5px;
   }
 </style>
