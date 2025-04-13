@@ -1,0 +1,50 @@
+<script lang="ts">
+  import { db } from "$lib/db";
+  import LootTable from "../../components/dm/LootTable.svelte";
+  import SheetList from "../../components/dm/SheetList.svelte";
+  import "./style.scss";
+  import { collectionStore } from "sveltefire";
+
+  let sheets = collectionStore(db.firestore!, "sheets");
+</script>
+
+<svelte:head>
+  <title>Flesh and Oil - Overseer</title>
+</svelte:head>
+
+<main>
+  <header>
+    <h1>
+      <a href="/rulebook">Rulebook</a>
+      <a href="/items">Items</a>
+      <a href="/enemies">Enemies</a>
+    </h1>
+  </header>
+
+  <SheetList {sheets} />
+  <LootTable {sheets} />
+</main>
+
+<style lang="scss">
+  main {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      ".      header    ."
+      "sheets lootTable ."
+      "sheets lootTable ."
+      "sheets lootTable .";
+  }
+
+  header {
+    grid-area: header;
+    display: flex;
+    column-gap: 5px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  h1 {
+    text-align: center;
+  }
+</style>

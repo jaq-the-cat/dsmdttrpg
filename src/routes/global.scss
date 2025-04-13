@@ -29,42 +29,60 @@ body {
   padding: 15px;
 }
 
+li {
+  list-style: none;
+}
+
+main {
+  max-height: 100%;
+  font-size: 1.2rem;
+  display: grid;
+  gap: 15px;
+
+  h2 {
+    margin: 0 0 10px 0;
+  }
+
+  > div, > section, > details {
+    padding: 20px;
+    border: 1px solid #9fe644;
+    box-shadow: 2px 2px 4px 0 #9fe644;
+  }
+}
+
 input,
 select,
 textarea,
-button {
+button,
+.buttonStyle {
   background-color: #000;
   border: 1px solid #9fe644;
   font-size: 1em;
 }
 
-button:hover {
+button:hover, .buttonStyle:hover {
   background-color: #051104;
   border: 1px solid #38b62d;
+  cursor: pointer;
+}
+
+details summary {
+  user-select: none;
+
+}
+
+details summary:hover {
+  cursor: pointer;
 }
 
 body > div {
   margin: 0;
 }
 
-main {
-  h2 {
-    margin: 0 0 10px 0;
-  }
-
-  ul {
-    margin: 0;
-    padding: 0;
-    min-height: 100px;
-    list-style-type: none;
-  }
-
-  > div {
-    padding: 20px;
-    border: 1px solid #9fe644;
-    box-shadow: 2px 2px 4px 0 #9fe644;
-  }
+ul {
+  padding: 0;
 }
+
 
 textarea {
   height: 8lh;

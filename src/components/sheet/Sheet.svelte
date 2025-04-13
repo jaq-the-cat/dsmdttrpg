@@ -2,7 +2,7 @@
   import { Character, Species } from "$lib/rpg/character.svelte";
   import Stats from "./Stats.svelte";
   import Proficiencies from "./Proficiencies.svelte";
-  import HP from "./HP.svelte";
+  import Bars from "./Bars.svelte";
   import Speed from "./Speed.svelte";
   import Equipment from "./Equipment.svelte";
   import About from "./About.svelte";
@@ -11,13 +11,6 @@
   import { goto } from "$app/navigation";
 
   let { character = $bindable() as Character } = $props();
-
-  let showingSaved = $state(false);
-
-  async function showSaved() {
-    showingSaved = true;
-    setTimeout(() => (showingSaved = false), 1000);
-  }
 
   async function save() {
     if (character.id) {
@@ -32,27 +25,6 @@
     }
   }
 </script>
-
-<div class="saving" style={showingSaved ? "" : "display: none;"}>Saved!</div>
-
-<svelte:head>
-  <title>FnO Sheet: {character.about.get("Name") ?? "New"}</title>
-</svelte:head>
-
-<button
-  onclick={() => {
-    goto(`/`);
-  }}>Create New</button
->
-{#if character.id}
-  <button
-    onclick={() =>
-      navigator.clipboard.writeText(
-        `https://fleshandoil.vercel.app/sheet/${character.id}`
-      )}>Share Link</button
-  >
-{/if}
-<button onclick={save}>Save</button>
 
 <main id="sheet">
   <div id="species">
@@ -72,7 +44,7 @@
   </div>
   <Stats bind:character />
   <Proficiencies bind:character />
-  <HP bind:character />
+  <Bars bind:character />
   <Speed bind:character />
   <Equipment bind:character />
   <About bind:character />
@@ -82,26 +54,6 @@
 </main>
 
 <style lang="scss">
-  .saving {
-    position: fixed;
-    text-align: center;
-    display: inline-block;
-    width: 20ch;
-    padding: 1rem 0;
-    left: calc(50% - 10ch);
-    background-color: #000;
-    border: 1px solid #9fe644;
-    vertical-align: middle;
-    top: 20px;
-    font-size: 2rem;
-  }
-
-  button {
-    display: inline-block;
-    margin-bottom: 5px;
-    border: 1px solid #9fe644;
-    padding: 5px;
-  }
   header {
     grid-area: header;
     min-height: 2.5lh;
@@ -113,17 +65,13 @@
   }
 
   main {
-    max-height: 100%;
-    font-size: 1.2em;
-    display: grid;
     grid-template-columns: 1fr 1fr 1fr max-content;
     grid-template-rows: min-content 8rem auto;
     grid-template-areas:
-      "header speed hp            species"
-      "about  speed hp            equipment"
+      "header speed bars          species"
+      "about  speed bars          equipment"
       "about  stats proficiencies equipment"
       "about  stats proficiencies equipment";
-    gap: 15px;
   }
 
   @media (max-width: 1720px) {

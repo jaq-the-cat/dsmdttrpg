@@ -8,6 +8,10 @@ type SpeciesDescription = {
   vulnerabilities?: string
 }
 
+export const rulebook = [
+  ["Attributes", ""],
+]
+
 export const species: { [key: string]: SpeciesDescription } = {
   [Species.Human]: {
     resistances: "Pierce and Energy",

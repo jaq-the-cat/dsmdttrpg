@@ -14,7 +14,8 @@
           bind:value={
             () => character.about.get(ss[0]),
             (v) => {
-              character.about.set(ss[0], v ?? "");
+              if (v?.length && v.length < 50)
+                character.about.set(ss[0], v ?? "");
             }
           }
           onfocusout={() => character.upload("about", character.about)}

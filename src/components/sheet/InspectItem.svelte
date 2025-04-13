@@ -3,6 +3,7 @@
     Container,
     Healing,
     Item,
+    LiquidContainer,
     MeleeWeapon,
     RangedWeapon,
   } from "$lib/rpg/items.svelte";
@@ -12,7 +13,13 @@
     containers = $bindable(),
     transferItem,
   }: {
-    itemInspect: Item | MeleeWeapon | RangedWeapon | null;
+    itemInspect:
+      | Item
+      | MeleeWeapon
+      | RangedWeapon
+      | LiquidContainer
+      | Healing
+      | null;
     containers: Container[];
     transferItem: (item: Item, containerIndex: number | null) => void;
   } = $props();
@@ -20,57 +27,97 @@
   let transferToContainer = $state(0);
 </script>
 
-<div class="modal inspect" style={itemInspect === null ? "display: none" : ""}>
-  <span class="itemToInspect"
-    >{itemInspect}
-    {#if itemInspect?.weight}
-      <span>[{itemInspect!.weight}kg]</span>
-    {/if}</span
+{#if itemInspect}
+  <div
+    class="modal inspect"
+    style={itemInspect === null ? "display: none" : ""}
   >
-  {#if itemInspect?.type === "melee"}
-    <h2>Damage</h2>
-    <span>{(itemInspect as MeleeWeapon).damage}</span>
-    {#if (itemInspect as MeleeWeapon).info}
-      <h2>Difficulty</h2>
-      <span>{(itemInspect as MeleeWeapon).info}</span>
+    <span class="itemToInspect"
+      >{itemInspect}
+      {#if itemInspect?.weight}
+        <span>[{itemInspect!.weight}kg]</span>
+      {/if}</span
+    >
+    {#if itemInspect?.type === "melee"}
+      <h2>Damage</h2>
+      <span>{(itemInspect as MeleeWeapon).damage}</span>
+      {#if (itemInspect as MeleeWeapon).info}
+        <h2>Difficulty</h2>
+        <span>{(itemInspect as MeleeWeapon).info}</span>
+      {/if}
+    {:else if "range" in itemInspect!}
+      <h2>Hit</h2>
+      <span>{itemInspect.hit ?? ""}</span>
+      <h2>Damage</h2>
+      <span>{itemInspect.damage}</span>
+      <h2>Ammo</h2>
+      {#if itemInspect.ammo}
+        <span class="inputs">
+          <input
+            min="0"
+            max={itemInspect.ammo.current}
+            type="number"
+            bind:value={itemInspect.ammo.current}
+          />
+          /
+          <span>{itemInspect.ammo.capacity}</span>
+        </span>
+        <h2>Reload</h2>
+        <span
+          >{itemInspect.ammo.reloadTurns}
+          {itemInspect.ammo.reloadTurns != 1 ? "Turns" : "Turn"}</span
+        >
+      {:else}
+        <span>No Clip</span>
+      {/if}
+      <h2>Stats</h2>
+      <span>{itemInspect.range} Range</span>
+      <span>{itemInspect.rate} Rate</span>
+    {:else if "heal" in itemInspect!}
+      <h2>Heal</h2>
+      <span>{itemInspect.heal ?? ""}</span>
+      <h2>Works On</h2>
+      <span>{itemInspect.worksOn ?? ""}</span>
+      {#if itemInspect.revive}
+        <h2>Revive</h2>
+        <span>{itemInspect.revive}</span>
+      {/if}
+      {#if itemInspect.requirements}
+        <h2>Requirements</h2>
+        <span>{itemInspect.requirements}</span>
+      {/if}
+    {:else if "current" in itemInspect!}
+      <h2>Current</h2>
+      <input
+        type="number"
+        bind:value={
+          () => (itemInspect as LiquidContainer).current,
+          (v) => {
+            if (v < 0 || v > (itemInspect as LiquidContainer).capacity) return;
+            (itemInspect as LiquidContainer).current = v;
+          }
+        }
+        step="0.1"
+        min="0"
+        max={itemInspect.capacity}
+      />
+      <h2>Capacity</h2>
+      <span>{itemInspect.capacity ?? ""}</span>
     {/if}
-  {:else if itemInspect?.type === "ranged"}
-    <h2>Hit</h2>
-    <span>{(itemInspect as RangedWeapon).hit ?? ""}</span>
-    <h2>Damage</h2>
-    <span>{(itemInspect as RangedWeapon).damage}</span>
-    <h2>Stats</h2>
-    <span>{(itemInspect as RangedWeapon).range} Range</span>
-    <span>{(itemInspect as RangedWeapon).rate} Rate</span>
-    <span>{(itemInspect as RangedWeapon).capacity} Capacity</span>
-    <span>{(itemInspect as RangedWeapon).reloadTurns} Reload Turns</span>
-  {:else if itemInspect?.type === "heal"}
-    <h2>Heal</h2>
-    <span>{(itemInspect as Healing).heal ?? ""}</span>
-    <h2>Works On</h2>
-    <span>{(itemInspect as Healing).worksOn ?? ""}</span>
-    {#if (itemInspect as Healing).revive}
-      <h2>Revive</h2>
-      <span>{(itemInspect as Healing).revive}</span>
-    {/if}
-    {#if (itemInspect as Healing).requirements}
-      <h2>Requirements</h2>
-      <span>{(itemInspect as Healing).requirements}</span>
-    {/if}
-  {/if}
-  <h2>Transfer</h2>
-  <select bind:value={transferToContainer}>
-    {#each containers as container, i}
-      <option value={i}>{container}</option>
-    {/each}
-  </select>
-  <button
-    class="transferBtn"
-    onclick={() => transferItem(itemInspect!, transferToContainer)}
-    >Transfer</button
-  >
-  <button class="cancel" onclick={() => (itemInspect = null)}>Close</button>
-</div>
+    <h2>Transfer</h2>
+    <select bind:value={transferToContainer}>
+      {#each containers as container, i}
+        <option value={i}>{container}</option>
+      {/each}
+    </select>
+    <button
+      class="transferBtn"
+      onclick={() => transferItem(itemInspect!, transferToContainer)}
+      >Transfer</button
+    >
+    <button class="cancel" onclick={() => (itemInspect = null)}>Close</button>
+  </div>
+{/if}
 
 <style lang="scss">
   .modal {
@@ -108,6 +155,17 @@
       display: block;
       width: 100%;
       padding: 10px 0;
+    }
+
+    .inputs {
+      display: flex;
+      justify-content: stretch;
+      align-items: center;
+      column-gap: 10px;
+    }
+    input {
+      // max-width: 10ch;
+      flex-grow: 2;
     }
 
     button.transferBtn {

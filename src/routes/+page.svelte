@@ -5,6 +5,10 @@
   let character = $state(new Character());
 </script>
 
+<svelte:head>
+  <title>Flesh and Oil - Sheet</title>
+</svelte:head>
+
 <Sheet bind:character />
 
 <style lang="scss">

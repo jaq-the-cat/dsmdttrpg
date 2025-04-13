@@ -1,0 +1,71 @@
+h1, h2, p, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  padding-left: 2ch;
+  list-style: none;
+}
+
+li {
+  font-size: 1.2rem;
+  small {
+    font-size: 1.1rem;
+    opacity: 0.8;
+    display: block;
+    margin: 2px 0 0 2ch;
+  }
+}
+
+p {
+  font-size: 1.5rem;
+}
+
+h1,
+summary {
+  font-size: 2rem;
+}
+
+main {
+  padding-bottom: 50vh;
+
+  h1,
+  h2,
+  h3 {
+    margin: 0;
+  }
+
+  h2 {
+    padding-left: 1rem;
+    font-size: 1.8rem;
+  }
+
+  h3 {
+    padding-left: 2rem;
+    font-size: 1.6rem;
+  }
+
+  p, li {
+    font-size: 1.4rem;
+  }
+
+  p {
+    padding-left: 3rem;
+  }
+
+  ul {
+    padding-left: calc(3rem + 2ch);
+  }
+
+  li {
+    list-style-type: "> ";
+  }
+
+  
+  > details > h2 {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #9fe644;
+  }
+}

@@ -30,7 +30,7 @@ export class ItemList {
     this._list.splice(index, 1);
   }
 
-  findById(id: string) {
+  findIndexById(id: string) {
     return this._list.findIndex((listItem) => listItem.id === id);
   }
 

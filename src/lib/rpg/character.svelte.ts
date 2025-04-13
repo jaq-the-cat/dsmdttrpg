@@ -29,7 +29,7 @@ export class Character {
     setDoc(doc(db.firestore, "sheets", this.id), data, { merge: true });
   }
 
-  async uploadMultiple(data: { [field: string]: string | number | SvelteMap<string, any> | any[] | null }) {
+  async uploadMultiple(data: { [field: string]: string | number | boolean | SvelteMap<string, any> | any[] | null }) {
     if (!this.id || !db.firestore) return;
     for (const key in data) {
       const el = data[key]
@@ -129,9 +129,12 @@ export class Character {
   bars = $state(getBars(this.species));
   speed = $state(getSpeed(this.species));
 
+  twoHanding = $state(false);
+
   containers: Container[] = $state([
     pockets(this)
   ]);
+
   itemList: ItemList = $state(new ItemList(this.containers))
 
   left: string | null = $state(null);
@@ -141,10 +144,9 @@ export class Character {
   front: string | null = $state(null);
   back: string | null = $state(null);
 
-  weight = $state(this.getWeight());
   maxWeight = $state(this.getMaxWeight());
 
-  getWeight() {
+  get weight() {
     const value = this.containers.reduce((totalWeight, value) => totalWeight + (value.weight ?? 0), 0);
     return parseFloat(value.toFixed(2));
   }
@@ -157,7 +159,6 @@ export class Character {
   refresh() {
     this.speed = getSpeed(this.species);
     this.bars = getBars(this.species);
-    this.weight = this.getWeight();
     this.maxWeight = this.getMaxWeight();
   }
 
@@ -182,13 +183,16 @@ export class Character {
       back: this.back,
       front: this.front,
 
+      twoHanding: this.twoHanding,
       containers: Container.serializeList(this.containers),
     }
   }
 
   static deserialize(doc: any) {
-    if (!doc) return doc;
+    if (doc == null) return doc;
     const char = new Character();
+    if (doc.id) char.id = doc.id;
+
     char.currentHp = doc.currentHp ?? 0;
     char.species = doc.species ?? Species.Worker;
     char.biography = doc.biography ?? "";
@@ -201,16 +205,18 @@ export class Character {
     char.speed = orderedToSvelte(doc.speed ?? []);
     char.containers = Container.deserializeList(doc.containers);
 
-    char.weight = char.getWeight()
+    char.twoHanding = doc.twoHanding ?? false;
     char.maxWeight = char.getMaxWeight()
     char.itemList.refresh(char.containers)
 
     char.left = doc.left ?? null;
-    char.leftShoulder = doc.leftShoulder ?? null;
     char.right = doc.right ?? null;
+
+    char.leftShoulder = doc.leftShoulder ?? null;
     char.rightShoulder = doc.rightShoulder ?? null;
     char.front = doc.front ?? null;
     char.back = doc.back ?? null;
+
     return char;
   }
 }

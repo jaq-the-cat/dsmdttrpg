@@ -21,31 +21,29 @@
 
   function addItem() {
     let item = new Item(newItem.name, newItem.weight);
-    container.inventory.push(item);
-    character.weight += newItem.weight;
+    container.addOne(item);
     character.itemList.refresh(containers);
     character.upload("containers", containers);
   }
 
   function addContainer() {
-    const newContainer = new Container(newItem.name, newItem.weight);
+    const newContainer = new Container(newItem.name, newItem.weight, 1);
     containers.push(newContainer);
-    character.maxWeight += newContainer.carry ?? 0;
     character.itemList.push(newContainer);
     newItem.name = "";
     newItem.weight = 1;
     character.itemList.refresh(containers);
     character.upload("containers", containers);
+    selectedContainer = containers.length - 1;
   }
 
   function addPrefab(item: Item | Container) {
     const cloned = item.clone();
     if ("inventory" in cloned) {
       containers.push(cloned);
-      character.maxWeight += cloned.carry ?? 0;
+      selectedContainer = containers.length - 1;
     } else {
-      container.inventory.push(cloned);
-      character.weight += cloned.weight ?? 0;
+      container.addOne(cloned);
     }
     character.itemList.refresh(containers);
     character.upload("containers", containers);
@@ -74,7 +72,6 @@
       ...equipmentRemoved,
     });
 
-    character.weight = character.getWeight();
     character.maxWeight = character.getMaxWeight();
     selectedContainer = index - 1;
   }
@@ -84,8 +81,6 @@
     character.itemList.removeElement(item);
 
     const equipmentRemoved = character.checkItemWasRemoved(item.id);
-
-    character.weight = character.getWeight();
 
     character.uploadMultiple({
       containers,
@@ -108,7 +103,6 @@
     if (character.right === item.name) character.right = null;
     if (character.front === item.name) character.front = null;
     if (character.back === item.name) character.back = null;
-    character.weight = character.getWeight();
     containers[targetContainerIndex].inventory.push(item);
     character.itemList.refresh(containers);
     itemInspect = null;
@@ -173,7 +167,12 @@
   </div>
   <div class="itemList">
     {#each container.inventory as item, index}
-      <button class="itemDetails" onclick={() => inspectClicked(item)}>
+      <button
+        class="itemDetails"
+        onclick={() => {
+          inspectClicked(item);
+        }}
+      >
         <span class="itemName">{item}</span>
         <span class="itemWeight">
           {#if item.weight}
@@ -194,16 +193,16 @@
       bind:slot={character.left}
     />
     <EquipmentSlot
-      slotName="Left Shoulder"
-      fieldName="leftShoulder"
-      bind:character
-      bind:slot={character.leftShoulder}
-    />
-    <EquipmentSlot
       slotName="Right Hand"
       fieldName="right"
       bind:character
       bind:slot={character.right}
+    />
+    <EquipmentSlot
+      slotName="Left Shoulder"
+      fieldName="leftShoulder"
+      bind:character
+      bind:slot={character.leftShoulder}
     />
     <EquipmentSlot
       slotName="Right Shoulder"
