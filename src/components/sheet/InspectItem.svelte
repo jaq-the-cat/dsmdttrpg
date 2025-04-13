@@ -49,10 +49,14 @@
     <span>{(itemInspect as Healing).heal ?? ""}</span>
     <h2>Works On</h2>
     <span>{(itemInspect as Healing).worksOn ?? ""}</span>
-    <h2>Revive</h2>
-    <span>{(itemInspect as Healing).revive}</span>
-    <h2>Requirements</h2>
-    <span>{(itemInspect as Healing).requirements}</span>
+    {#if (itemInspect as Healing).revive}
+      <h2>Revive</h2>
+      <span>{(itemInspect as Healing).revive}</span>
+    {/if}
+    {#if (itemInspect as Healing).requirements}
+      <h2>Requirements</h2>
+      <span>{(itemInspect as Healing).requirements}</span>
+    {/if}
   {/if}
   <h2>Transfer</h2>
   <select bind:value={transferToContainer}>

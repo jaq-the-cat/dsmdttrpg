@@ -48,11 +48,13 @@ export const prefabs: { [type: string]: (Container | MeleeWeapon | RangedWeapon 
   'Healing': [
     new Healing("Bandage", 0.05, "Humans", "4 HP", null, null),
     new Healing("First Aid Kit", 0.5, "Humans", "10 HP", "Medicine check, difficulty is missing HP", null),
-    new Healing("MedKit", 1, "Humans", "15 HP", "Revives", "Medicine Proficiency"),
-    new Healing("Surgical Kit", 2, "Humans", "25 HP", "Revives", "Medicine Expertise"),
+    new Healing("MedKit", 1, "Humans", "15 HP", "Yes", "Medicine Proficiency"),
+    new Healing("Surgical Kit", 2, "Humans", "25 HP", "Yes", "Medicine Expertise"),
 
     new Healing("Basic Repair Kit", 2, "Drones", "4 HP", null, null),
     new Healing("Repair Kit", 2, "Drones", "10 HP", "Mechanics check, difficulty is missing HP", null),
-    new Healing("JCJ Sp. WD Repair Kit", 3, "Drones", "15 HP", "Revives", "Mechanics Proficiency"),
+    new Healing("JCJ Sp. WD Repair Kit", 3, "Drones", "15 HP", "Yes", "Mechanics Proficiency"),
+
+    new Healing("Solver Nanite Paste", null, "Both", "100% HP + 2 HP for 5 turns", "Yes", null),
   ],
 }

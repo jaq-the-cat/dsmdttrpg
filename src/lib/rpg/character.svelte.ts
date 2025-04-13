@@ -187,7 +187,7 @@ export class Character {
   }
 
   static deserialize(doc: any) {
-    if (!doc) return
+    if (!doc) return doc;
     const char = new Character();
     char.currentHp = doc.currentHp ?? 0;
     char.species = doc.species ?? Species.Worker;

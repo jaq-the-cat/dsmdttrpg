@@ -22,6 +22,8 @@
       style={character.currentHp > maxHp || character.currentHp < 0
         ? invalidText
         : ""}
+      min="0"
+      max={maxHp}
       bind:value={() => character.currentHp, (v) => (character.currentHp = v)}
       onfocusout={() => character.upload("currentHp", character.currentHp)}
       type="number"
@@ -34,6 +36,11 @@
 <style lang="scss">
   #hp {
     grid-area: hp;
+  }
+
+  input {
+    min-width: 3ch;
+    width: 10ch;
   }
 
   #hpDisplay {

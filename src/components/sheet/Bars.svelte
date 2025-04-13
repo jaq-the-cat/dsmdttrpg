@@ -24,6 +24,8 @@
           () => character.bars.get(bar[0]),
           (v) => character.bars.set(bar[0], v ?? 0)
         }
+        min="0"
+        max={getMaxBarValue(bar[0], character)}
         onfocusout={() => character.upload("bars", character.bars)}
         type="number"
       />
@@ -32,9 +34,11 @@
   {/each}
 </ul>
 
-<!-- </div> -->
-
 <style lang="scss">
+  input {
+    min-width: 3ch;
+    width: 10ch;
+  }
   li {
     margin-bottom: 5px;
   }

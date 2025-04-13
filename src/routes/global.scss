@@ -3,36 +3,71 @@
     font-family: "Courier New", Courier, monospace;
   }
 
-  .separator {
-    border: 0;
-    height: 0;
+.separator {
+  border: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  display: block;
+  height: 15px;
+}
+
+* {
+  box-sizing: border-box;
+  color: #38b62d;
+  font-weight: bold;
+  text-shadow: 2px 2px 5px rgb(61, 75, 43);
+}
+html,
+body {
+  margin: 0;
+  /* background-color: #2a2b2e; */
+  background-color: #080e00;
+}
+
+body {
+  padding: 15px;
+}
+
+input,
+select,
+textarea,
+button {
+  background-color: #000;
+  border: 1px solid #9fe644;
+  font-size: 1em;
+}
+
+button:hover {
+  background-color: #051104;
+  border: 1px solid #38b62d;
+}
+
+body > div {
+  margin: 0;
+}
+
+main {
+  h2 {
+    margin: 0 0 10px 0;
+  }
+
+  ul {
     margin: 0;
     padding: 0;
-    display: block;
-    height: 15px;
+    min-height: 100px;
+    list-style-type: none;
   }
 
-  main {
-    h2 {
-      margin: 0 0 10px 0;
-    }
-
-    ul {
-      margin: 0;
-      padding: 0;
-      min-height: 100px;
-      list-style-type: none;
-    }
-
-    > div {
-      padding: 20px;
-      border: 1px solid #9fe644;
-      box-shadow: 2px 2px 4px 0 #9fe644;
-    }
+  > div {
+    padding: 20px;
+    border: 1px solid #9fe644;
+    box-shadow: 2px 2px 4px 0 #9fe644;
   }
+}
 
-  textarea {
-    height: 8lh;
-    max-height: 16lh;
-    resize: vertical;
-  }
+textarea {
+  height: 8lh;
+  max-height: 16lh;
+  resize: vertical;
+}

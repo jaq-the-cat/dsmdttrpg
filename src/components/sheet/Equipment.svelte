@@ -1,12 +1,7 @@
 <script lang="ts">
   import { invalidText } from "$lib";
   import { Character } from "$lib/rpg/character.svelte";
-  import {
-    Container,
-    Item,
-    MeleeWeapon,
-    RangedWeapon,
-  } from "$lib/rpg/items.svelte";
+  import { Container, Item } from "$lib/rpg/items.svelte";
   import { prefabs } from "$lib/rpg/objectLists.svelte";
   import EquipmentSlot from "./EquipmentSlot.svelte";
   import InspectItem from "./InspectItem.svelte";
@@ -172,18 +167,22 @@
         <option value={i}>{container}</option>
       {/each}
     </select>
-    <button onclick={() => removeContainer(selectedContainer)}>Delete</button>
+    <button class="delete" onclick={() => removeContainer(selectedContainer)}
+      >DEL</button
+    >
   </div>
   <div class="itemList">
     {#each container.inventory as item, index}
-      <span class="itemName">{item}</span>
-      <div class="itemWeight">
-        {#if item.weight}
-          [{item.weight}kg]
-        {/if}
-      </div>
-      <button onclick={() => inspectClicked(item)}>EDT</button>
-      <button onclick={() => removeItem(item, index)}>DEL</button>
+      <button class="itemDetails" onclick={() => inspectClicked(item)}>
+        <span class="itemName">{item}</span>
+        <span class="itemWeight">
+          {#if item.weight}
+            [{item.weight}kg]
+          {/if}
+        </span>
+      </button>
+      <button class="delete" onclick={() => removeItem(item, index)}>DEL</button
+      >
     {/each}
   </div>
   <h2>Equipped</h2>
@@ -293,15 +292,24 @@
       flex-grow: 2;
     }
   }
+
+  .delete {
+    padding: 5px 15px;
+  }
+
   .itemList {
     display: grid;
     max-width: 100%;
-    grid-template-columns: auto auto min-content min-content;
+    grid-template-columns: auto min-content;
     max-height: 40vh;
     overflow-y: auto;
     grid-column: 1 / 4;
     gap: 5px;
-    column-gap: 10px;
+
+    .itemDetails {
+      text-align: start;
+      padding-left: 5px;
+    }
 
     .itemName {
       justify-self: start;
@@ -312,10 +320,6 @@
     .itemWeight {
       justify-self: end;
       align-self: center;
-    }
-
-    button {
-      padding: 5px 15px;
     }
   }
 

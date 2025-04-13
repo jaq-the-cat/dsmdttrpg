@@ -1,11 +1,11 @@
 <script lang="ts">
   import { Character, Species } from "$lib/rpg/character.svelte";
-  import Stats from "../components/Stats.svelte";
-  import Proficiencies from "../components/Proficiencies.svelte";
-  import HP from "../components/HP.svelte";
-  import Speed from "../components/Speed.svelte";
-  import Equipment from "../components/Equipment.svelte";
-  import About from "../components/About.svelte";
+  import Stats from "./Stats.svelte";
+  import Proficiencies from "./Proficiencies.svelte";
+  import HP from "./HP.svelte";
+  import Speed from "./Speed.svelte";
+  import Equipment from "./Equipment.svelte";
+  import About from "./About.svelte";
   import { db } from "$lib/db";
   import { addDoc, collection, doc, setDoc } from "firebase/firestore";
   import { goto } from "$app/navigation";
@@ -31,8 +31,6 @@
       goto(`/sheet/${doc.id}`);
     }
   }
-
-  //   const autosave = setInterval(save, 10 * 1000);
 </script>
 
 <div class="saving" style={showingSaved ? "" : "display: none;"}>Saved!</div>
