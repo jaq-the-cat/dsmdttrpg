@@ -46,13 +46,13 @@ export const prefabs: { [type: string]: (Container | MeleeWeapon | RangedWeapon 
     new RangedWeapon("EMP", null, "Technology", "Bootloops all in 5m", 5, 1, 1, 1, "Bootloops self on failure. Difficulty 10"),
   ],
   'Healing': [
-    new Healing("Bandage", 0.05, "humans", "4 HP", null, null),
-    new Healing("First Aid Kit", 0.5, "humans", "10 HP", "Medicine check, difficulty is missing HP", null),
-    new Healing("MedKit", 1, "humans", "15 HP", "Revives", "Medicine Proficiency"),
-    new Healing("Surgical Kit", 2, "humans", "25 HP", "Revives", "Medicine Expertise"),
+    new Healing("Bandage", 0.05, "Humans", "4 HP", null, null),
+    new Healing("First Aid Kit", 0.5, "Humans", "10 HP", "Medicine check, difficulty is missing HP", null),
+    new Healing("MedKit", 1, "Humans", "15 HP", "Revives", "Medicine Proficiency"),
+    new Healing("Surgical Kit", 2, "Humans", "25 HP", "Revives", "Medicine Expertise"),
 
-    new Healing("Basic Repair Kit", 2, "drones", "4 HP", null, null),
-    new Healing("Repair Kit", 2, "drones", "10 HP", "Mechanics check, difficulty is missing HP", null),
-    new Healing("JCJ Sp. WD Repair Kit", 3, "drones", "15 HP", "Revives", "Mechanics Proficiency"),
+    new Healing("Basic Repair Kit", 2, "Drones", "4 HP", null, null),
+    new Healing("Repair Kit", 2, "Drones", "10 HP", "Mechanics check, difficulty is missing HP", null),
+    new Healing("JCJ Sp. WD Repair Kit", 3, "Drones", "15 HP", "Revives", "Mechanics Proficiency"),
   ],
 }

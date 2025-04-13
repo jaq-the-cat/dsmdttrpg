@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Character } from "$lib/rpg/character.svelte";
+  import { allowedInSlot, type Item } from "$lib/rpg/items.svelte";
 
   let {
     character = $bindable() as Character,
@@ -21,7 +22,9 @@
 >
   <option value={null}></option>
   {#each character.itemList.list as item}
-    <option value={item.id}>{item.toString()}</option>
+    {#if allowedInSlot(item, fieldName)}
+      <option value={item.id}>{item.toString()}</option>
+    {/if}
   {/each}
 </select>
 

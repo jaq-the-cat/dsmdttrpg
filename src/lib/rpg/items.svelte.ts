@@ -134,16 +134,16 @@ export class RangedWeapon extends Item {
   }
 }
 
-export type EquipOn = "hand" | "shoulder" | "front" | "back"
+export type EquipOn = "hand" | "shoulder" | "front" | "back";
 
 export class Healing extends Item {
   type = "heal";
-  worksOn: "humans" | "drones" | "both";
+  worksOn: "Humans" | "Drones" | "Both";
   heal: string;
   revive: string | null;
   requirements: string | null;
 
-  constructor(name: string, weight: number | null, worksOn: "humans" | "drones" | "both", heal: string, revive: string | null, requirements: string | null, id?: string) {
+  constructor(name: string, weight: number | null, worksOn: "Humans" | "Drones" | "Both", heal: string, revive: string | null, requirements: string | null, id?: string) {
     super(name, weight, id);
     this.worksOn = worksOn;
     this.heal = heal;
@@ -233,6 +233,24 @@ export class Container {
   toStringWeight() {
     return `${this.name}` + (this.carry ? ` (${this.carry}kg)` : '')
   }
+}
+
+export function allowedInSlot(item: Item | Container, slotName: string) {
+  if (!('equipOn' in item) || !item.equipOn)
+    return slotName === 'left' || slotName === 'right';
+  switch (slotName) {
+    case "left":
+    case "right":
+      return item.equipOn.includes("hand");
+    case "leftShoulder":
+    case "rightShoulder":
+      return item.equipOn.includes("shoulder");
+    case "front":
+      return item.equipOn.includes("front");
+    case "back":
+      return item.equipOn.includes("back");
+  }
+  return true;
 }
 
 export const ddWeapon = (name: string) => new Item(name, null);

@@ -1,6 +1,7 @@
 <script lang="ts">
   import type {
     Container,
+    Healing,
     Item,
     MeleeWeapon,
     RangedWeapon,
@@ -43,6 +44,15 @@
     <span>{(itemInspect as RangedWeapon).rate} Rate</span>
     <span>{(itemInspect as RangedWeapon).capacity} Capacity</span>
     <span>{(itemInspect as RangedWeapon).reloadTurns} Reload Turns</span>
+  {:else if itemInspect?.type === "heal"}
+    <h2>Heal</h2>
+    <span>{(itemInspect as Healing).heal ?? ""}</span>
+    <h2>Works On</h2>
+    <span>{(itemInspect as Healing).worksOn ?? ""}</span>
+    <h2>Revive</h2>
+    <span>{(itemInspect as Healing).revive}</span>
+    <h2>Requirements</h2>
+    <span>{(itemInspect as Healing).requirements}</span>
   {/if}
   <h2>Transfer</h2>
   <select bind:value={transferToContainer}>

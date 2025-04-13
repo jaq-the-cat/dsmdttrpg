@@ -132,9 +132,9 @@
       {character.weight}/{character.maxWeight} kg
     </span>
   </header>
-  <div class="container">
-    <h2>Add Custom Item</h2>
-    <div class="newItem">
+  <h2>Add Custom Item</h2>
+  <div class="newItem">
+    <div class="newItemInputs">
       <input class="newItemName" bind:value={newItem.name} type="text" />
       <input class="newItemWeight" bind:value={newItem.weight} type="number" />
     </div>
@@ -142,13 +142,19 @@
     <button class="addContainer" onclick={() => addContainer()}>
       Add as Container
     </button>
-    <h2>Add Prefab</h2>
+  </div>
+  <h2>Add Prefab</h2>
+  <div class="addPrefab">
     <select bind:value={selectedPrefab} class="prefabSelect">
       {#each prefabs[selectedPrefabCategory] as prefab, i}
         <option value={i}>{prefab.toStringWeight()}</option>
       {/each}
     </select>
-    <select bind:value={selectedPrefabCategory} class="prefabCategory">
+    <select
+      bind:value={selectedPrefabCategory}
+      onchange={() => (selectedPrefab = 0)}
+      class="prefabCategory"
+    >
       {#each Object.keys(prefabs) as category}
         <option value={category}>{category}</option>
       {/each}
@@ -158,27 +164,27 @@
       onclick={() => addPrefab(prefabs[selectedPrefabCategory][selectedPrefab])}
       >Add Prefab</button
     >
-    <h2>Container</h2>
-    <div class="containerSelect">
-      <select bind:value={selectedContainer}>
-        {#each containers as container, i}
-          <option value={i}>{container}</option>
-        {/each}
-      </select>
-      <button onclick={() => removeContainer(selectedContainer)}>Delete</button>
-    </div>
-    <div class="itemList">
-      {#each container.inventory as item, index}
-        <span class="itemName">{item}</span>
-        <div class="itemWeight">
-          {#if item.weight}
-            [{item.weight}kg]
-          {/if}
-        </div>
-        <button onclick={() => inspectClicked(item)}>EDT</button>
-        <button onclick={() => removeItem(item, index)}>DEL</button>
+  </div>
+  <h2>Container</h2>
+  <div class="containerSelect">
+    <select bind:value={selectedContainer}>
+      {#each containers as container, i}
+        <option value={i}>{container}</option>
       {/each}
-    </div>
+    </select>
+    <button onclick={() => removeContainer(selectedContainer)}>Delete</button>
+  </div>
+  <div class="itemList">
+    {#each container.inventory as item, index}
+      <span class="itemName">{item}</span>
+      <div class="itemWeight">
+        {#if item.weight}
+          [{item.weight}kg]
+        {/if}
+      </div>
+      <button onclick={() => inspectClicked(item)}>EDT</button>
+      <button onclick={() => removeItem(item, index)}>DEL</button>
+    {/each}
   </div>
   <h2>Equipped</h2>
   <div class="equipped">
@@ -220,6 +226,7 @@
     />
   </div>
 </div>
+
 <InspectItem
   bind:itemInspect
   bind:containers={character.containers}
@@ -234,7 +241,49 @@
     align-items: center;
   }
 
+  .newItem {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    justify-content: stretch;
+
+    .newItemInputs {
+      grid-column: 1 / 3;
+      display: flex;
+      column-gap: 5px;
+
+      .newItemName {
+        flex-grow: 2;
+      }
+    }
+
+    .newItemWeight {
+      min-width: 6ch;
+      max-width: 30%;
+    }
+
+    .addContainer {
+      grid-column: 2 / 3;
+    }
+  }
+
+  .addPrefab {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    .prefabSelect {
+      grid-column: 1 / 3;
+    }
+    .prefabCategory {
+      grid-column: 1;
+    }
+    .prefabAdd {
+      grid-column: 2;
+    }
+  }
+
   .containerSelect {
+    grid-column: 1 / 3;
     display: flex;
     flex-direction: row;
 
@@ -244,79 +293,29 @@
       flex-grow: 2;
     }
   }
-
-  .container {
-    width: 100%;
+  .itemList {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    max-width: 100%;
+    grid-template-columns: auto auto min-content min-content;
+    max-height: 40vh;
+    overflow-y: auto;
+    grid-column: 1 / 4;
     gap: 5px;
+    column-gap: 10px;
 
-    .containerSelect {
-      grid-column: 1 / 3;
+    .itemName {
+      justify-self: start;
+      align-self: center;
+      width: 100%;
     }
 
-    h2 {
-      grid-column: 1 / 3;
-      margin: 0;
+    .itemWeight {
+      justify-self: end;
+      align-self: center;
     }
 
-    .newItem {
-      display: flex;
-      gap: 5px;
-      justify-content: space-between;
-      grid-column: 1 / 3;
-
-      .newItemName {
-        flex-grow: 2;
-      }
-
-      .newItemWeight {
-        min-width: 6ch;
-        max-width: 30%;
-      }
-    }
-
-    .addItem {
-      grid-column: 1;
-    }
-
-    .addContainer {
-      grid-column: 2;
-    }
-    .prefabSelect {
-      grid-column: 1;
-    }
-    .prefabCategory {
-      grid-column: 2;
-    }
-    .prefabAdd {
-      grid-column: 1 / 3;
-    }
-
-    .itemList {
-      display: grid;
-      max-width: 100%;
-      grid-template-columns: auto auto min-content min-content;
-      max-height: 40vh;
-      overflow-y: auto;
-      grid-column: 1 / 4;
-      gap: 5px;
-      column-gap: 10px;
-
-      .itemName {
-        justify-self: start;
-        align-self: center;
-        width: 100%;
-      }
-
-      .itemWeight {
-        justify-self: end;
-        align-self: center;
-      }
-
-      button {
-        padding: 5px 15px;
-      }
+    button {
+      padding: 5px 15px;
     }
   }
 
@@ -328,5 +327,14 @@
 
   #equipment {
     grid-area: equipment;
+
+    > * {
+      margin-bottom: 5px;
+    }
+  }
+
+  h2 {
+    grid-column: 1 / 3;
+    margin: 0;
   }
 </style>
