@@ -22,10 +22,20 @@
     </ul>
     <h2>Blood</h2>
     <p>
+      Humans have a Blood reserve of 10. They spend 1 Blood during a Short Rest
+      and 2 Blood during a Long Rest. Their source is fresh water and human
+      food. A slice of Bread or cup of Water replenishes 2 Blood. Due to the
+      variety of Human foods, the DM can choose how much Blood other kinds
+      replenish, but these are the baselines.
+    </p>
+    <p>
       Blood can be used to Heal at a rate of 1 Blood to 2 HP. You cannot attack
       in the same turn you use to Heal using Blood.
     </p>
     <p>It can be replenished by eating or drinking.</p>
+    <p>
+      At 0 Blood, take Max HP / 10 damage per turn until death or replenishment.
+    </p>
     <h2>Sanity</h2>
     <p>
       Sanity is increased after a Long Rest by 2. If it reaches 0, they go
@@ -64,6 +74,9 @@
     </ul>
     <h2>Modifiers</h2>
     <p>-1 Stealth while Visor is turned on. Toggle with an Action.</p>
+    <p>
+      +1 Expertises during Character Creation and increase limit from 2 to 3.
+    </p>
     <h2>Oil</h2>
     <p>
       Worker Drones have a Fresh and Used Oil reserve of 10. They turn 2 Fresh
@@ -165,6 +178,84 @@
     </ul>
     <h2>Modifiers</h2>
     <p>-1 Stealth while Visor is turned on. Toggle with an Action.</p>
+    <h2>Heat</h2>
+    <p>
+      Certain actions may build Heat, or Heat may be generated to improve an
+      action.
+    </p>
+    <ul>
+      <li>Using any Solver Power increases Heat by 1.</li>
+      <li>Failing any check increases Heat by 1.</li>
+      <li>Rolling a Nat 1 increases Heat by 2.</li>
+      <li>A Solver Drone activating their Wings increases Heat by 1.</li>
+      <li>
+        1 Heat may be spent before rolling to lower the Difficulty of any action
+        by 1
+      </li>
+      <li>At 8 Heat or above, gain 1 Absolute Solver per turn.</li>
+    </ul>
+    <p>
+      At max Heat, take Max HP / 10 damage per turn until Heat is lowered or
+      dead.
+    </p>
+    <h2>Oil</h2>
+    <p>
+      Solver-enabled Drones have a reserve of (10 - Absolute Solver level) Used
+      Oil. They spend 2 Used Oil during a Short Rest and 5 Used Oil during a
+      Long Rest, and have the option of spending 1 Used Oil to bring Heat and
+      Absolute Solver down by 2.
+    </p>
+    <p>
+      They can replenish their Used Oil by using Bite (with or without consent)
+      on a Drone or a Human at a rate of 1 Blood to 1 Used Oil or by using Eat
+      on a dead body.
+    </p>
+    <p>At 0 Used Oil, the Drone gains 1 Heat per turn.</p>
+    <h2>Absolute Solver</h2>
+    <p>
+      Solver-enabled Drones have a special attribute called Absolute Solver. The
+      higher it is, the less max Used Oil they can store.
+    </p>
+    <p>
+      If it reaches 10, the Drone has to roll a Willpower check at difficulty
+      14. If failed, they fall under the influence of the Solver. While under
+      its influence, they become an enemy. They can come back to normal if
+      another person succeeds in a Persuasion check. If they have an emotional
+      connection (partner, family member, etc) to the Drone under the influence
+      of the Solver, gain Advantage.
+    </p>
+    <p>
+      An Absolute Solver roll is different from regular Stats, going from +0 at
+      0 to +5 at 10.
+    </p>
+    <p>The following elements increase Absolute Solver by +1.</p>
+    <ul>
+      <li>Seeing a new oil/blood spill while at 4+ Heat.</li>
+      <li>Seeing a Worker Drone or Human while at 7+ Heat.</li>
+      <li>
+        Experiencing a Traumatic Event or other kinds of emotional distress.
+      </li>
+      <li>Failing to use a Solver power.</li>
+      <li>
+        Having Absolute Solver above 8 turns the Drone's visor color to Yellow.
+      </li>
+    </ul>
+    <h2>Sunlight</h2>
+    <p>
+      Solver Drones take Max HP / 10 Hunger damage when out in the Sun or when
+      exposed to other sources of UV Radiation.
+    </p>
+    <h2>Core Crab</h2>
+    <p>
+      Solver Drons Drones can have their cores removed by a Pierce attack aimed
+      at the chest that deals more than 25% of their Max HP in damage, which
+      turns them into a Core Crab. They have 2 HP and +0 in every check except
+      Acrobatics, in which they have a +6. While in Core form, they can attempt
+      to get back inside their bodies if they're within melee range by running
+      an Acrobatics check against their body's Vitality.If the original body
+      dies, the Core is forcefully removed and cannot get back into the body
+      until it is repaired.
+    </p>
     <h2>Abilities</h2>
     <h3>Eat</h3>
     <p>
@@ -247,6 +338,46 @@
       <li>Flying (Horizontal): 20</li>
       <li>Flying (Verical): 10</li>
     </ul>
+    <h2>Heat</h2>
+    <p>
+      Certain actions may build Heat, or Heat may be generated to improve an
+      action.
+    </p>
+    <ul>
+      <li>Using Regenerate increases Heat by 1.</li>
+      <li>Failing any check increases Heat by 1.</li>
+      <li>Rolling a Nat 1 increases Heat by 2.</li>
+      <li>
+        Switching to another Arm Weapon (besides Hand) increases Heat by 1.
+      </li>
+      <li>
+        1 Heat may be spent before rolling to lower the Difficulty of any action
+        by 1
+      </li>
+      <li>At 8 Heat or above, gain 1 Absolute Solver per turn.</li>
+    </ul>
+    <p>
+      At max Heat, take Max HP / 10 damage per turn until Heat is lowered or
+      dead.
+    </p>
+    <h2>Oil</h2>
+    <p>
+      Disassembly Drones have a reserve of (10 - Absolute Solver level) Used
+      Oil. They spend 2 Used Oil during a Short Rest and 5 Used Oil during a
+      Long Rest, and have the option of spending 1 Used Oil to bring Heat and
+      Absolute Solver down by 2.
+    </p>
+    <p>
+      They can replenish their Used Oil by using Bite (with or without consent)
+      on a Drone or a Human at a rate of 1 Blood to 1 Used Oil or by using Eat
+      on a dead body.
+    </p>
+    <p>At 0 Used Oil, the Drone gains 1 Heat per turn.</p>
+    <h2>Absolute Solver</h2>
+    <p>
+      Disassembly Drones Drones have a special attribute called Absolute Solver.
+      The higher it is, the less max Used Oil they can store.
+    </p>
     <h2>Abilities</h2>
     <h3>Eat</h3>
     <p>
@@ -282,8 +413,8 @@
     <p>+1 Successful Attacks if hit.</p>
     <p>Cannot be Blocked.</p>
     <p>
-      Melee, 1 damage per turn for 1d10 turns or until licked by a Disassembly
-      Drone, range 2m.
+      Melee, 1 damage per turn for 1d(Absolute Solver) turns or until licked by
+      a Disassembly Drone, range 2m.
     </p>
   </details>
   <details>
