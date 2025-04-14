@@ -26,6 +26,31 @@
   <title>Murder Drones: Flesh and Oil</title>
 </svelte:head>
 
+<header>
+  <a data-sveltekit-reload class="buttonStyle" href="/"
+    >Character Sheet Creator</a
+  >
+  <a data-sveltekit-reload class="buttonStyle" href="/rulebook">Rulebook</a>
+</header>
+
 <FirebaseApp {auth} {firestore}>
   <slot />
 </FirebaseApp>
+
+<style>
+  header {
+    display: flex;
+    justify-content: center;
+    column-gap: 10px;
+    width: 100%;
+    padding: 10px;
+    padding-top: 0;
+    margin-bottom: 10px;
+
+    a {
+      padding: 10px;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+  }
+</style>

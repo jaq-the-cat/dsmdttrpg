@@ -1,5 +1,5 @@
 <script>
-  import "./style.scss";
+  import "./rulebook.scss";
   import Species from "../../components/rulebook/species.svelte";
 </script>
 
@@ -31,9 +31,15 @@
     <p>
       Skills have the same roll bonus as the parent Stat (from -4 to +6), but
       can be further modified by having Proficiency, Expertise or something else
-      affecting that check, such as Advantage.Your Passive Perception is your
-      Perception Stat plus your Perception modifier, up to 14.Your Passive Dodge
-      is your Agility Stat plus your Agility Modifier, up to 12.
+      affecting that check, such as Advantage.
+    </p>
+    <p>
+      Your Passive Perception is your Perception Stat plus your Perception
+      modifier, up to 14.
+    </p>
+    <p>
+      Your Passive Dodge is your Agility Stat plus your Agility Modifier, up to
+      12.
     </p>
     <ul>
       <li>Athletics (Vitality)</li>
@@ -110,18 +116,25 @@
       that action. If a 2-roll skill is instead used for damage, pick one of the
       stats to roll for, and only roll once.
     </p>
-    <h2>Combat and Actions</h2>
+    <h2>Combat, Actions and Reactions</h2>
     <p>
       When Combat begins, every member rolls an Initiative roll, which
-      determines the order at which turns are taken (higher being earlier).<br
-      />During your turn, you have 3 Actions, which can be an attack, movement,
+      determines the order at which turns are taken (higher being earlier).
+    </p>
+    <p>
+      During your turn, you have 4 Actions, which can be an attack, movement,
       weapon swap, attempt to hide, etc. You can attempt any action in any
       order, but may only succeed once. You get an extra Reaction if you don't
-      attack during your turn.You can attempt any action in any order, but you
-      may only succeed once. Remaining actions can be used in between turns as
-      Reactions. If you Attempt 2 Attacks and end your turn, you have 1 Reaction
-      remaining. If you move, swap weapons, and attack, you don't have any
-      reactions.
+      attack during your turn, up to 5.
+    </p>
+    <p>
+      Remaining actions can be used in between turns as Reactions. If you
+      Attempt 2 Attacks and end your turn, you have 1 Reaction remaining. If you
+      move, swap weapons, and attack, you don't have any reactions.
+    </p>
+    <p>
+      A Reaction can be an Attack of Opportunity, which you can do when an enemy
+      tries to run away from you, dodging or blocking.
     </p>
     <h2>Blocking and Dodging</h2>
     <p>
@@ -203,7 +216,7 @@
     </p>
     <h2>Weight</h2>
     <p>Carrying Capacity is determined by your Species and Strength.</p>
-    <p>Base Capacity as 0 Strength is 5kg.</p>
+    <p>Base Capacity at 0 Strength is 5kg.</p>
     <h2>Resting</h2>
     <p>
       Resting is basically sleeping, healing and decreasing Oil or Blood. It is
