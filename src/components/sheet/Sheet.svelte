@@ -1,5 +1,9 @@
 <script lang="ts">
-  import { Character, Species } from "$lib/rpg/character.svelte";
+  import {
+    Character,
+    getSpeciesModifiers,
+    Species,
+  } from "$lib/rpg/character.svelte";
   import Stats from "./Stats.svelte";
   import Proficiencies from "./Proficiencies.svelte";
   import Bars from "./Bars.svelte";
@@ -41,6 +45,11 @@
         <option value={species}>{species}</option>
       {/each}
     </select>
+    {#each getSpeciesModifiers(character.species) as modifText}
+      <ul>
+        <li>{modifText}</li>
+      </ul>
+    {/each}
   </div>
   <Stats bind:character />
   <Proficiencies bind:character />
@@ -48,30 +57,25 @@
   <Speed bind:character />
   <Equipment bind:character />
   <About bind:character />
-  <header>
-    <h1>Murder Drones: Flesh & Oil</h1>
-  </header>
 </main>
 
 <style lang="scss">
-  header {
-    grid-area: header;
-    min-height: 2.5lh;
-    text-align: center;
-  }
-
   #species {
     grid-area: species;
+
+    li {
+      max-width: 40ch;
+    }
   }
 
   main {
-    grid-template-columns: 1fr 1fr 1fr max-content;
+    grid-template-columns: 1fr 1fr 1fr minmax(max-content, 1fr);
     grid-template-rows: min-content 8rem auto;
     grid-template-areas:
-      "header speed bars          species"
-      "about  speed bars          equipment"
-      "about  stats proficiencies equipment"
-      "about  stats proficiencies equipment";
+      "species speed bars          equipment"
+      "about   speed bars          equipment"
+      "about   stats proficiencies equipment"
+      "about   stats proficiencies equipment";
   }
 
   @media (max-width: 1720px) {
@@ -79,8 +83,8 @@
       grid-template-columns: 1fr 1fr 1fr;
       grid-template-rows: repeat(min-content, 5);
       grid-template-areas:
-        "header    hp        speed"
-        "species   hp        speed"
+        "species   bars      speed"
+        "species   bars      speed"
         "about     stats     proficiencies"
         "about     stats     proficiencies"
         "equipment equipment equipment";
@@ -88,19 +92,16 @@
   }
 
   @media (max-width: 1300px) {
-    header {
-      display: block;
-    }
     main {
       grid-template-columns: 1fr 1fr;
       grid-template-rows: min-content max-content auto;
       grid-template-areas:
-        "species   header"
+        "species   stats"
         "about     stats"
         "about     stats"
         "about     proficiencies"
         "about     proficiencies"
-        "hp        speed"
+        "bars      speed"
         "equipment equipment";
     }
   }
@@ -110,13 +111,12 @@
       grid-template-columns: auto;
       grid-template-rows: auto;
       grid-template-areas:
-        "header"
         "species"
         "about"
         "speed"
         "stats"
         "proficiencies"
-        "hp"
+        "bars"
         "equipment";
     }
   }

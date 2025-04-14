@@ -24,17 +24,19 @@
 </svelte:head>
 
 {#if character.char}
-  <button
-    onclick={() => {
-      goto(`/`);
-    }}>Create New</button
-  >
-  <button
-    onclick={() =>
-      navigator.clipboard.writeText(
-        `https://fleshandoil.vercel.app/sheet/${character.char!.id}`
-      )}>Share Link</button
-  >
+  <header class="sheetLinks">
+    <button
+      onclick={() => {
+        goto(`/`);
+      }}>Create New</button
+    >
+    <button
+      onclick={() =>
+        navigator.clipboard.writeText(
+          `https://fleshandoil.vercel.app/sheet/${character.char!.id}`
+        )}>Share Link</button
+    >
+  </header>
   <Sheet bind:character={character.char} />
 {:else if character.char === undefined}
   <h2>Loading...</h2>
@@ -43,11 +45,18 @@
 {/if}
 
 <style lang="scss">
-  button {
-    font-size: 1.1rem;
-    display: inline-block;
+  .sheetLinks {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 20px;
     margin-bottom: 10px;
-    border: 1px solid #9fe644;
-    padding: 5px;
+    button {
+      font-size: 1.1rem;
+      display: inline-block;
+      margin-bottom: 10px;
+      border: 1px solid #9fe644;
+      padding: 10px;
+    }
   }
 </style>

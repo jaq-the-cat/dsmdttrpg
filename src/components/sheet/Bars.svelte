@@ -63,6 +63,10 @@
   #bars {
     grid-area: bars;
   }
+  ul {
+    margin: 0;
+  }
+
   input {
     min-width: 3ch;
     width: 10ch;

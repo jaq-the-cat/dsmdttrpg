@@ -69,7 +69,10 @@
       <li>Jump Height: 2</li>
     </ul>
     <h2>Modifiers</h2>
-    <p>-1 Stealth while Visor is turned on. Toggle with an Action.</p>
+    <p>
+      -1 Stealth while Visor is turned on. Toggle with an Action. Limits vision
+      to 3m.
+    </p>
     <p>
       +1 Expertises during Character Creation and increase limit from 2 to 3.
     </p>
@@ -173,7 +176,10 @@
       <li>Flying (Vertical): 10</li>
     </ul>
     <h2>Modifiers</h2>
-    <p>-1 Stealth while Visor is turned on. Toggle with an Action.</p>
+    <p>
+      -1 Stealth while Visor is turned on. Toggle with an Action. Limits vision
+      to 3m.
+    </p>
     <h2>Heat</h2>
     <p>
       Certain actions may build Heat, or Heat may be generated to improve an
@@ -313,11 +319,7 @@
   </details>
   <details id="disassembly">
     <summary>Disassembly Drone</summary>
-    <p>
-      -2 Stealth while Visor and Sensors are turned on. Toggle with an Action.
-      +1 to Passive Perception and Investigation rolls due to their headband
-      sensors and a +1 to all Damage rolls.
-    </p>
+    <p>+1 to all Damage rolls.</p>
     <ul>
       <li>HP (6 + Vitality value x 2)</li>
       <li>Absolute Solver (10)</li>
@@ -334,6 +336,15 @@
       <li>Flying (Horizontal): 20</li>
       <li>Flying (Vertical): 10</li>
     </ul>
+    <h2>Modifiers</h2>
+    <p>
+      -2 Stealth while Visor and Sensors are turned on. Toggle with an Action.
+      Limits vision to 3m.
+    </p>
+    <p>
+      +1 to Passive Perception and Investigation rolls due to their headband
+      sensors
+    </p>
     <h2>Heat</h2>
     <p>
       Certain actions may build Heat, or Heat may be generated to improve an
@@ -434,7 +445,10 @@
     </ul>
     <h2>Modifiers</h2>
     <p>+1 Stealth and Flying.</p>
-    <p>-1 Stealth while Visor is turned on. Toggle with an Action.</p>
+    <p>
+      -1 Stealth while Visor is turned on. Toggle with an Action. Limits vision
+      to 3m.
+    </p>
     <h2>Oil</h2>
     <p>
       Avian Drones have a Fresh and Used Oil reserve of 10. They turn 2 Fresh
@@ -517,7 +531,10 @@
       <li>Jump Height: 2</li>
     </ul>
     <h2>Modifiers</h2>
-    <p>-1 Stealth while Visor is turned on. Toggle with an Action.</p>
+    <p>
+      -1 Stealth while Visor is turned on. Toggle with an Action. Limits vision
+      to 3m.
+    </p>
     <h2>Heat</h2>
     <p>
       Certain actions may build Heat, or Heat may be generated to improve an

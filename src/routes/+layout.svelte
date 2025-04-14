@@ -41,7 +41,7 @@
   header {
     display: flex;
     justify-content: center;
-    column-gap: 10px;
+    column-gap: 20px;
     width: 100%;
     padding: 10px;
     padding-top: 0;

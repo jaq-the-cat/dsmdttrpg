@@ -228,6 +228,7 @@
 <InspectItem
   bind:itemInspect
   bind:containers={character.containers}
+  bind:character
   {transferItem}
 />
 

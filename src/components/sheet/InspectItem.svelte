@@ -1,5 +1,7 @@
 <script lang="ts">
+  import type { Character } from "$lib/rpg/character.svelte";
   import type {
+    AmmoItem,
     Container,
     Healing,
     Item,
@@ -11,6 +13,7 @@
   let {
     itemInspect = $bindable(),
     containers = $bindable(),
+    character = $bindable(),
     transferItem,
   }: {
     itemInspect:
@@ -19,8 +22,10 @@
       | RangedWeapon
       | LiquidContainer
       | Healing
+      | AmmoItem
       | null;
     containers: Container[];
+    character: Character;
     transferItem: (item: Item, containerIndex: number | null) => void;
   } = $props();
 
@@ -58,6 +63,7 @@
             max={itemInspect.ammo.current}
             type="number"
             bind:value={itemInspect.ammo.current}
+            onfocusout={() => character.upload("containers", containers)}
           />
           /
           <span>{itemInspect.ammo.capacity}</span>
@@ -66,6 +72,19 @@
         <span
           >{itemInspect.ammo.reloadTurns}
           {itemInspect.ammo.reloadTurns != 1 ? "Turns" : "Turn"}</span
+        >
+        <button
+          onclick={() => {
+            const result = (itemInspect as RangedWeapon).tryReload(
+              containers,
+              itemInspect as RangedWeapon
+            );
+            if (!result) {
+              alert("No Ammo :(");
+            } else {
+              character.upload("containers", containers);
+            }
+          }}>Reload</button
         >
       {:else}
         <span>No Clip</span>
@@ -97,7 +116,8 @@
             (itemInspect as LiquidContainer).current = v;
           }
         }
-        step="0.1"
+        onfocusout={() => character.upload("containers", containers)}
+        step={itemInspect.type === "liquid" ? 0.1 : 1}
         min="0"
         max={itemInspect.capacity}
       />

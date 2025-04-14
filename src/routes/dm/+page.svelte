@@ -15,7 +15,6 @@
 <main>
   <header>
     <h1>
-      <a href="/rulebook">Rulebook</a>
       <a href="/items">Items</a>
       <a href="/enemies">Enemies</a>
     </h1>
