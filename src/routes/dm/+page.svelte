@@ -27,12 +27,33 @@
 <style lang="scss">
   main {
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: auto auto auto;
     grid-template-areas:
       ".      header    ."
       "sheets lootTable ."
       "sheets lootTable ."
       "sheets lootTable .";
+  }
+
+  @media (max-width: 1300px) {
+    main {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        "header header   "
+        "sheets lootTable"
+        "sheets lootTable"
+        "sheets lootTable";
+    }
+  }
+
+  @media (max-width: 800px) {
+    main {
+      grid-template-columns: 1fr;
+      grid-auto-rows: min-content;
+      grid-template-areas:
+        "header"
+        "sheets"
+        "lootTable";
+    }
   }
 
   header {
