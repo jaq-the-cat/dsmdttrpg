@@ -39,7 +39,7 @@
     </p>
     <p>
       Your Passive Dodge is your Agility Stat plus your Agility Modifier, up to
-      12.
+      14.
     </p>
     <ul>
       <li>Athletics (Vitality)</li>

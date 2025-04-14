@@ -1,4 +1,4 @@
-import { AmmoItem, Container, Healing, Item, LiquidContainer, MeleeWeapon, RangedWeapon } from "./items.svelte"
+import { AmmoItem, Container, Healing, Item, LiquidContainer, MeleeWeapon, RangedWeapon, Throwable } from "./items.svelte"
 
 export enum Rarity {
     Common = 6,
@@ -44,8 +44,12 @@ export const prefabs: { [type: string]: (Container | Item)[] } = {
         RangedWeapon.loaded("Improvised Railgun", 1, Rarity.UltraRare, "Technology", "22 Energy", 15, 1, 1, 4, null),
         RangedWeapon.loaded("JCJ Railgun", 2, Rarity.Waow, "Technology", "28 Energy", 15, 1, 1, 2, null),
         RangedWeapon.loaded("Sentinel Gun", 4, Rarity.SuperRare, "Technology", "Bootloops in a 5m cone", 5, 1, 1, 1, "Looking away costs your reaction"),
-        RangedWeapon.loaded("Grenade", 1, Rarity.SuperRare, "1d15", "1d12 + Explosives + 1 Explosive", 5, 1, 1, 1, "Explodes after 1 turn"),
-        RangedWeapon.loaded("EMP Grenade", 1, Rarity.VeryRare, "Technology", "Bootloops in a 5m cone", 5, 1, 1, 1, "Explodes after 1 turn"),
+
+    ],
+    'Throwable': [
+        new Throwable("Grenade", 1, Rarity.SuperRare, "1d12 + Explosives + 1 Explosive", "1d15", "Explodes after 1 Turn."),
+        new Throwable("EMP Grenade", 1, Rarity.VeryRare, "Bootloops in a 5m cone", "1d15", "Explodes after 1 Turn."),
+        new Throwable("Ninja Star", null, Rarity.Waow, "4 Pierce", "10"),
     ],
     'Ammo': [
         AmmoItem.default("Pistol", Rarity.Rare, 12, 1),
@@ -58,8 +62,6 @@ export const prefabs: { [type: string]: (Container | Item)[] } = {
         AmmoItem.default("Improvised Railgun", Rarity.SuperRare, 1, 4),
         AmmoItem.default("JCJ Railgun", Rarity.Waow, 1, 2),
         AmmoItem.default("Sentinel Gun", Rarity.UltraRare, 1, 1),
-        AmmoItem.default("Grenade", Rarity.VeryRare, 1, 1),
-        AmmoItem.default("EMP Grenade", Rarity.SuperRare, 1, 1),
     ],
     'DD': [
         new MeleeWeapon("Claws", null, Rarity.Common, "1d8 + Strength + 2 Slash", "Rate up to 2"),
@@ -67,7 +69,7 @@ export const prefabs: { [type: string]: (Container | Item)[] } = {
         new MeleeWeapon("Chainsaw", null, Rarity.VeryRare, "1d12 + Strength + 1 Slash", "+1 Hit, uses 1L Used Oil per Hit"),
         RangedWeapon.loaded("Laser", null, Rarity.VeryRare, "Firearms", "6 Energy", 20, 1, 2, 1, "One arm at a time"),
         RangedWeapon.loaded("Missile", null, Rarity.SuperRare, "Firearms", "8 Explosive", 20, 1, 1, 2, "Tracking"),
-        RangedWeapon.loaded("Ninja Star", null, Rarity.Rare, "Athletics", "4 Pierce", 10, 1, 1, 1, null),
+        new Throwable("Ninja Stars", null, Rarity.Rare, "4 Pierce", "10"),
         RangedWeapon.loaded("EMP", null, Rarity.Waow, "Technology", "Bootloops all in 5m", 5, 1, 1, 1, "Bootloops self on failure. Difficulty 10"),
     ],
     'Healing': [

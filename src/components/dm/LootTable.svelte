@@ -1,22 +1,18 @@
 <script lang="ts">
   import { db } from "$lib/db";
-  import { Container } from "$lib/rpg/items.svelte";
-  import {
-    getLoot,
-    LootTable,
-    lootTables,
-    type WhatLoot,
-  } from "$lib/rpg/loot.svelte";
+  import { AmmoItem, Container } from "$lib/rpg/items.svelte";
+  import { getLoot, type WhatLoot } from "$lib/rpg/loot.svelte";
+  import { prefabs } from "$lib/rpg/objectLists.svelte";
   import { setDoc, doc } from "firebase/firestore";
   import { docStore } from "sveltefire";
 
   let selectedTables = $state(
-    Array.from(lootTables.keys()).map(
-      (key) => [key, true] as [LootTable, boolean]
+    Array.from(Object.keys(prefabs)).map(
+      (key) => [key, true] as [string, boolean]
     )
   );
   let investigation = $state(0);
-  let generated: [LootTable, WhatLoot] | null = $state(null);
+  let generated: [string, WhatLoot] | null = $state(null);
   let genFailed = $state(false);
 
   let { sheets = $bindable() as any } = $props();
@@ -72,6 +68,32 @@
     <div class="found">
       <div class="generated">
         <h2 class="item">{generated[1]}</h2>
+        {#if "ammo" in generated[1]}
+          <span>
+            <input
+              class="currentInput"
+              type="number"
+              bind:value={generated[1].ammo!.current}
+              min="0"
+              max={generated[1].ammo!.capacity as number}
+              step={generated[1].ammo!.type === "liquid" ? 0.1 : 1}
+            />
+            / {generated[1].ammo!.capacity}
+          </span>
+        {:else if "current" in generated[1] && "capacity" in generated[1]}
+          <span>
+            <input
+              class="currentInput"
+              type="number"
+              bind:value={generated[1].current}
+              min="0"
+              max={generated[1].capacity as number}
+              step={generated[1].type === "liquid" ? 0.1 : 1}
+            />
+            / {generated[1].capacity}
+            {generated[1].type === "liquid" ? "L" : ""}
+          </span>
+        {/if}
         <h3 class="table">{generated[0]}</h3>
       </div>
       <div class="give">
@@ -114,6 +136,11 @@
     display: flex;
     flex-direction: column;
     row-gap: 5px;
+
+    .currentInput {
+      min-width: 10ch;
+      margin-bottom: 10px;
+    }
 
     .give {
       margin-top: 10px;

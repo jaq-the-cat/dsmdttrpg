@@ -55,6 +55,8 @@ export class Item {
                     return LiquidContainer.deserialize(c);
                 case "ammo":
                     return AmmoItem.deserialize(c);
+                case "throwable":
+                    return Throwable.deserialize(c);
             }
             return Item.deserialize(c);
         }) as Item[];
@@ -219,6 +221,42 @@ export class RangedWeapon extends Item {
     }
 }
 
+export class Throwable extends Item {
+    type = "ranged"
+    hit = "Athletics";
+    damage: string;
+    range: string;
+    info: string | null;
+
+    constructor(name: string, weight: number | null, rarity: number, damage: string, range: string, info?: string | null, id?: string) {
+        super(name, weight, rarity, id);
+        this.damage = damage;
+        this.range = range;
+        this.info = info ?? null;
+    }
+
+    clone() {
+        return new Throwable(this.name, this._weight, this.rarity, this.damage, this.range, this.info);
+    }
+
+    serialize() {
+        return {
+            type: "throwable",
+            id: this.id,
+            name: this.name,
+            weight: this._weight,
+            rarity: this.rarity,
+            damage: this.damage,
+            range: this.range,
+            info: this.info,
+        }
+    }
+
+    static deserialize(c: any) {
+        return new Throwable(c.name, c.weight, c.rarity, c.damage, c.range, c.info, c.id);
+    }
+}
+
 export class AmmoItem extends Item {
     type = "ammo"
     current: number = $state(0);
@@ -259,7 +297,7 @@ export class AmmoItem extends Item {
     }
 
     toString(): string {
-        return `${this.name} Ammo (${this.current}/${this.capacity})`
+        return `${this.name} Ammo (${this.current ?? 0}/${this.capacity})`
     }
 
     toStringWeight(): string {

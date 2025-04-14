@@ -27,10 +27,8 @@
 </svelte:head>
 
 <header>
-  <a data-sveltekit-reload class="buttonStyle" href="/"
-    >Character Sheet Creator</a
-  >
-  <a data-sveltekit-reload class="buttonStyle" href="/rulebook">Rulebook</a>
+  <a class="buttonStyle" href="/">Character Sheet Creator</a>
+  <a class="buttonStyle" href="/rulebook">Rulebook</a>
 </header>
 
 <FirebaseApp {auth} {firestore}>

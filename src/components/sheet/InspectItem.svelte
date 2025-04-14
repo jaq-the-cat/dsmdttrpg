@@ -8,6 +8,7 @@
     LiquidContainer,
     MeleeWeapon,
     RangedWeapon,
+    Throwable,
   } from "$lib/rpg/items.svelte";
 
   let {
@@ -20,9 +21,10 @@
       | Item
       | MeleeWeapon
       | RangedWeapon
+      | AmmoItem
+      | Throwable
       | LiquidContainer
       | Healing
-      | AmmoItem
       | null;
     containers: Container[];
     character: Character;
@@ -55,8 +57,8 @@
       <span>{itemInspect.hit ?? ""}</span>
       <h2>Damage</h2>
       <span>{itemInspect.damage}</span>
-      <h2>Ammo</h2>
-      {#if itemInspect.ammo}
+      {#if "ammo" in itemInspect && itemInspect.ammo}
+        <h2>Ammo</h2>
         <span class="inputs">
           <input
             min="0"
@@ -86,12 +88,15 @@
             }
           }}>Reload</button
         >
-      {:else}
-        <span>No Clip</span>
       {/if}
       <h2>Stats</h2>
       <span>{itemInspect.range} Range</span>
-      <span>{itemInspect.rate} Rate</span>
+      {#if "rate" in itemInspect && itemInspect.rate}
+        <span>{itemInspect.rate} Rate</span>
+      {/if}
+      {#if itemInspect.info}
+        <span>{itemInspect.info}</span>
+      {/if}
     {:else if "heal" in itemInspect!}
       <h2>Heal</h2>
       <span>{itemInspect.heal ?? ""}</span>

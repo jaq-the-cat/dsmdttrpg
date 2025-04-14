@@ -1,6 +1,10 @@
 <script lang="ts">
   import { invalidText } from "$lib";
-  import { Character, getBaseMaxWeight } from "$lib/rpg/character.svelte";
+  import {
+    Character,
+    getBaseMaxWeight,
+    Species,
+  } from "$lib/rpg/character.svelte";
 
   let { character = $bindable() as Character } = $props();
 
@@ -53,17 +57,22 @@
   </section>
   <div class="passive">
     <span>Passive Perception</span>
-    <span
+    <span class="value"
       >{Math.max(
         0,
-        Math.min(character.stats.get("Perception")! * 2 - 4, 14)
+        Math.min(
+          character.stats.get("Perception")! * 2 -
+            4 +
+            (character.species == Species.Disassembly ? 1 : 0),
+          14
+        )
       )}</span
     >
     <span>Passive Dodge</span>
-    <span
+    <span class="value"
       >{Math.max(
         0,
-        Math.min(character.stats.get("Agility")! * 2 - 4, 12)
+        Math.min(character.stats.get("Agility")! * 2 - 4, 14)
       )}</span
     >
   </div>
@@ -115,5 +124,9 @@
     grid-template-columns: auto max-content;
     align-items: center;
     gap: 5px;
+
+    .value {
+      justify-self: end;
+    }
   }
 </style>
