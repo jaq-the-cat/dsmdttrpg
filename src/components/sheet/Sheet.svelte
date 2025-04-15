@@ -15,19 +15,6 @@
   import { goto } from "$app/navigation";
 
   let { character = $bindable() as Character } = $props();
-
-  async function save() {
-    if (character.id) {
-      setDoc(doc(db.firestore!, "sheets", character.id), character.serialize());
-    } else {
-      const doc = await addDoc(
-        collection(db.firestore!, "sheets"),
-        character.serialize()
-      );
-      character.id = doc.id;
-      goto(`/sheet/${doc.id}`);
-    }
-  }
 </script>
 
 <main id="sheet">
@@ -38,7 +25,7 @@
       onchange={(ev) => {
         character.species = ev.currentTarget.value as Species;
         character.refresh();
-        save();
+        character.upload("species", character.species);
       }}
     >
       {#each Object.values(Species) as species}

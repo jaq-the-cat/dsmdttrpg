@@ -69,20 +69,6 @@ export class Character {
         return data;
     }
 
-    // async uploadRemovedItem() {
-    //   if (!this.id || !db.firestore) return;
-    //   const data = {
-    //     "containers": Container.serializeList(this.containers),
-    //     "left": this.left,
-    //     "leftShoulder": this.leftShoulder,
-    //     "right": this.right,
-    //     "rightShoulder": this.rightShoulder,
-    //     "front": this.front,
-    //     "back": this.back,
-    //   }
-    //   setDoc(doc(db.firestore, "sheets", this.id), data, { merge: true });
-    // }
-
     currentHp = $state(0);
 
     species = $state(Species.Worker);

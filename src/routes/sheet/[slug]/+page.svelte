@@ -45,7 +45,7 @@
 {/if}
 
 <style lang="scss">
-  .sheetLinks {
+  header {
     display: flex;
     flex-direction: row;
     justify-content: center;
