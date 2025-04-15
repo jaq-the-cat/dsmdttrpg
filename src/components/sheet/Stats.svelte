@@ -44,6 +44,7 @@
             character.stats.set(stat[0], v!);
             if (stat[0] === "Strength") {
               character.containers.at(0)!.carry = getBaseMaxWeight(character);
+              character.maxWeight = character.getMaxWeight();
             }
           }
         }
