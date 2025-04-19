@@ -32,6 +32,10 @@
     <p>
       At 0 Blood, take Max HP / 10 damage per turn until death or replenishment.
     </p>
+    <p>
+      Whenever they take damage, they roll a 1d(Total Damage). They lose that
+      amount in Blood.
+    </p>
     <h2>Short Rest Healing</h2>
     <p>After a complete Short Rest (2 hours), Humans heal for 25% Max HP.</p>
     <h2>Abilities</h2>
@@ -240,6 +244,10 @@
       on a dead body.
     </p>
     <p>At 0 Used Oil, the Drone gains 1 Heat per turn.</p>
+    <p>
+      Whenever they take damage, they roll a 1d(Total Damage). They lose that
+      amount in Used Oil.
+    </p>
     <h2>Absolute Solver</h2>
     <p>
       Solver-enabled Drones have a special attribute called Absolute Solver. The
@@ -407,6 +415,10 @@
       on a dead body.
     </p>
     <p>At 0 Used Oil, the Drone gains 1 Heat per turn.</p>
+    <p>
+      Whenever they take damage, they roll a 1d(Total Damage). They lose that
+      amount in Used Oil.
+    </p>
     <h2>Absolute Solver</h2>
     <p>
       Disassembly Drones Drones have a special attribute called Absolute Solver.
@@ -611,6 +623,10 @@
       on a dead body.
     </p>
     <p>At 0 Used Oil, the Drone gains 1 Heat per turn.</p>
+    <p>
+      Whenever they take damage, they roll a 1d(Total Damage). They lose that
+      amount in Used Oil.
+    </p>
     <h2>Absolute Solver</h2>
     <p>
       Wendigo Drones have a special attribute called Absolute Solver. The higher
