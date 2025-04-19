@@ -32,6 +32,8 @@
     <p>
       At 0 Blood, take Max HP / 10 damage per turn until death or replenishment.
     </p>
+    <h2>Short Rest Healing</h2>
+    <p>After a complete Short Rest (2 hours), Humans heal for 25% Max HP.</p>
     <h2>Abilities</h2>
     <h3>Eat (Insane)</h3>
     <p>
@@ -494,6 +496,10 @@
     <p>
       At 10 Used Oil, take Max HP / 10 damage per turn until death or disposal.
     </p>
+    <h2>Short Rest Healing</h2>
+    <p>
+      After a complete Short Rest (2 hours), Avian Drones heal for 25% Max HP.
+    </p>
     <h2>Drone Repair</h2>
     <p>
       When there are no healing items available, Avian Drones can be repaired
@@ -537,6 +543,19 @@
     </p>
     <h3>Talon Strike</h3>
     <p>Melee, 1d6 + Strength + 1 Slash damage.</p>
+    <h3>Talon Carry</h3>
+    <p>
+      Avian Drones can pick up Heavy objects such as other Drones, heavy weapons
+      or containers using their Talons. This halves their Flying Speed.<br />
+      The total weight they can carry is their Strength value multiplied by 10, up
+      to 100kg at 10 Strength.
+    </p>
+    <h3>Flying</h3>
+    <p>
+      Avian Drones' wings are part of their arms, so they cannot have anything
+      equipped in their hands while in flight. To use a weapon, they have to
+      stop flying and start falling or be on the ground.
+    </p>
   </details>
   <details id="wendigo">
     <summary>Wendigo Drone [NC]</summary>

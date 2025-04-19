@@ -282,7 +282,7 @@
     <p>
       A Short Rest lasts 2 in-Universe hours, running 1 auto-successful
       Regenerate abilities on Drones that have access to it and healing Humans
-      for 50% Max HP.
+      and Avian Drones for 25% Max HP.
     </p>
     <h3>Long Rest</h3>
     <p>
