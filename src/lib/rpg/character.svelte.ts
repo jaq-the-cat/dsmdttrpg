@@ -274,7 +274,7 @@ export function getBars(species: Species) {
         case Species.Worker:
             return new SvelteMap([
                 ["Fresh Oil", 10],
-                ["Used Oil", 10],
+                ["Used Oil", 0],
                 ["Sanity", 10],
             ]);
         case Species.Solver:

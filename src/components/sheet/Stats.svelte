@@ -57,24 +57,10 @@
   </section>
   <div class="passive">
     <span>Passive Perception</span>
-    <span class="value"
-      >{Math.max(
-        0,
-        Math.min(
-          character.stats.get("Perception")! * 2 -
-            4 +
-            (character.species == Species.Disassembly ? 1 : 0),
-          14
-        )
-      )}</span
-    >
+    <span class="value">{9 + character.stats.get("Perception")! / 2}</span>
+
     <span>Passive Dodge</span>
-    <span class="value"
-      >{Math.max(
-        0,
-        Math.min(character.stats.get("Agility")! * 2 - 4, 14)
-      )}</span
-    >
+    <span class="value">{9 + character.stats.get("Agility")! / 2}</span>
   </div>
   <h2>Features & Abilities</h2>
   <textarea

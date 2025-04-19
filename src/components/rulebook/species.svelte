@@ -32,6 +32,18 @@
     <p>
       At 0 Blood, take Max HP / 10 damage per turn until death or replenishment.
     </p>
+    <h2>Abilities</h2>
+    <h3>Eat (Insane)</h3>
+    <p>
+      Can be used on a dead body (Human) to drain their entire Blood reserve at
+      once. Eating someone during combat takes 3 turns to complete. Increases
+      Heat by 2.
+    </p>
+    <h3>Bite (Insane)</h3>
+    <p>
+      Melee, 1d4 + Strength Slash damage. When used on a Human, drain 2 Blood.
+    </p>
+    <p>If the target consents to the bite, damage is 1.</p>
     <h2>Sanity</h2>
     <p>
       Sanity is increased after a Long Rest by 2. If it reaches 0, they go
@@ -96,6 +108,19 @@
     <p>
       At 10 Used Oil, take Max HP / 10 damage per turn until death or disposal.
     </p>
+    <h2>Abilities</h2>
+    <h3>Eat (Insane)</h3>
+    <p>
+      Can be used on a dead body (Human or Drone) to drain their entire Fresh
+      Oil reserve at once. Eating someone during combat takes 3 turns to
+      complete. Increases Heat by 2.
+    </p>
+    <h3>Bite (Insane)</h3>
+    <p>
+      Melee, 1d6 + Strength Slash damage. If used on a Worker Drone, drain 2
+      Fresh Oil. If used on a Human, remove 2 Blood.
+    </p>
+    <p>If the target consents to the bite, damage is 1.</p>
     <h2>Drone Repair</h2>
     <p>
       When there are no healing items available, Worker Drones can be repaired

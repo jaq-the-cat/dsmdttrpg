@@ -33,14 +33,8 @@
       can be further modified by having Proficiency, Expertise or something else
       affecting that check, such as Advantage.
     </p>
-    <p>
-      Your Passive Perception is your Perception Stat plus your Perception
-      modifier, up to 14.
-    </p>
-    <p>
-      Your Passive Dodge is your Agility Stat plus your Agility Modifier, up to
-      14.
-    </p>
+    <p>Your Passive Perception is your Perception Stat divided by 2 plus 9.</p>
+    <p>Your Passive Dodge is you Agility Stat divided by 2 plus 9.</p>
     <ul>
       <li>Athletics (Vitality)</li>
       <li>Acrobatics (Agility)</li>
@@ -123,19 +117,81 @@
     </p>
     <p>
       During your turn, you have 4 Actions, which can be an attack, movement,
-      weapon swap, attempt to hide, etc. You can attempt any action in any
+      dash, weapon swap, attempt to hide, etc. You can attempt any action in any
       order, but may only succeed once. You get an extra Reaction if you don't
       attack during your turn, up to 5.
     </p>
     <p>
       Remaining actions can be used in between turns as Reactions. If you
-      Attempt 2 Attacks and end your turn, you have 1 Reaction remaining. If you
-      move, swap weapons, and attack, you don't have any reactions.
+      Attempt 3 Attacks and end your turn, you have 1 Reaction remaining. If you
+      dash, move, swap weapons, and attack, you don't have any reactions.
     </p>
     <p>
-      A Reaction can be an Attack of Opportunity, which you can do when an enemy
-      tries to run away from you, dodging or blocking.
+      A Reaction can be dodging, blocking, or an Attack of Opportunity, which
+      you can do when an enemy tries to run away from you from melee distance.
     </p>
+    <h3>Available Actions</h3>
+    <ul>
+      <li>Attack</li>
+      <ul>
+        <li>
+          Melee attacks only have to do a hit check if the enemy is dodging,
+          blocking or running away (see Attack of Opportunity)
+        </li>
+        <li>
+          Ranged Attacks must always use a Firearms (guns) or Athletics
+          (throwing) hit check, against either their Passive Dodge or Agility
+          check if they attempt to Dodge.
+        </li>
+      </ul>
+      <li>Move</li>
+      <ul>
+        <li>Move at Walking speed.</li>
+        <li>If previous action was Dash, move at Running speed.</li>
+        <li>
+          If Wings are active, and there is enough space, move at Flying Speed
+          (horizontal).
+        </li>
+      </ul>
+      <li>Dash</li>
+      <li>
+        Activate/Deactivate Wings
+        <br /><small
+          >Avian Drones to not use an Action to activate their wings.</small
+        >
+      </li>
+      <li>Equip/Swap/Unequip Item</li>
+      <li>Hide</li>
+      <li>
+        Brace (must have a blocking item)<br />
+        Gives +2 to reaction Blocking.<br />
+        Blocks all further actions until Unbraced.
+      </li>
+      <li>
+        Unbrace (must be braced)<br />
+        Disables +2 Blocking bonus and allows other actions.
+      </li>
+    </ul>
+    <h3>Available Reactions</h3>
+    <ul>
+      <li>
+        Dodge<br />
+        Allows Acrobatics check to dodge Melee or ranged attacks, otherwise use Passive
+        Dodge.
+      </li>
+      <li>
+        Block<br />
+        Allows a Blocking check with a blocking item (Sword/Shield).<br />
+        If Bracing, Gain a +2 bonus.
+      </li>
+      <li>
+        Attack of Opportunity<br />
+        If an enemy attempts to move away from melee distance, you can attempt to
+        attack.<br />
+        They cannot Dodge or Block, instead using their Passive Dodge against both
+        Melee and Ranged attacks.
+      </li>
+    </ul>
     <h2>Blocking and Dodging</h2>
     <p>
       If someone uses an Action to attack you, and you have something to block
