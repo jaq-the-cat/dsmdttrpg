@@ -1,5 +1,6 @@
 <script lang="ts">
   import { db } from "$lib/db";
+  import EnemyList from "../../components/dm/EnemyList.svelte";
   import LootTable from "../../components/dm/LootTable.svelte";
   import SheetList from "../../components/dm/SheetList.svelte";
   import "./style.scss";
@@ -22,6 +23,7 @@
 
   <SheetList {sheets} />
   <LootTable {sheets} />
+  <EnemyList />
 </main>
 
 <style lang="scss">
@@ -29,9 +31,7 @@
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas:
       ".      header    ."
-      "sheets lootTable ."
-      "sheets lootTable ."
-      "sheets lootTable .";
+      "sheets lootTable enemyList";
   }
 
   @media (max-width: 1300px) {
@@ -40,8 +40,7 @@
       grid-template-areas:
         "header header   "
         "sheets lootTable"
-        "sheets lootTable"
-        "sheets lootTable";
+        "sheets enemyList";
     }
   }
 
@@ -52,7 +51,8 @@
       grid-template-areas:
         "header"
         "sheets"
-        "lootTable";
+        "lootTable"
+        "enemyList";
     }
   }
 
