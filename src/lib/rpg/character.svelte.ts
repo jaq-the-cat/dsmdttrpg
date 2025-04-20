@@ -263,6 +263,21 @@ export function getSpeed(species: Species) {
     }
 }
 
+export function getMaxHp(character: Character) {
+    switch (character.species) {
+        case Species.Human:
+            return Math.floor(6 + character.stats.get('Vitality')! * 1.4)
+        case Species.Avian:
+        case Species.Worker:
+        case Species.Solver:
+            return Math.floor(8 + character.stats.get('Vitality')! * 1.6)
+        case Species.Wendigo:
+            return Math.floor(10 + character.stats.get('Vitality')! * 1.8)
+        case Species.Disassembly:
+            return Math.floor(10 + character.stats.get('Vitality')! * 2)
+    }
+}
+
 export function getBars(species: Species) {
     switch (species) {
         case Species.Human:

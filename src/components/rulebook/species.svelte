@@ -4,7 +4,7 @@
     <summary>Human</summary>
     <h2>Stats</h2>
     <ul>
-      <li>HP (2 + Vitality value x 2)</li>
+      <li>HP (6 + Vitality value x 1.4)</li>
       <li>Blood (10)</li>
       <li>Sanity (10)</li>
       <li>Resistant to Pierce and Energy damage</li>
@@ -74,7 +74,7 @@
     <summary>Worker Drone</summary>
     <p>-1 Stealth while Visor is turned on. Toggle with an Action.</p>
     <ul>
-      <li>HP (4 + Vitality value x 2)</li>
+      <li>HP (8 + Vitality value x 1.6)</li>
       <li>Fresh Oil (10)</li>
       <li>Used Oil (10)</li>
       <li>Sanity (10)</li>
@@ -191,7 +191,7 @@
     <summary>Solver Drone</summary>
     <h2>Stats</h2>
     <ul>
-      <li>HP (4 + Vitality value x 2)</li>
+      <li>HP (8 + Vitality value x 1.6)</li>
       <li>Absolute Solver (10)</li>
       <li>Used Oil (10 - Absolute Solver)</li>
       <li>Heat (10)</li>
@@ -356,7 +356,7 @@
     <summary>Disassembly Drone</summary>
     <p>+1 to all Damage rolls.</p>
     <ul>
-      <li>HP (6 + Vitality value x 2)</li>
+      <li>HP (10 + Vitality value x 2)</li>
       <li>Absolute Solver (10)</li>
       <li>Used Oil (10 - Absolute Solver)</li>
       <li>Heat (10)</li>
@@ -476,7 +476,7 @@
       <em>Design by weebie</em>
     </p>
     <ul>
-      <li>HP (4 + Vitality value x 2)</li>
+      <li>HP (8 + Vitality value x 1.6)</li>
       <li>Fresh Oil (10)</li>
       <li>Used Oil (10)</li>
       <li>Resistant to Strike damage</li>
@@ -573,7 +573,7 @@
     <summary>Wendigo Drone [NC]</summary>
     <h2>Stats</h2>
     <ul>
-      <li>HP (6 + Vitality value x 2)</li>
+      <li>HP (10 + Vitality value x 1.8)</li>
       <li>Absolute Solver (10)</li>
       <li>Used Oil (10 - Absolute Solver)</li>
       <li>Heat (10)</li>

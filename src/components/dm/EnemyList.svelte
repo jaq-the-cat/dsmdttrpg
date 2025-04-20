@@ -1,13 +1,12 @@
 <script lang="ts">
-  import { db } from "$lib/db";
   import { enemyLists } from "$lib/rpg/enemy.svelte";
-  import { Container } from "$lib/rpg/items.svelte";
-  import { getLoot, type WhatLoot } from "$lib/rpg/loot.svelte";
-  import { setDoc, doc } from "firebase/firestore";
-  import { docStore } from "sveltefire";
+  import type { Item } from "$lib/rpg/items.svelte";
+  import WeaponInspect from "./WeaponInspect.svelte";
 
   let selectedEnemyList: string = $state("Humans");
   let enemies = $derived(Object.entries(enemyLists[selectedEnemyList]));
+
+  let itemInspect: Item | null = $state(null);
 </script>
 
 <section id="enemyList">
@@ -25,17 +24,21 @@
         <div>{enemy[1].maxHp}</div>
         {#if enemy[1].guaranteedWeapons.length > 0}
           <h4>Guaranteed Weapons:</h4>
-          <div>
+          <div class="wpnList">
             {#each enemy[1].guaranteedWeapons as weapon}
-              <div>{weapon.name}</div>
+              <button onclick={() => (itemInspect = weapon)}
+                >{weapon.name}</button
+              >
             {/each}
           </div>
         {/if}
         {#if enemy[1].possibleWeapons.length > 0}
           <h4>Possible Weapons:</h4>
-          <div>
+          <div class="wpnList">
             {#each enemy[1].possibleWeapons as weapon}
-              <div>{weapon.name}</div>
+              <button onclick={() => (itemInspect = weapon)}
+                >{weapon.name}</button
+              >
             {/each}
           </div>
         {/if}
@@ -56,6 +59,8 @@
   {/if}
 </section>
 
+<WeaponInspect bind:itemInspect />
+
 <style lang="scss">
   #enemyList {
     grid-area: enemyList;
@@ -73,6 +78,12 @@
       column-gap: 1ch;
       row-gap: 5px;
       grid-template-columns: max-content auto;
+
+      .wpnList {
+        display: flex;
+        flex-direction: column;
+        row-gap: 5px;
+      }
     }
   }
 </style>
