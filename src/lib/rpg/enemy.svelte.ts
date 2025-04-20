@@ -162,11 +162,147 @@ export const enemyLists: { [category: string]: { [enemy: string]: Enemy } } = {
             "Persuasion Resistance": 16,
             "Persuasion Resistance (against DDs & JCJ)": 20,
             "Intimidation Resistance": 16,
-        })
+        }),
+        "Insane Worker Drone": new Enemy(12, [], [
+            weapons.Melee.Knife,
+            weapons.Melee.Machete,
+            weapons.Melee.Axe,
+            weapons.Ranged["Sentinel Gun"],
+            weapons.Throwable["EMP Grenade"],
+            weapons.Special["Knife Tail"]
+        ], {
+            "Strength": 2,
+            "Stealth": 4,
+        }, {
+            "Passive Perception": 15,
+            "Persuasion Resistance": 99,
+            "Intimidation Resistance": 16,
+        }),
     },
-    "Custom Species": {},
-    "Solver Drones": {},
-    "Disassembly Drones": {},
-    "Sentinel": {},
-    "Unique": {},
+    "Solver Drones": {
+        "Solver Drone": new Enemy(12, [
+            weapons.Solver["Solver Translate"],
+            weapons.Solver["Solver Transform"],
+            weapons.Solver["Solver Teleport"]
+        ], [], {
+            "Absolute Solver": 2,
+            "Stealth": 3,
+        }, {
+            "Passive Perception": 10,
+            "Persuasion Resistance": 14,
+            "Intimidation Resistance": 14,
+        }),
+        "Controlled Solver Drone": new Enemy(14, [
+            weapons.Solver["Solver Tail"],
+            weapons.Solver["Solver Stabbies"],
+        ], [
+            weapons.Solver["Solver Claws"],
+        ], {
+            "Strength": 2,
+            "Stealth": 3,
+            "Absolute Solver": 5,
+        }, {
+            "Passive Perception": 16,
+            "Persuasion Resistance": 16,
+            "Intimidation Resistance": 16,
+        }),
+        "Centipede Drone": new Enemy(14, [], [
+            weapons.Solver["Solver Translate"],
+            weapons.Solver["Solver Transform"],
+            weapons.Solver["[null]"],
+            weapons.Solver["Solver Stabbies"],
+        ], {
+            "Strength": 5,
+            "Absolute Solver": 5,
+        }, {
+            "Passive Perception": 12,
+            "Persuasion Resistance": 99,
+            "Intimidation Resistance": 99,
+        }, "Can create holograms to hide itself and make you see anything it’d like, using its Absolute Solver bonus as the Stealth roll."),
+    },
+    "Disassembly Drones": {
+        "Disassembly Drone": new Enemy(14, [
+            weapons.Disassembly.Claws,
+            weapons.Disassembly.Sword,
+            weapons.Disassembly.Chainsaw,
+            weapons.Disassembly.SMG,
+            weapons.Disassembly.Laser,
+            weapons.Disassembly.Missile,
+            weapons.Disassembly["Ninja Star"],
+            weapons.Disassembly.EMP,
+        ], [], {
+            "Strength": 2,
+            "Dexterity": 2,
+            "Firearms": 2,
+            "Acrobatics": 1,
+            "Absolute Solver": 3,
+            "Against Worker and Solver Drones": 1,
+        }, {
+            "Passive Perception": 15,
+            "Persuasion Resistance": 14,
+            "Intimidation Resistance": 16,
+        }, "If Blood or Oil has been spilled during combat, increase Persuasion & Intimidation resistance to 18."),
+    },
+    "Non-Canon Species": {
+        "Avian Drone": new Enemy(14, [
+            weapons.Avian.Wings,
+            weapons.Avian["Small Claws"],
+            weapons.Avian["Talon Dive"],
+            weapons.Avian["Talon Strike"],
+        ], [], {
+            "Strength": 2,
+            "Flying": 2,
+            "Stealth": 2,
+        }, {
+            "Passive Perception": 16,
+        }),
+    },
+    "Sentinel": {
+        "name": new Enemy(14, [weapons.Melee.Knife], [
+            weapons.Ranged.Pistol,
+            weapons.Ranged.Revolver,
+        ], {
+            "Strength": 1,
+            "Firearms": 3,
+        }, {
+            "Passive Perception": 14,
+            "Persuasion Resistance": 16,
+            "Intimidation Resistance": 16,
+        }),
+    },
+    "Unique": {
+        // "name": new Enemy(14, [weapons.Melee.Knife], [
+        //     weapons.Ranged.Pistol,
+        //     weapons.Ranged.Revolver,
+        // ], {
+        //     "Strength": 1,
+        //     "Firearms": 3,
+        // }, {
+        //     "Passive Perception": 14,
+        //     "Persuasion Resistance": 16,
+        //     "Intimidation Resistance": 16,
+        // }),
+        // "name": new Enemy(14, [weapons.Melee.Knife], [
+        //     weapons.Ranged.Pistol,
+        //     weapons.Ranged.Revolver,
+        // ], {
+        //     "Strength": 1,
+        //     "Firearms": 3,
+        // }, {
+        //     "Passive Perception": 14,
+        //     "Persuasion Resistance": 16,
+        //     "Intimidation Resistance": 16,
+        // }),
+        // "name": new Enemy(14, [weapons.Melee.Knife], [
+        //     weapons.Ranged.Pistol,
+        //     weapons.Ranged.Revolver,
+        // ], {
+        //     "Strength": 1,
+        //     "Firearms": 3,
+        // }, {
+        //     "Passive Perception": 14,
+        //     "Persuasion Resistance": 16,
+        //     "Intimidation Resistance": 16,
+        // }),
+    },
 }

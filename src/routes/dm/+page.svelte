@@ -10,14 +10,13 @@
 </script>
 
 <svelte:head>
-  <title>Flesh and Oil - Overseer</title>
+  <title>Flesh and Oil - Public Enemy</title>
 </svelte:head>
 
 <main>
   <header>
     <h1>
       <a href="/items">Items</a>
-      <a href="/enemies">Enemies</a>
     </h1>
   </header>
 
@@ -39,8 +38,8 @@
       grid-template-columns: 1fr 1fr;
       grid-template-areas:
         "header header   "
-        "sheets lootTable"
-        "sheets enemyList";
+        "enemyList lootTable"
+        "enemyList sheets ";
     }
   }
 

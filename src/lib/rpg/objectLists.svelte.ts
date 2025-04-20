@@ -70,7 +70,7 @@ export const prefabs: { [type: string]: (Container | Item)[] } = {
         RangedWeapon.loaded("Laser", null, Rarity.VeryRare, "Firearms", "6 Energy", 20, 1, 2, 1, "One arm at a time"),
         RangedWeapon.loaded("Missile", null, Rarity.SuperRare, "Firearms", "8 Explosive", 20, 1, 1, 2, "Tracking"),
         new Throwable("Ninja Stars", null, Rarity.Rare, "4 Pierce", "10"),
-        RangedWeapon.loaded("EMP", null, Rarity.Waow, "Technology", "Bootloops all in 5m", 5, 1, 1, 1, "Bootloops self on failure. Difficulty 10"),
+        RangedWeapon.loaded("EMP", null, Rarity.Waow, "Technology", "Bootloops all in 5m", 5, 1, 1, 1, "Bootloops self on failure. Difficulty 10 + Missing Health"),
     ],
     'Healing': [
         new Healing("Bandage", 0.05, Rarity.Rare, "Humans", "4 HP", null, null),
