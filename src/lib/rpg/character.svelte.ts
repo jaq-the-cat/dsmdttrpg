@@ -189,7 +189,7 @@ export class Character {
         if (doc.id) char.id = doc.id;
 
         char.overrides = {
-            maxHp: doc.overrides.maxHp
+            maxHp: doc.overrides?.maxHp ?? null
         };
         char.currentHp = doc.currentHp ?? 0;
 
