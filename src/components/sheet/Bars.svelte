@@ -7,7 +7,11 @@
   let maxHp = $derived(getMaxHp(character));
 
   function getMaxBarValue(value: string, character: Character) {
-    if (value === "Used Oil" && character.bars.has("Absolute Solver")) {
+    if (
+      value === "Used Oil" &&
+      character.bars.has("Absolute Solver") &&
+      !character.patched
+    ) {
       return 10 - character.bars.get("Absolute Solver")!;
     }
     return 10;

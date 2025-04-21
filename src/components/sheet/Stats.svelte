@@ -57,10 +57,14 @@
   </section>
   <div class="passive">
     <span>Passive Perception</span>
-    <span class="value">{9 + character.stats.get("Perception")! / 2}</span>
+    <span class="value"
+      >{9 + Math.floor(character.stats.get("Perception")! / 2)}</span
+    >
 
     <span>Passive Dodge</span>
-    <span class="value">{9 + character.stats.get("Agility")! / 2}</span>
+    <span class="value"
+      >{9 + Math.floor(character.stats.get("Agility")! / 2)}</span
+    >
   </div>
   <h2>Features & Abilities</h2>
   <textarea

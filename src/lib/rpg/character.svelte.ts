@@ -69,6 +69,10 @@ export class Character {
         return data;
     }
 
+    overrides: { [key: string]: number | string | null } = {
+        maxHp: null,
+    }
+
     currentHp = $state(0);
 
     species = $state(Species.Worker);
@@ -117,6 +121,7 @@ export class Character {
     speed = $state(getSpeed(this.species));
 
     twoHanding = $state(false);
+    patched = $state(false);
 
     containers: Container[] = $state([
         pockets(this)
@@ -151,7 +156,9 @@ export class Character {
 
     serialize() {
         return {
+            overrides: this.overrides,
             currentHp: this.currentHp,
+
             species: this.species,
             biography: this.biography,
             appearance: this.appearance,
@@ -170,6 +177,7 @@ export class Character {
             back: this.back,
             front: this.front,
 
+            patched: this.patched,
             twoHanding: this.twoHanding,
             containers: Container.serializeList(this.containers),
         }
@@ -180,7 +188,11 @@ export class Character {
         const char = new Character();
         if (doc.id) char.id = doc.id;
 
+        char.overrides = {
+            maxHp: doc.overrides.maxHp
+        };
         char.currentHp = doc.currentHp ?? 0;
+
         char.species = doc.species ?? Species.Worker;
         char.biography = doc.biography ?? "";
         char.appearance = doc.appearance ?? "";
@@ -192,6 +204,7 @@ export class Character {
         char.speed = orderedToSvelte(doc.speed ?? []);
         char.containers = Container.deserializeList(doc.containers);
 
+        char.patched = doc.patched ?? false;
         char.twoHanding = doc.twoHanding ?? false;
         char.maxWeight = char.getMaxWeight()
         char.itemList.refresh(char.containers)
@@ -207,20 +220,6 @@ export class Character {
         return char;
     }
 }
-
-// export function initializeInventory(character: Character) {
-//   if (character.species === Species.Disassembly) {
-//     character.containers.at(0)!.add([
-//       ddWeapon('Claws'),
-//       ddWeapon('MP5'),
-//       ddWeapon('Laser'),
-//       ddWeapon('Missile'),
-//       ddWeapon('Ninja Stars'),
-//       ddWeapon('EMP'),
-
-//     ])
-//   }
-// }
 
 export function getSpeed(species: Species) {
     switch (species) {
@@ -264,6 +263,7 @@ export function getSpeed(species: Species) {
 }
 
 export function getMaxHp(character: Character) {
+    if (character.overrides.maxHp) return character.overrides.maxHp as number;
     switch (character.species) {
         case Species.Human:
             return Math.floor(6 + character.stats.get('Vitality')! * 1.4)

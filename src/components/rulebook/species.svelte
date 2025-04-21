@@ -354,7 +354,6 @@
   </details>
   <details id="disassembly">
     <summary>Disassembly Drone</summary>
-    <p>+1 to all Damage rolls.</p>
     <ul>
       <li>HP (10 + Vitality value x 2)</li>
       <li>Absolute Solver (10)</li>
@@ -380,6 +379,7 @@
       +1 to Passive Perception and Investigation rolls due to their headband
       sensors
     </p>
+    <p>+1 to all Damage rolls.</p>
     <h2>Heat</h2>
     <p>
       Certain actions may build Heat, or Heat may be generated to improve an

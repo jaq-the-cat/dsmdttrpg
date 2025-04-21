@@ -3,7 +3,7 @@
   import EnemyList from "../../components/dm/EnemyList.svelte";
   import LootTable from "../../components/dm/LootTable.svelte";
   import SheetList from "../../components/dm/SheetList.svelte";
-  import "./style.scss";
+  import "./dm.scss";
   import { collectionStore } from "sveltefire";
 
   let sheets = collectionStore(db.firestore!, "sheets");
