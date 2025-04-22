@@ -6,8 +6,7 @@
     getProfStat,
     Species,
   } from "$lib/rpg/character.svelte";
-  import type { Proficiencies } from "$lib/rpg/proficiencies.svelte";
-  import { SvelteMap } from "svelte/reactivity";
+  import type { Proficiencies } from "$lib/rpg/attributes.svelte";
 
   let { character = $bindable() as Character } = $props();
 
@@ -51,23 +50,23 @@
   </div>
   <section class="profList">
     {#each Object.entries(character.proficiencies) as prof}
-      <!-- <li> -->
-      <span>{prof[0]} [{getProfStat(prof[0])}]</span>
-      <span>{getProfModifier(prof[1])}</span>
-      <select
-        bind:value={
-          () => character.proficiencies[prof[0]],
-          (v) => {
-            character.proficiencies[prof[0]] = v ?? " ";
-            character.upload("proficiencies", character.proficiencies);
+      {#if !character.hideProficiency(prof[0])}
+        <span>{prof[0]} [{getProfStat(prof[0])}]</span>
+        <span>{getProfModifier(prof[1])}</span>
+        <select
+          bind:value={
+            () => character.proficiencies[prof[0]],
+            (v) => {
+              character.proficiencies[prof[0]] = v ?? " ";
+              character.upload("proficiencies", character.proficiencies);
+            }
           }
-        }
-      >
-        {#each [" ", "P", "E"] as profLevel}
-          <option value={profLevel}>{profLevel}</option>
-        {/each}
-      </select>
-      <!-- </li> -->
+        >
+          {#each [" ", "P", "E"] as profLevel}
+            <option value={profLevel}>{profLevel}</option>
+          {/each}
+        </select>
+      {/if}
     {/each}
   </section>
 </div>

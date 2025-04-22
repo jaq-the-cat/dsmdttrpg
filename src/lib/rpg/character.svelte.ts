@@ -3,7 +3,7 @@ import { SvelteMap } from "svelte/reactivity";
 import { Container, pockets } from "./items.svelte";
 import { doc, setDoc, type Firestore } from "firebase/firestore";
 import { ItemList } from "./itemList.svelte";
-import type { Proficiencies, Stats } from "./proficiencies.svelte";
+import type { About, Attribute, Bars, Proficiencies, Stats } from "./attributes.svelte";
 
 export enum Species {
     Human = "Human",
@@ -18,7 +18,7 @@ export class Character {
     firestore?: Firestore
     id: string | undefined = $state(undefined);
 
-    async upload(field: string, value: string | number | SvelteMap<string, any> | Proficiencies | Stats | Container[] | null) {
+    async upload(field: string, value: string | number | SvelteMap<string, any> | Attribute | Container[] | null) {
         if (!this.id || !db.firestore) return;
         let data
         if (value == null || typeof value !== 'object') {
@@ -80,13 +80,13 @@ export class Character {
 
     species = $state(Species.Worker);
 
-    about = new SvelteMap([
-        ["Name", "",],
-        ["Height", ""],
-        ["Weight", "",],
-        ["Gender", "",],
-        ["Alignment", ""],
-    ]);
+    about: About = $state({
+        "Name": "",
+        "Height": "",
+        "Weight": "",
+        "Gender": "",
+        "Alignment": "",
+    });
 
     biography: string = $state("");
     appearance: string = $state("");
@@ -130,7 +130,7 @@ export class Character {
         return false;
     }
 
-    bars = $state(getBars(this.species));
+    bars: Bars = $state(getBars(this.species));
     speed = $state(getSpeed(this.species));
 
     twoHanding = $state(false);
@@ -177,10 +177,10 @@ export class Character {
             appearance: this.appearance,
             fna: this.fna,
 
-            about: svelteToOrdered(this.about),
+            about: Object.entries(this.about),
             stats: Object.entries(this.stats),
             proficiencies: Object.entries(this.proficiencies),
-            bars: svelteToOrdered(this.bars),
+            bars: Object.entries(this.bars),
             speed: svelteToOrdered(this.speed),
 
             left: this.left,
@@ -210,10 +210,10 @@ export class Character {
         char.biography = doc.biography ?? "";
         char.appearance = doc.appearance ?? "";
         char.fna = doc.fna ?? "";
-        char.about = orderedToSvelte(doc.about ?? []);
+        char.about = orderedToObject(doc.about ?? []);
         char.stats = orderedToObject(doc.stats ?? []);
         char.proficiencies = orderedToObject(doc.proficiencies ?? {}) as any;
-        char.bars = orderedToSvelte(doc.bars ?? []);
+        char.bars = orderedToObject(doc.bars ?? []);
         char.speed = orderedToSvelte(doc.speed ?? []);
         char.containers = Container.deserializeList(doc.containers);
 
@@ -291,28 +291,28 @@ export function getMaxHp(character: Character) {
     }
 }
 
-export function getBars(species: Species) {
+export function getBars(species: Species): Bars {
     switch (species) {
         case Species.Human:
-            return new SvelteMap([
-                ["Blood", 10],
-                ["Sanity", 10],
-            ]);
+            return {
+                "Blood": 10,
+                "Sanity": 10,
+            }
         case Species.Avian:
         case Species.Worker:
-            return new SvelteMap([
-                ["Fresh Oil", 10],
-                ["Used Oil", 0],
-                ["Sanity", 10],
-            ]);
+            return {
+                "Fresh Oil": 10,
+                "Used Oil": 0,
+                "Sanity": 10,
+            };
         case Species.Solver:
         case Species.Disassembly:
         case Species.Wendigo:
-            return new SvelteMap([
-                ["Used Oil", 9],
-                ["Absolute Solver", 1],
-                ["Heat", 0],
-            ]);
+            return {
+                "Used Oil": 9,
+                "Absolute Solver": 1,
+                "Heat": 0,
+            };
     }
 }
 

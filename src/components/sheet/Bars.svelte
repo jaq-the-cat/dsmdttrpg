@@ -9,10 +9,10 @@
   function getMaxBarValue(value: string, character: Character) {
     if (
       value === "Used Oil" &&
-      character.bars.has("Absolute Solver") &&
+      "Absolute Solver" in character.bars &&
       !character.patched
     ) {
-      return 10 - character.bars.get("Absolute Solver")!;
+      return 10 - character.bars["Absolute Solver"];
     }
     return 10;
   }
@@ -34,16 +34,15 @@
       />
       <span>/ {maxHp}</span>
     </li>
-    {#each character.bars as bar}
+    {#each Object.entries(character.bars) as bar}
       <li>
         <div>{bar[0]}</div>
         <input
-          style={character.bars.get(bar[0])! > getMaxBarValue(bar[0], character)
+          style={character.bars[bar[0]] > getMaxBarValue(bar[0], character)
             ? invalidText
             : ""}
           bind:value={
-            () => character.bars.get(bar[0]),
-            (v) => character.bars.set(bar[0], v ?? 0)
+            () => character.bars[bar[0]], (v) => (character.bars[bar[0]] = v)
           }
           min="0"
           max={getMaxBarValue(bar[0], character)}

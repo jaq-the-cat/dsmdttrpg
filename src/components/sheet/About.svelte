@@ -7,15 +7,14 @@
 <div id="about">
   <h2>About</h2>
   <ul>
-    {#each character.about as ss}
+    {#each Object.entries(character.about) as ss}
       <li>
         <span>{ss[0]}</span>
         <input
           bind:value={
-            () => character.about.get(ss[0]),
+            () => character.about[ss[0]],
             (v) => {
-              if (v?.length && v.length < 50)
-                character.about.set(ss[0], v ?? "");
+              if (v.length < 50) character.about[ss[0]] = v ?? "";
             }
           }
           onfocusout={() => character.upload("about", character.about)}

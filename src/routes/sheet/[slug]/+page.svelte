@@ -16,7 +16,7 @@
     if (character.char) character.char.id = data.slug;
   });
 
-  let name = $derived(character.char?.about.get("Name") ?? "New");
+  let name = $derived(character.char?.about.Name ?? "New");
 </script>
 
 <svelte:head>
