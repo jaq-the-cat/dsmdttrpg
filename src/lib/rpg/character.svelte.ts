@@ -177,10 +177,10 @@ export class Character {
             appearance: this.appearance,
             fna: this.fna,
 
-            about: Object.entries(this.about),
-            stats: Object.entries(this.stats),
-            proficiencies: Object.entries(this.proficiencies),
-            bars: Object.entries(this.bars),
+            about: objectToOrdered(this.about),
+            stats: objectToOrdered(this.stats),
+            proficiencies: objectToOrdered(this.proficiencies),
+            bars: objectToOrdered(this.bars),
             speed: svelteToOrdered(this.speed),
 
             left: this.left,
