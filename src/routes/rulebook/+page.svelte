@@ -105,7 +105,7 @@
       Skill Checks are how most things are decided. You roll a d20 (a 20 sided
       die) and add the relevant modifier against the action's difficulty
       (decided by DM, a static value, or against an enemy's stats) and if you
-      pass, you can do the action.Checks such as Explosives and Mechanics
+      pass, you can do the action. Checks such as Explosives and Mechanics
       require 2 rolls, one after the other, and you must pass both to succeed in
       that action. If a 2-roll skill is instead used for damage, pick one of the
       stats to roll for, and only roll once.
@@ -118,8 +118,8 @@
     <p>
       During your turn, you have 4 Actions, which can be an attack, movement,
       dash, weapon swap, attempt to hide, etc. You can attempt any action in any
-      order, but may only succeed once. You get an extra Reaction if you don't
-      attack during your turn, up to 5.
+      order, but may only succeed once on each enemy. You get an extra Reaction
+      if you don't attack during your turn, up to 5.
     </p>
     <p>
       Remaining actions can be used in between turns as Reactions. If you
