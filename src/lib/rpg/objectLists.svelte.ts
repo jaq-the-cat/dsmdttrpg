@@ -25,7 +25,7 @@ export const prefabs: { [type: string]: (Container | Item)[] } = {
         new MeleeWeapon("Screwdriver", 0.1, Rarity.Common, "1d4 + Strength Pierce", null),
         new MeleeWeapon("Work Hammer", 0.1, Rarity.Common, "1d4 + Strength Strike", null),
         new MeleeWeapon("Wrench", 0.1, Rarity.Common, "1d4 + Strength Strike", null),
-        new MeleeWeapon("Pan", 0.4, Rarity.Common, "1d6 + Strength + 1 Strike", null),
+        new MeleeWeapon("Pan", 0.4, Rarity.Common, "1d6 + Strength + 1 Strike", "-1 Block"),
         new MeleeWeapon("Knife", 0.1, Rarity.Uncommon, "1d6 + Strength + 1 Slash", null),
         new MeleeWeapon("Machete", 0.5, Rarity.Rare, "1d6 + Strength + 2 Slash", "-1 Block"),
         new MeleeWeapon("Sword", 1, Rarity.Rare, "1d6 + Strength + 1 Slash", "-1 Hit, -1 Block", true),
