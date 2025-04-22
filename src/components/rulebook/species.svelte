@@ -250,20 +250,20 @@
     </p>
     <h2>Absolute Solver</h2>
     <p>
-      Solver-enabled Drones have a special attribute called Absolute Solver. The
-      higher it is, the less max Used Oil they can store.
+      Solver Drones have a special attribute called Absolute Solver. The higher
+      it is, the less max Used Oil they can store.
     </p>
     <p>
-      If it reaches 10, the Drone has to roll a Willpower check at difficulty
-      14. If failed, they fall under the influence of the Solver. While under
-      its influence, they become an enemy. They can come back to normal if
-      another person succeeds in a Persuasion check. If they have an emotional
-      connection (partner, family member, etc) to the Drone under the influence
-      of the Solver, gain Advantage.
+      If it reaches 10, the Drone has to roll a Willpower check at difficulty 10
+      + Missing HP. If failed, they fall under the influence of the Solver.
+      While under its influence, they become an enemy. They can come back to
+      normal if another person succeeds in a Persuasion check. If they have an
+      emotional connection (partner, family member, etc) to the Drone under the
+      influence of the Solver, gain Advantage.
     </p>
     <p>
-      An Absolute Solver roll is different from regular Stats, going from +0 at
-      0 to +5 at 10.
+      An Absolute Solver roll is different from regular Stats, with the roll
+      bonus being Stat - 2, as opposed to Stat - 4, going up to +8 at 10.
     </p>
     <p>The following elements increase Absolute Solver by +1.</p>
     <ul>
@@ -424,6 +424,11 @@
       Disassembly Drones Drones have a special attribute called Absolute Solver.
       The higher it is, the less max Used Oil they can store.
     </p>
+    <p>
+      An Absolute Solver roll is different from regular Stats, with the roll
+      bonus being Stat - 2, as opposed to Stat - 4, going up to +8 at 10.
+    </p>
+    <p>For Disassmebly Drones, this is only used for Regenerate.</p>
     <h2>Abilities</h2>
     <h3>Eat</h3>
     <p>
@@ -633,9 +638,10 @@
       it is, the less max Used Oil they can store.
     </p>
     <p>
-      If it reaches 10, the Drone has to roll a Willpower check at difficulty
-      14. If failed, they fall under the influence of the Solver. While under
-      its influence, they become an enemy and turn into their Eldritch Form.
+      If it reaches 10, the Drone has to roll a Willpower check at difficulty 10
+      + Missing HP. If failed, they fall under the influence of the Solver.
+      While under its influence, they become an enemy and turn into their
+      Eldritch Form.
     </p>
     <p>
       Their Eldritch form is approximately 3m tall and grants them Wendigo
@@ -647,8 +653,8 @@
       to the Drone under the influence of the Solver, gain Advantage.
     </p>
     <p>
-      An Absolute Solver roll is different from regular Stats, going from +0 at
-      0 to +5 at 10.
+      An Absolute Solver roll is different from regular Stats, with the roll
+      bonus being Stat - 2, as opposed to Stat - 4, going up to +8 at 10.
     </p>
     <p>The following elements increase Absolute Solver by +1.</p>
     <ul>
