@@ -30,7 +30,8 @@
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas:
       ".      header    ."
-      "sheets lootTable enemyList";
+      "sheets lootTable enemyList"
+      ".      .         enemyList";
   }
 
   @media (max-width: 1300px) {
@@ -38,8 +39,8 @@
       grid-template-columns: 1fr 1fr;
       grid-template-areas:
         "header header   "
-        "enemyList lootTable"
-        "enemyList sheets ";
+        "enemyList sheets "
+        "enemyList lootTable";
     }
   }
 
