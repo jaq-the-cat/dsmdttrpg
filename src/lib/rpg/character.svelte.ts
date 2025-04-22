@@ -1,8 +1,9 @@
-import { db, orderedToSvelte, svelteToOrdered, type OrderedMap } from "$lib/db";
+import { db, objectToOrdered, orderedToObject, orderedToSvelte, svelteToOrdered, type OrderedMap } from "$lib/db";
 import { SvelteMap } from "svelte/reactivity";
 import { Container, pockets } from "./items.svelte";
 import { doc, setDoc, type Firestore } from "firebase/firestore";
 import { ItemList } from "./itemList.svelte";
+import type { Proficiencies, Stats } from "./proficiencies.svelte";
 
 export enum Species {
     Human = "Human",
@@ -17,15 +18,17 @@ export class Character {
     firestore?: Firestore
     id: string | undefined = $state(undefined);
 
-    async upload(field: string, value: string | number | SvelteMap<string, any> | Container[] | null) {
+    async upload(field: string, value: string | number | SvelteMap<string, any> | Proficiencies | Stats | Container[] | null) {
         if (!this.id || !db.firestore) return;
         let data
         if (value == null || typeof value !== 'object') {
             data = { [field]: value }
         } else if (Array.isArray(value)) {
             data = { [field]: Container.serializeList(value) }
-        } else {
+        } else if (value instanceof SvelteMap) {
             data = { [field]: svelteToOrdered(value) }
+        } else {
+            data = { [field]: objectToOrdered(value) }
         }
         setDoc(doc(db.firestore, "sheets", this.id), data, { merge: true });
     }
@@ -89,33 +92,43 @@ export class Character {
     appearance: string = $state("");
     fna: string = $state("");
 
-    stats = $state(new SvelteMap([
-        ["Vitality", 6],
-        ["Agility", 6],
-        ["Strength", 6],
-        ["Dexterity", 6],
-        ["Charisma", 6],
-        ["Perception", 6],
-        ["Intelligence", 6],
-    ]));
+    stats: Stats = $state({
+        "Vitality": 6,
+        "Agility": 6,
+        "Strength": 6,
+        "Dexterity": 6,
+        "Charisma": 6,
+        "Perception": 6,
+        "Intelligence": 6,
+    })
 
-    proficiencies = new SvelteMap([
-        ["Athletics", " "],
-        ["Acrobatics", " "],
-        ["Stealth", " "],
-        ["Flying", " "],
-        ["Firearms", " "],
-        ["Persuasion", " "],
-        ["Intimidation", " "],
-        ["Investigation", " "],
-        ["Knowledge", " "],
-        ["Technology", " "],
-        ["Melee", " "],
-        ["Explosives", " "],
-        ["Medicine", " "],
-        ["Mechanics", " "],
-        ["Willpower", " "],
-    ]);
+    proficiencies: Proficiencies = {
+        "Athletics": " ",
+        "Acrobatics": " ",
+        "Stealth": " ",
+        "Flying": " ",
+        "Firearms": " ",
+        "Persuasion": " ",
+        "Intimidation": " ",
+        "Investigation": " ",
+        "Knowledge": " ",
+        "Technology": " ",
+        "Melee": " ",
+        "Explosives": " ",
+        "Medicine": " ",
+        "Mechanics": " ",
+        "Willpower": " ",
+    }
+
+    hideProficiency(key: string) {
+        if (key === "Willpower" && (this.species !== Species.Solver && this.species !== Species.Disassembly && this.species !== Species.Wendigo)) {
+            return true;
+        }
+        else if (key === "Flying" && (this.species !== Species.Solver && this.species !== Species.Disassembly && this.species !== Species.Avian)) {
+            return true;
+        }
+        return false;
+    }
 
     bars = $state(getBars(this.species));
     speed = $state(getSpeed(this.species));
@@ -165,8 +178,8 @@ export class Character {
             fna: this.fna,
 
             about: svelteToOrdered(this.about),
-            stats: svelteToOrdered(this.stats),
-            proficiencies: svelteToOrdered(this.proficiencies),
+            stats: Object.entries(this.stats),
+            proficiencies: Object.entries(this.proficiencies),
             bars: svelteToOrdered(this.bars),
             speed: svelteToOrdered(this.speed),
 
@@ -198,8 +211,8 @@ export class Character {
         char.appearance = doc.appearance ?? "";
         char.fna = doc.fna ?? "";
         char.about = orderedToSvelte(doc.about ?? []);
-        char.stats = orderedToSvelte(doc.stats ?? []);
-        char.proficiencies = orderedToSvelte(doc.proficiencies ?? []);
+        char.stats = orderedToObject(doc.stats ?? []);
+        char.proficiencies = orderedToObject(doc.proficiencies ?? {}) as any;
         char.bars = orderedToSvelte(doc.bars ?? []);
         char.speed = orderedToSvelte(doc.speed ?? []);
         char.containers = Container.deserializeList(doc.containers);
@@ -266,15 +279,15 @@ export function getMaxHp(character: Character) {
     if (character.overrides.maxHp) return character.overrides.maxHp as number;
     switch (character.species) {
         case Species.Human:
-            return Math.floor(6 + character.stats.get('Vitality')! * 1.4)
+            return Math.floor(6 + character.stats.Vitality * 1.4)
         case Species.Avian:
         case Species.Worker:
         case Species.Solver:
-            return Math.floor(8 + character.stats.get('Vitality')! * 1.6)
+            return Math.floor(8 + character.stats.Vitality * 1.6)
         case Species.Wendigo:
-            return Math.floor(10 + character.stats.get('Vitality')! * 1.8)
+            return Math.floor(10 + character.stats.Vitality * 1.8)
         case Species.Disassembly:
-            return Math.floor(10 + character.stats.get('Vitality')! * 2)
+            return Math.floor(10 + character.stats.Vitality * 2)
     }
 }
 
@@ -306,14 +319,14 @@ export function getBars(species: Species) {
 export function getBaseMaxWeight(character: Character) {
     switch (character.species) {
         case Species.Human:
-            return 5 + character.stats.get('Strength')! * 2
+            return 5 + character.stats.Strength * 2
         case Species.Avian:
         case Species.Worker:
         case Species.Solver:
-            return 5 + character.stats.get('Strength')! * 3
+            return 5 + character.stats.Strength * 3
         case Species.Disassembly:
         case Species.Wendigo:
-            return 5 + character.stats.get('Strength')! * 4
+            return 5 + character.stats.Strength * 4
     }
 }
 

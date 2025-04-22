@@ -6,16 +6,17 @@
     getProfStat,
     Species,
   } from "$lib/rpg/character.svelte";
+  import type { Proficiencies } from "$lib/rpg/proficiencies.svelte";
   import { SvelteMap } from "svelte/reactivity";
 
   let { character = $bindable() as Character } = $props();
 
   let proficiencies = $derived(getProficienciesCount(character.proficiencies));
 
-  function getProficienciesCount(profList: SvelteMap<string, string>) {
+  function getProficienciesCount(profs: Proficiencies) {
     let prof = 0,
       exp = 0;
-    Array.from(profList.values()).forEach((level) => {
+    Array.from(Object.values(profs)).forEach((level) => {
       if (level === "P") prof += 1;
       else if (level === "E") exp += 1;
     });
@@ -49,15 +50,15 @@
     </p>
   </div>
   <section class="profList">
-    {#each character.proficiencies as prof}
+    {#each Object.entries(character.proficiencies) as prof}
       <!-- <li> -->
       <span>{prof[0]} [{getProfStat(prof[0])}]</span>
       <span>{getProfModifier(prof[1])}</span>
       <select
         bind:value={
-          () => character.proficiencies.get(prof[0]),
+          () => character.proficiencies[prof[0]],
           (v) => {
-            character.proficiencies.set(prof[0], v ?? " ");
+            character.proficiencies[prof[0]] = v ?? " ";
             character.upload("proficiencies", character.proficiencies);
           }
         }

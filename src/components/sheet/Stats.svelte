@@ -9,7 +9,7 @@
   let { character = $bindable() as Character } = $props();
 
   let sum = $derived(
-    Array.from(character.stats.values()).reduce((total, value) => total + value)
+    Object.values(character.stats).reduce((total, value) => total + value)
   );
 
   export function statSumInvalid(sum: number) {
@@ -33,15 +33,15 @@
   <h2>Stats</h2>
   <p class="total">Total Points <span>{sum}</span></p>
   <section class="statList">
-    {#each character.stats as stat}
+    {#each Object.entries(character.stats) as stat}
       <span>{stat[0]}</span>
       <span class="modifier">{statModifier(stat[1])}</span>
       <input
-        style={statInvalid(character.stats.get(stat[0])!) ? invalidText : ""}
+        style={statInvalid(character.stats[stat[0]]) ? invalidText : ""}
         bind:value={
-          () => character.stats.get(stat[0]),
+          () => character.stats[stat[0]],
           (v) => {
-            character.stats.set(stat[0], v!);
+            character.stats[stat[0]] = v!;
             if (stat[0] === "Strength") {
               character.containers.at(0)!.carry = getBaseMaxWeight(character);
               character.maxWeight = character.getMaxWeight();
@@ -57,14 +57,10 @@
   </section>
   <div class="passive">
     <span>Passive Perception</span>
-    <span class="value"
-      >{9 + Math.floor(character.stats.get("Perception")! / 2)}</span
-    >
+    <span class="value">{9 + Math.floor(character.stats.Perception / 2)}</span>
 
     <span>Passive Dodge</span>
-    <span class="value"
-      >{9 + Math.floor(character.stats.get("Agility")! / 2)}</span
-    >
+    <span class="value">{9 + Math.floor(character.stats.Agility / 2)}</span>
   </div>
   <h2>Features & Abilities</h2>
   <textarea
