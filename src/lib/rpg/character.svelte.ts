@@ -33,15 +33,17 @@ export class Character {
         setDoc(doc(db.firestore, "sheets", this.id), data, { merge: true });
     }
 
-    async uploadMultiple(data: { [field: string]: string | number | boolean | SvelteMap<string, any> | any[] | null }) {
+    async uploadMultiple(data: { [field: string]: string | number | boolean | SvelteMap<string, any> | object | any[] | null }) {
         if (!this.id || !db.firestore) return;
         for (const key in data) {
             const el = data[key]
             if (el && typeof el === 'object') {
                 if (Array.isArray(el))
                     data[key] = Container.serializeList(el)
-                else
+                else if (el instanceof SvelteMap)
                     data[key] = svelteToOrdered(el)
+                else
+                    data[key] = objectToOrdered(el)
             }
         }
         setDoc(doc(db.firestore, "sheets", this.id), data, { merge: true });

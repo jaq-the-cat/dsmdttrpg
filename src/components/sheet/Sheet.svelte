@@ -25,7 +25,11 @@
       onchange={(ev) => {
         character.species = ev.currentTarget.value as Species;
         character.refresh();
-        character.upload("species", character.species);
+        character.uploadMultiple({
+          species: character.species,
+          bars: character.bars,
+          speed: character.speed,
+        });
       }}
     >
       {#each Object.values(Species) as species}
