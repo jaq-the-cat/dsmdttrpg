@@ -252,10 +252,17 @@ export function getSpeed(species: Species) {
                 ["Flight (Ver)", 15],
             ]);
         case Species.Disassembly:
-        case Species.Solver:
             return new SvelteMap([
                 ["Walk", 5],
                 ["Run", 12],
+                ["Jump", 5],
+                ["Flight (Hor)", 20],
+                ["Flight (Ver)", 10],
+            ]);
+        case Species.Solver:
+            return new SvelteMap([
+                ["Walk", 5],
+                ["Run", 10],
                 ["Jump", 5],
                 ["Flight (Hor)", 20],
                 ["Flight (Ver)", 10],
