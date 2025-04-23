@@ -263,7 +263,7 @@ export function getSpeed(species: Species) {
             return new SvelteMap([
                 ["Walk", 5],
                 ["Run", 10],
-                ["Jump", 5],
+                ["Jump", 2],
                 ["Flight (Hor)", 20],
                 ["Flight (Ver)", 10],
             ]);
