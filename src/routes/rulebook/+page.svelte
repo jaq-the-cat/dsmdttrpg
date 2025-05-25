@@ -99,18 +99,7 @@
   </details>
 
   <details>
-    <summary> General Rules and Explanations </summary>
-    <h2>Checks</h2>
-    <p>
-      Skill Checks are how most things are decided. You roll a d20 (a 20 sided
-      die) and add the relevant modifier against the action's difficulty
-      (decided by DM, a static value, or against an enemy's stats) and if you
-      pass, you can do the action. Checks such as Explosives and Mechanics
-      require 2 rolls, one after the other, and you must pass both to succeed in
-      that action. If a 2-roll skill is instead used for damage, pick one of the
-      stats to roll for, and only roll once.
-    </p>
-    <h2>Combat, Actions and Reactions</h2>
+    <summary>Combat</summary>
     <p>
       When Combat begins, every member rolls an Initiative roll, which
       determines the order at which turns are taken (higher being earlier).
@@ -139,68 +128,128 @@
           blocking or running away (see Attack of Opportunity)
         </li>
         <li>
-          Ranged Attacks must always use a Firearms (guns) or Athletics
-          (throwing) hit check, against either their Passive Dodge or Agility
-          check if they attempt to Dodge.
+          Ranged Attacks from range must always use a Firearms (guns) or
+          Athletics (throwing) hit check, against either their Passive Dodge or
+          Agility check if they attempt to Dodge. From point blank range, only
+          require a hit check if the enemy is dodging.
         </li>
+      </ul>
+      <li>
+        Targeted Attack<br />
+        Aim for a specific limb with a penalty to accuracy. On hit, remove it. If
+        it's the head, instantly kill the opponent instead.
+      </li>
+      <ul>
+        <li>Head: -5</li>
+        <li>Arms: -3</li>
+        <li>Legs: -3</li>
       </ul>
       <li>Move</li>
       <ul>
         <li>Move at Walking speed.</li>
-        <li>If previous action was Dash, move at Running speed.</li>
+        <li>If previous action was Sprint, move at Running speed.</li>
         <li>
           If Wings are active, and there is enough space, move at Flying Speed
           (horizontal).
         </li>
       </ul>
-      <li>Dash</li>
       <li>
         Activate/Deactivate Wings
         <br /><small
-          >Avian Drones to not use an Action to activate their wings.</small
+          >Avian Drones do not use an Action to activate their wings.</small
         >
       </li>
       <li>Equip/Swap/Unequip Item</li>
       <li>Hide</li>
+      <li>Ambush</li>
+      <ul>
+        <li>Gives +2 Hit chance where you're pointed.</li>
+        <li>Reduces movement to 2 meters and prevents Dashing</li>
+      </ul>
       <li>
-        Brace (must have a blocking item)<br />
-        Gives +2 to reaction Blocking.<br />
-        Blocks all further actions until Unbraced.
+        Prepare to Dodge
+        <ul>
+          <li>Gives +2 to Acrobatics while prepared.</li>
+        </ul>
       </li>
       <li>
-        Unbrace (must be braced)<br />
-        Disables +2 Blocking bonus and allows other actions.
+        Brace (must have a blocking item)
+        <ul>
+          <li>Gives +2 to reaction Blocking.</li>
+          <li>Blocks all further actions until Unbraced.</li>
+        </ul>
+      </li>
+      <li>Unbrace (must be braced)</li>
+      <ul>
+        <li>Disables +2 Blocking bonus and allows other actions.</li>
+      </ul>
+      <li>
+        Grapple
+        <ul>
+          <li>
+            Run a Melee check against your target, and they can use an
+            Athletics, Acrobatics or Melee check to counter it.
+          </li>
+          <li>If you win, you grapple them to the ground, stunning them.</li>
+          <li>If they win, you immediately end your turn.</li>
+        </ul>
+      </li>
+      <li>
+        Whatever the fuck else
+        <ul>
+          <li>
+            Ask to do something and the DM will or will not allow it. Literally
+            anything. Go crazy. Screw the rules lmao
+          </li>
+        </ul>
       </li>
     </ul>
     <h3>Available Reactions</h3>
     <ul>
       <li>
-        Dodge<br />
-        Allows Acrobatics check to dodge Melee or ranged attacks, otherwise use Passive
-        Dodge.
+        Dodge
+        <ul>
+          <li>
+            Allows Acrobatics check to dodge Melee or ranged attacks, otherwise
+            use Passive Dodge.
+          </li>
+        </ul>
       </li>
       <li>
-        Block<br />
-        Allows a Blocking check with a blocking item (Sword/Shield).<br />
-        If Bracing, Gain a +2 bonus.
+        Block
+        <ul>
+          <li>Allows a Blocking check with a blocking item (Sword/Shield).</li>
+          <li>If Bracing, Gain a +2 bonus.</li>
+        </ul>
       </li>
       <li>
-        Attack of Opportunity<br />
-        If an enemy attempts to move away from melee distance, you can attempt to
-        attack.<br />
-        They cannot Dodge or Block, instead using their Passive Dodge against both
-        Melee and Ranged attacks.
+        Attack of Opportunity
+        <ul>
+          <li>
+            If an enemy attempts to move away from melee distance, you can
+            attempt to attack.
+          </li>
+          <li>
+            They cannot Dodge or Block, instead using their Passive Dodge
+            against both Melee and Ranged attacks.
+          </li>
+        </ul>
       </li>
     </ul>
-    <h2>Blocking and Dodging</h2>
-    <p>
-      If someone uses an Action to attack you, and you have something to block
-      with, you can try a block check against their hit check. If you don't, and
-      it is not a Tracking weapon, you can try an Acrobatics check or Flying
-      check (if you are in the air) against their hit check to dodge. Dodging or
-      Blocking uses a Reaction.
-    </p>
+  </details>
 
+  <details>
+    <summary> General Rules and Explanations </summary>
+    <h2>Checks</h2>
+    <p>
+      Skill Checks are how most things are decided. You roll a d20 (a 20 sided
+      die) and add the relevant modifier against the action's difficulty
+      (decided by DM, a static value, or against an enemy's stats) and if you
+      pass, you can do the action. Checks such as Explosives and Mechanics
+      require 2 rolls, one after the other, and you must pass both to succeed in
+      that action. If a 2-roll skill is instead used for damage, pick one of the
+      stats to roll for, and only roll once.
+    </p>
     <h2>Proficiency and Expertise</h2>
     <p>
       With Proficiency, you get a +2 bonus to the relevant roll. With Expertise,
@@ -209,7 +258,7 @@
     <h2>Advantage</h2>
     <p>
       With Advantage, you can roll twice and pick the higher value. It is gained
-      by attacking a Stunned or Bootlooped enemy.
+      by attacking a Stunned, Bootlooped or Unaware enemy.
     </p>
     <h2>Critical Hits</h2>
     <p>
@@ -231,12 +280,13 @@
     <p>
       Rate in a Weapon description means how many times it can hit per turn,
       with the user having to roll hit and/or damage for each hit. Every
-      subsequent hit deals 1 less damage, down to 1.
+      subsequent hit deals half of the original damage.
     </p>
     <h2>Melee Weapons</h2>
     <p>
-      Melee weapons only need to do a hit check if the attack is being blocked
-      or dodged, but they have to do a damage check in return.
+      Melee weapons only need to do a hit check, using the Strength or Dexterity
+      Stat + Melee, if the attack is being blocked or dodged, but they have to
+      do a damage check in return.
     </p>
     <h2>Ranged Weapons</h2>
     <p>
@@ -313,7 +363,7 @@
       If an enemy is Stunned/Bootlooped, they cannot move or do any action for 3
       turns. A Stun can be recovered early if you suffer non-Hunger damage, a
       Bootloop cannot. If the Stun/Bootloop happens outside of combat, it lasts
-      15 real-life minutes.
+      15 real-life minutes. Attacking a stunned enemy gives you Advantage.
     </p>
     <h2>Fall Damage</h2>
     <p>
