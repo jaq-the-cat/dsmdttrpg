@@ -107,17 +107,25 @@
     <p>
       During your turn, you have 4 Actions, which can be an attack, movement,
       dash, weapon swap, attempt to hide, etc. You can attempt any action in any
-      order, but may only succeed once on each enemy. You get an extra Reaction
-      if you don't attack during your turn, up to 5.
+      order. You get an extra Reaction if you don't attack during your turn, up
+      to 5.
     </p>
     <p>
-      Remaining actions can be used in between turns as Reactions. If you
-      Attempt 3 Attacks and end your turn, you have 1 Reaction remaining. If you
-      dash, move, swap weapons, and attack, you don't have any reactions.
+      Remaining actions can be used in between turns as Reactions. If you Attack
+      3 times and end your turn, you have 1 Reaction remaining. If you dash,
+      move, swap weapons, and attack, you don't have any reactions.
     </p>
     <p>
       A Reaction can be dodging, blocking, or an Attack of Opportunity, which
       you can do when an enemy tries to run away from you from melee distance.
+    </p>
+    <p>
+      Enemies only have 2 actions, and always end their turn with 2 reactions.
+    </p>
+    <p>
+      If the enemy is an unarmed Human/Worker Drone, they do not get any actions
+      besides moving/dashing. If in Melee range and you have a Melee weapon
+      equipped, roll a 1d20 Brutality roll and describe how you kill them.
     </p>
     <h3>Available Actions</h3>
     <ul>
@@ -137,7 +145,7 @@
       <li>
         Targeted Attack<br />
         Aim for a specific limb with a penalty to accuracy. On hit, remove it. If
-        it's the head, instantly kill the opponent instead.
+        it's the head, instantly kill the opponent.
       </li>
       <ul>
         <li>Head: -5</li>
@@ -160,6 +168,23 @@
       </li>
       <li>Equip/Swap/Unequip Item</li>
       <li>Hide</li>
+      <ul>
+        <li>
+          Stop where you are and attempt to hide with a Stealth roll. You can't
+          move while Hiding and enemies with a higher Passive Perception than
+          your Stealth roll will be able to spot you. The DM can add modifiers
+          to your roll depending on where you are trying to hide.
+        </li>
+      </ul>
+      <li>Crouch</li>
+      <ul>
+        <li>
+          Crouch and move quietly. Enemies cannot see you if they do not have
+          Line of Sight and you will not make noise while walking. While
+          Crouching, your speed is reduced to 4m. If you Dash while Crouching,
+          you can move at 6m but make Noise up to 1m away.
+        </li>
+      </ul>
       <li>Ambush</li>
       <ul>
         <li>Gives +2 Hit chance where you're pointed.</li>
@@ -228,7 +253,9 @@
         <ul>
           <li>
             Allows Acrobatics check to dodge Melee or ranged attacks, otherwise
-            use Passive Dodge.
+            use Passive Dodge. When Dodging weapons with rate above 1 (guns,
+            claws, etc), only roll once, and the enemy rolls once per Hit
+            against that check.
           </li>
         </ul>
       </li>
@@ -282,17 +309,47 @@
       A Critical Hit is an attack that deals double damage. It happens when the
       player rolls a Nat 20 on their hit check or when they attack from Stealth.
     </p>
-    <h2>Stealth</h2>
+    <h2>Stealth and Noise</h2>
+    <p>Stealth is an important aspect of this game.</p>
+    <br />
     <p>
-      Stealth is an important aspect of this game. Attacks coming from hiding
-      deal a Critical Hit and cannot be blocked or dodged. If it is the first
-      round of turns in combat, and you begin hidden, you automatically get the
-      first turn. If you then also get a higher Initiative roll than your
-      opponent, you get to have a second turn before the enemy can retaliate,
-      but this time out of Stealth. This stacks with multiple hidden members of
-      a party, with you being able to take 4 turns (2 from Stealth, 2 from
-      higher Initiative) with 2 members before the enemy gets their own.
+      Attacks coming from hiding deal a Critical Hit and cannot be blocked or
+      dodged. If it is the first round of turns in combat, and you begin hidden,
+      you automatically get the first turn. If you then also get a higher
+      Initiative roll than your opponent, you get to have a second turn before
+      the enemy can retaliate, but this time out of Stealth. This stacks with
+      multiple hidden members of a party, with you being able to take 4 turns (2
+      from Stealth, 2 from higher Initiative) with 2 members before the enemy
+      gets their own.
     </p>
+    <br />
+    <p>
+      While unseen, walking makes Loud Noise up to 2m away, and running up to
+      4m. Walking while Crouching does not make any noise.
+    </p>
+    <br />
+    <p>
+      Loud Noises roll a 1d4 + DM-given modifiers dependant on what type of
+      noise it is, with baselines below. The resulting roll is also the range in
+      meters the noise can be heard from.
+    </p>
+    <br />
+    <p>
+      Enemies within 4m can hear any Loud Noise no matter what. The enemy's
+      Passive Perception is used to determine if they hear it. If they are
+      actively searching for someone, instead use an Investigation roll.
+    </p>
+    <br />
+    <ul>
+      <li>Gunshot: +10 + 1d4</li>
+      <li>Pistol Shot: +8 + 1d4</li>
+      <li>Screaming: +4 + 1d6</li>
+      <li>Striking Metal: +4 + 1d4</li>
+      <li>Talking: +2</li>
+      <li>Silenced Gunshot: +2</li>
+      <li>Striking Plastic: +2</li>
+      <li>Whispering: +1</li>
+    </ul>
     <h2>Rate</h2>
     <p>
       Rate in a Weapon description means how many times it can hit per turn,

@@ -10,9 +10,6 @@
   import Speed from "./Speed.svelte";
   import Equipment from "./Equipment.svelte";
   import About from "./About.svelte";
-  import { db } from "$lib/db";
-  import { addDoc, collection, doc, setDoc } from "firebase/firestore";
-  import { goto } from "$app/navigation";
 
   let { character = $bindable() as Character } = $props();
 </script>

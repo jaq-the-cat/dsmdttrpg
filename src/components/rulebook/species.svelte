@@ -42,14 +42,8 @@
     <h3>Eat (Insane)</h3>
     <p>
       Can be used on a dead body (Human) to drain their entire Blood reserve at
-      once. Eating someone during combat takes 3 turns to complete. Increases
-      Heat by 2.
+      once. Eating someone during combat takes 2 turns to complete.
     </p>
-    <h3>Bite (Insane)</h3>
-    <p>
-      Melee, 1d4 + Strength Slash damage. When used on a Human, drain 2 Blood.
-    </p>
-    <p>If the target consents to the bite, damage is 1.</p>
     <h2>Sanity</h2>
     <p>
       Sanity is increased after a Long Rest by 2. If it reaches 0, they go
@@ -118,15 +112,9 @@
     <h3>Eat (Insane)</h3>
     <p>
       Can be used on a dead body (Human or Drone) to drain their entire Fresh
-      Oil reserve at once. Eating someone during combat takes 3 turns to
-      complete. Increases Heat by 2.
+      Oil reserve at once. Eating someone during combat takes 2 turns to
+      complete.
     </p>
-    <h3>Bite (Insane)</h3>
-    <p>
-      Melee, 1d6 + Strength Slash damage. If used on a Worker Drone, drain 2
-      Fresh Oil. If used on a Human, remove 2 Blood.
-    </p>
-    <p>If the target consents to the bite, damage is 1.</p>
     <h2>Drone Repair</h2>
     <p>
       When there are no healing items available, Worker Drones can be repaired
@@ -145,7 +133,7 @@
     </ul>
     <h2>Sanity</h2>
     <p>
-      Sanity is increased after a Long Rest by 2. If it reaches 0, they go
+      Sanity is increased after a Long Rest by 5. If it reaches 0, they go
       Insane, allowing them to use Bite and Eat on other Drones. Eating a Drone
       without being Insane triggers a Sanity check, with the difficulty being
       your missing HP. If you fail, become Insane.
@@ -297,17 +285,9 @@
     <h3>Eat</h3>
     <p>
       Can be used on a dead body (Human or Drone) to drain their entire Used Oil
-      or Blood reserve at once. Eating someone during combat takes 3 turns to
+      or Blood reserve at once. Eating someone during combat takes 2 turns to
       complete. Increases Heat by 2.
     </p>
-    <h3>Bite</h3>
-    <p>
-      Melee, 1d8 + Strength Slash damage. If used on a Worker Drone, remove 1
-      Fresh Oil and drain 2 Used Oil. If used on a Human, remove 1 Blood and
-      drain 1 Blood.
-    </p>
-    <p>If the target consents to the bite, damage is 1.</p>
-    <p>Increases Heat by 1.</p>
     <h3>Regenerate (Absolute Solver > 1)</h3>
     <p>
       Regenerate your wounds with an Absolute Solver roll. Difficulty is your
@@ -338,7 +318,7 @@
     <h3>Wings (Absolute Solver > 2)</h3>
     <p>Must be activated using an Action.</p>
     <p>Permits flight, may also be used as a weapon or shield.</p>
-    <p>Melee, 1d6 + Strength +1 Strike damage</p>
+    <p>Melee, 1d6 + Strength + 4 Strike damage</p>
     <p>Block -1 difficulty</p>
     <h3>Solver Tail (Absolute Solver > 2)</h3>
     <p>+1 Successful Attacks if hit.</p>
@@ -436,14 +416,6 @@
       or Blood reserve at once. Eating someone during combat takes 3 turns to
       complete. Increases Heat by 2.
     </p>
-    <h3>Bite</h3>
-    <p>
-      Melee, 1d8 + Strength Slash damage. If used on a Worker Drone, remove 1
-      Fresh Oil and drain 2 Used Oil. If used on a Human, remove 1 Blood and
-      drain 1 Blood.
-    </p>
-    <p>If the target consents to the bite, damage is 1.</p>
-    <p>Increases Heat by 1.</p>
     <h3>Regenerate (Absolute Solver > 1)</h3>
     <p>
       Regenerate your wounds with an Absolute Solver roll. Difficulty is your
@@ -458,13 +430,13 @@
     <h3>Wings</h3>
     <p>Must be activated using an Action.</p>
     <p>Permits flight, may also be used as a weapon or shield.</p>
-    <p>1d6 + Strength + 1 Strike damage</p>
-    <p>Block -1 difficulty</p>
+    <p>1d6 + Strength + 6 Strike damage</p>
+    <p>Block -2 difficulty</p>
     <h3>Nanite Acid Stinger</h3>
     <p>+1 Successful Attacks if hit.</p>
     <p>Cannot be Blocked.</p>
     <p>
-      Melee, 1 damage per turn for 1d(Absolute Solver) turns or until licked by
+      Melee, 3 damage per turn for 1d(Absolute Solver) turns or until licked by
       a Disassembly Drone, range 2m.
     </p>
   </details>
@@ -551,15 +523,15 @@
     <p>Permits flight, but may not be used as a weapon or shield.</p>
     <p>When active, temporarily increases Agility by +1.</p>
     <h3>Small Claws</h3>
-    <p>Melee, 1d6 + Strength + 1 Slash damage.</p>
+    <p>Melee, 1d6 + Strength + 4 Slash damage.</p>
     <h3>Talon Dive</h3>
     <p>Must be initiated from flight.</p>
     <p>
-      Melee, 1d6 + Strength + 2 Slash damage. When used, move a maximum of 20
+      Melee, 1d6 + Strength + 6 Slash damage. When used, move a maximum of 20
       meters horizontally in the direction of the target.
     </p>
     <h3>Talon Strike</h3>
-    <p>Melee, 1d6 + Strength + 1 Slash damage.</p>
+    <p>Melee, 1d6 + Strength + 4 Slash damage.</p>
     <h3>Talon Carry</h3>
     <p>
       Avian Drones can pick up Heavy objects such as other Drones, heavy weapons
@@ -573,162 +545,5 @@
       equipped in their hands while in flight. To use a weapon, they have to
       stop flying and start falling or be on the ground.
     </p>
-  </details>
-  <details id="wendigo">
-    <summary>Wendigo Drone [NC]</summary>
-    <h2>Stats</h2>
-    <ul>
-      <li>HP (10 + Vitality value x 1.8)</li>
-      <li>Absolute Solver (10)</li>
-      <li>Used Oil (10 - Absolute Solver)</li>
-      <li>Heat (10)</li>
-      <li>Resistant to Strike damage</li>
-      <li>Vulnerable to Energy Damage</li>
-    </ul>
-    <h2>Speed</h2>
-    <ul>
-      <li>Walk Speed: 5</li>
-      <li>Run Speed: 12</li>
-      <li>Jump Height: 2</li>
-    </ul>
-    <h2>Modifiers</h2>
-    <p>
-      -1 Stealth while Visor is turned on. Toggle with an Action. Limits vision
-      to 3m.
-    </p>
-    <h2>Heat</h2>
-    <p>
-      Certain actions may build Heat, or Heat may be generated to improve an
-      action.
-    </p>
-    <ul>
-      <li>Using any Solver Power increases Heat by 1.</li>
-      <li>Failing any check increases Heat by 1.</li>
-      <li>Rolling a Nat 1 increases Heat by 2.</li>
-      <li>
-        1 Heat may be spent before rolling to lower the Difficulty of any action
-        by 1
-      </li>
-      <li>At 8 Heat or above, gain 1 Absolute Solver per turn.</li>
-    </ul>
-    <p>
-      At max Heat, take Max HP / 10 damage per turn until Heat is lowered or
-      dead.
-    </p>
-    <h2>Oil</h2>
-    <p>
-      Wendigo Drones have a reserve of (10 - Absolute Solver level) Used Oil.
-      They spend 2 Used Oil during a Short Rest and 5 Used Oil during a Long
-      Rest, and have the option of spending 1 Used Oil to bring Heat and
-      Absolute Solver down by 2.
-    </p>
-    <p>
-      They can replenish their Used Oil by using Bite (with or without consent)
-      on a Drone or a Human at a rate of 1 Blood to 1 Used Oil or by using Eat
-      on a dead body.
-    </p>
-    <p>At 0 Used Oil, the Drone gains 1 Heat per turn.</p>
-    <p>
-      Whenever they take damage, they roll a 1d(Total Damage). They lose that
-      amount in Used Oil.
-    </p>
-    <h2>Absolute Solver</h2>
-    <p>
-      Wendigo Drones have a special attribute called Absolute Solver. The higher
-      it is, the less max Used Oil they can store.
-    </p>
-    <p>
-      If it reaches 10, the Drone has to roll a Willpower check at difficulty 10
-      + Missing HP. If failed, they fall under the influence of the Solver.
-      While under its influence, they become an enemy and turn into their
-      Eldritch Form.
-    </p>
-    <p>
-      Their Eldritch form is approximately 3m tall and grants them Wendigo
-      Claws.
-    </p>
-    <p>
-      They can come back to normal if another person succeeds in a Persuasion
-      check. If they have an emotional connection (partner, family member, etc)
-      to the Drone under the influence of the Solver, gain Advantage.
-    </p>
-    <p>
-      An Absolute Solver roll is different from regular Stats, with the roll
-      bonus being Stat - 2, as opposed to Stat - 4, going up to +8 at 10.
-    </p>
-    <p>The following elements increase Absolute Solver by +1.</p>
-    <ul>
-      <li>Seeing a new oil/blood spill while at 4+ Heat.</li>
-      <li>Seeing a Worker Drone or Human while at 7+ Heat.</li>
-      <li>
-        Experiencing a Traumatic Event or other kinds of emotional distress.
-      </li>
-      <li>Failing to use a Solver power.</li>
-      <li>
-        Having Absolute Solver above 8 turns the Wendigo Drone's visor color to
-        Red.
-      </li>
-    </ul>
-    <h2>Sunlight</h2>
-    <p>
-      Solver Drones take Max HP / 10 Hunger damage when out in the Sun or when
-      exposed to other sources of UV Radiation.
-    </p>
-    <h2>Core Crab</h2>
-    <p>
-      Wendigo Drones can have their cores removed by a Pierce attack aimed at
-      the chest that deals more than 25% of their Max HP in damage, which turns
-      them into a Core Crab. They have 2 HP and +0 in every check except
-      Acrobatics, in which they have a +6. While in Core form, they can attempt
-      to get back inside their bodies if they're within melee range by running
-      an Acrobatics check against their body's Vitality. If the original body
-      dies, the Core is forcefully removed and cannot get back into the body
-      until it is repaired.
-    </p>
-    <h2>Abilities</h2>
-    <h3>Eat</h3>
-    <p>
-      Can be used on a dead body (Human or Drone) to drain their entire Used Oil
-      or Blood reserve at once. Eating someone during combat takes 3 turns to
-      complete. Increases Heat by 2.
-    </p>
-    <h3>Bite</h3>
-    <p>
-      Melee, 1d10 + Strength Slash damage. If used on a Worker Drone, remove 1
-      Fresh Oil and drain 2 Used Oil. If used on a Human, remove 1 Blood and
-      drain 1 Blood.
-    </p>
-    <p>If the target consents to the bite, damage is 1.</p>
-    <p>Increases Heat by 1.</p>
-    <h3>Regenerate (Absolute Solver > 1)</h3>
-    <p>
-      Regenerate your wounds with an Absolute Solver roll. Difficulty is your
-      missing HP.
-    </p>
-    <p>Regenerate 1d20 + Absolute Solver value worth of HP.</p>
-    <h3>Solver Translate (Absolute Solver > 1)</h3>
-    <p>
-      Move any object, non-Solver Drone or Human within 5 meters up to 5 meters
-      from your position, or throw it up to 10 meters in any direction from the
-      object's original position.
-    </p>
-    <h3>Solver Transform (Absolute Solver > 1)</h3>
-    <p>
-      Crush any object within 5 meters, destroying it or dealing Energy damage
-      based on your Absolute Solver modifier. For hard-to-crush objects such as
-      metal doors, the check uses the Absolute Solver stat too.
-    </p>
-    <h3>Solver Dash (Absolute Solver > 3)</h3>
-    <p>
-      Dash anywhere you can see within 15m with an Absolute Solver roll of
-      difficulty 3 + distance in meters.
-    </p>
-    <h3>Solver Tail (Absolute Solver > 2)</h3>
-    <p>+1 Successful Attacks if hit.</p>
-    <p>May be used as an extra limb, flashlight or a weapon.</p>
-    <p>Lights up to 10 meters in front of the user in a cone.</p>
-    <p>Melee, 1d6 + Strength Slash damage, range 2m.</p>
-    <h3>Wendigo Claws (Absolute Solver = 10)</h3>
-    <p>Melee, 1d8 + Strength + 2 Slash damage.</p>
   </details>
 </details>

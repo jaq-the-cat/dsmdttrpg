@@ -178,7 +178,7 @@ export const enemyLists: { [category: string]: { [enemy: string]: Enemy } } = {
       weapons.Melee.Axe,
       weapons.Ranged["Sentinel Gun"],
       weapons.Throwable["EMP Grenade"],
-      weapons.Special["Knife Tail"]
+      weapons.Worker["Knife Tail"]
     ], {
       "Strength": 2,
       "Stealth": 4,
@@ -265,6 +265,38 @@ export const enemyLists: { [category: string]: { [enemy: string]: Enemy } } = {
     }, {
       "Passive Perception": 16,
     }),
+    "Wasp Drone (Worker)": new Enemy(30, [
+      weapons.Avian.Wings,
+      weapons.Wasp.Stinger,
+      weapons.Wasp["Wasp Bite"],
+    ], [], {
+      "Strength": 4,
+      "Agility": 2,
+      "Flying": 4,
+      "Stealth": 2,
+    }, {
+      "Passive Perception": 16,
+    }, "Hive Mind"),
+    "Wasp Drone (Disassembly)": new Enemy(40, [
+      weapons.Avian.Wings,
+      weapons.Wasp.Stinger,
+      weapons.Wasp["Wasp Bite"],
+      weapons.Disassembly.Claws,
+      weapons.Disassembly.Sword,
+      weapons.Disassembly.Chainsaw,
+      weapons.Disassembly.SMG,
+      weapons.Disassembly.Laser,
+      weapons.Disassembly.Missile,
+      weapons.Disassembly["Ninja Star"],
+      weapons.Disassembly.EMP,
+    ], [], {
+      "Strength": 4,
+      "Agility": 2,
+      "Flying": 4,
+      "Stealth": 2,
+    }, {
+      "Passive Perception": 16,
+    }, "Hive Mind"),
   },
   "Sentinel": {
     "name": new Enemy(14, [weapons.Melee.Knife], [
