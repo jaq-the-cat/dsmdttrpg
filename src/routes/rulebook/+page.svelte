@@ -149,8 +149,7 @@
         <li>Move at Walking speed.</li>
         <li>If previous action was Sprint, move at Running speed.</li>
         <li>
-          If Wings are active, and there is enough space, move at Flying Speed
-          (horizontal).
+          If Wings are active, and there is enough space, move at Flying Speed.
         </li>
       </ul>
       <li>
@@ -169,7 +168,7 @@
       <li>
         Prepare to Dodge
         <ul>
-          <li>Gives +2 to Acrobatics while prepared.</li>
+          <li>Gives +3 to Acrobatics while prepared.</li>
         </ul>
       </li>
       <li>
@@ -191,6 +190,24 @@
             Athletics, Acrobatics or Melee check to counter it.
           </li>
           <li>If you win, you grapple them to the ground, stunning them.</li>
+          <li>If they win, you immediately end your turn.</li>
+        </ul>
+      </li>
+      <li>
+        Throw
+        <ul>
+          <li>
+            Run a Strength Melee check against your target, and they can use an
+            Athletics or Strength check to counter it.
+          </li>
+          <li>
+            If you win, you can throw them up to 1d4 + Strength meters away. You
+            deal fall damage multiplied by 2 based on that roll.
+          </li>
+          <li>
+            If they have a Jump Height of 4 and you throw them 10 meters, you
+            deal (10-4)*2=12 damage
+          </li>
           <li>If they win, you immediately end your turn.</li>
         </ul>
       </li>

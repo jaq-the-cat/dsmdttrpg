@@ -50,6 +50,7 @@ export const enemyLists: { [category: string]: { [enemy: string]: Enemy } } = {
       weapons.Melee.Knife,
       weapons.Ranged.Revolver,
       weapons.Ranged["Assault Rifle"],
+      weapons.Ranged["Semi-Auto Shotgun"],
     ], [], {
       "Against Solver Drones": 1,
       "Firearms": 3,
@@ -62,6 +63,7 @@ export const enemyLists: { [category: string]: { [enemy: string]: Enemy } } = {
       weapons.Melee.Knife,
       weapons.Ranged.Revolver,
       weapons.Ranged["Assault Rifle"],
+      weapons.Ranged["Semi-Auto Shotgun"],
     ], [], {
       "Against Solver Drones": 1,
       "Against Disassembly Drones": 1,
@@ -74,7 +76,8 @@ export const enemyLists: { [category: string]: { [enemy: string]: Enemy } } = {
     "Marine": new Enemy(10, [
       weapons.Melee.Knife,
       weapons.Ranged.Pistol,
-      weapons.Ranged["Assault Rifle"]
+      weapons.Ranged["Assault Rifle"],
+      weapons.Ranged["Semi-Auto Shotgun"],
     ], [], {
       "Strength": 1,
       "Firearms": 3,
@@ -86,7 +89,8 @@ export const enemyLists: { [category: string]: { [enemy: string]: Enemy } } = {
     "Marine Captain": new Enemy(10, [
       weapons.Melee.Knife,
       weapons.Ranged.Pistol,
-      weapons.Ranged["Assault Rifle"]
+      weapons.Ranged["Assault Rifle"],
+      weapons.Ranged["Semi-Auto Shotgun"],
     ], [], {
       "Strength": 1,
       "Firearms": 3,
@@ -98,7 +102,8 @@ export const enemyLists: { [category: string]: { [enemy: string]: Enemy } } = {
     "Marine Commander": new Enemy(12, [
       weapons.Melee.Knife,
       weapons.Ranged.Revolver,
-      weapons.Ranged["Assault Rifle"]
+      weapons.Ranged["Assault Rifle"],
+      weapons.Ranged["Semi-Auto Shotgun"],
     ], [], {
       "Strength": 1,
       "Firearms": 4,

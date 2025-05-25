@@ -3,6 +3,7 @@ import { Rarity } from "./rarity.svelte";
 
 export const weapons = {
   'Melee': {
+    "Bone Saw": new MeleeWeapon("Bone Saw", 0.1, Rarity.Common, "1d4 + Strength Slash", null),
     "Screwdriver": new MeleeWeapon("Screwdriver", 0.1, Rarity.Common, "1d4 + Strength Pierce", null),
     "Work Hammer": new MeleeWeapon("Work Hammer", 0.1, Rarity.Common, "1d4 + Strength Blunt", null),
     "Wrench": new MeleeWeapon("Wrench", 0.1, Rarity.Common, "1d4 + Strength Blunt", null),
@@ -18,8 +19,8 @@ export const weapons = {
     "Pistol": RangedWeapon.loaded("Pistol", 1, Rarity.VeryRare, "Firearms", "8 Pierce", 10, 1, 12, 1, null),
     "Revolver": RangedWeapon.loaded("Revolver", 1, Rarity.VeryRare, "Firearms", "10 Pierce", 10, 1, 6, 2, null),
     "SMG": RangedWeapon.loaded("Submachine Gun", 2, Rarity.SuperRare, "Firearms", "6 Pierce", 12, 6, 30, 1, "-1 Hit every 3 meters"),
-    "Semi-Auto Shotgun": RangedWeapon.loaded("Semi-Auto Shotgun", 1, Rarity.SuperRare, "Firearms", "12 Pierce", 12, 2, 10, 1, "-1 Damage per meter"),
-    "Pump Shotgun": RangedWeapon.loaded("Pump Shotgun", 1, Rarity.UltraRare, "Firearms", "24 Pierce", 12, 1, 6, 1, "-2 Damage per meter"),
+    "Semi-Auto Shotgun": RangedWeapon.loaded("Semi-Auto Shotgun", 2, Rarity.SuperRare, "Firearms", "12 Pierce", 12, 2, 10, 1, "-1 Damage per meter"),
+    "Pump Shotgun": RangedWeapon.loaded("Pump Shotgun", 2, Rarity.UltraRare, "Firearms", "24 Pierce", 12, 1, 6, 1, "-2 Damage per meter"),
     "Rifle": RangedWeapon.loaded("Rifle", 2, Rarity.SuperRare, "Firearms", "6 Pierce", 20, 5, 28, 1, null),
     "Assault Rifle": RangedWeapon.loaded("Assault Rifle", 3, Rarity.SuperRare, "Firearms", "8 Pierce", 30, 4, 32, 1, null),
     "Battle Rifle": RangedWeapon.loaded("Battle Rifle", 3, Rarity.UltraRare, "Firearms", "12 Pierce", 30, 3, 24, 1, null),
@@ -37,9 +38,9 @@ export const weapons = {
     'Knife Tail': new MeleeWeapon("Knife Tail", 0, Rarity.VeryRare, "1d4 + Strength + 6 Slash", "+1 Successful Hits on hit"),
   },
   'Disassembly': {
-    "Sword": new MeleeWeapon("Sword", 0, Rarity.Rare, "1d4 + Strength + 8 Slash", "-2 Hit, -2 Block"),
-    "Claws": new MeleeWeapon("Claws", 0, Rarity.Rare, "1d8 + Strength + 8 Slash", "Rate up to 2"),
-    "Chainsaw": new MeleeWeapon("Chainsaw", null, Rarity.VeryRare, "1d12 + Strength + 6 Slash", "+1 Hit, uses 1L Used Oil per Hit"),
+    "Sword": new MeleeWeapon("Sword", null, Rarity.Rare, "1d6 + Strength + 8 Slash", "-2 Hit, -2 Block"),
+    "Claws": new MeleeWeapon("Claws", null, Rarity.Rare, "1d6 + Strength + 6 Slash", "Rate up to 2"),
+    "Chainsaw": new MeleeWeapon("Chainsaw", null, Rarity.VeryRare, "1d12 + Strength + 6 Slash", "+1 Hit, uses 1L Used Oil per Hit."),
     "SMG": RangedWeapon.loaded("Submachine Gun", null, Rarity.SuperRare, "Firearms", "4 Pierce", 10, 6, 30, 1, null),
     "Laser": RangedWeapon.loaded("Laser", null, Rarity.Waow, "Firearms", "14 Energy", 20, 1, 2, 1, null),
     "Missile": new RangedWeapon("Missile", null, Rarity.Waow, "Firearms", "16 Explosive", 20, 1, "Tracking"),

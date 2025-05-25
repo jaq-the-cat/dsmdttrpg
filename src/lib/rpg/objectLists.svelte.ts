@@ -21,6 +21,8 @@ export const prefabs: { [type: string]: (Container | Item)[] } = {
     AmmoItem.default("Pistol", Rarity.Rare, 12, 1),
     AmmoItem.default("Revolver", Rarity.VeryRare, 6, 2),
     AmmoItem.default("Submachine Gun", Rarity.VeryRare, 30, 1),
+    AmmoItem.default("Semi-Auto Shotgun", Rarity.SuperRare, 10, 1),
+    AmmoItem.default("Pump Shotgun", Rarity.SuperRare, 6, 1),
     AmmoItem.default("Rifle", Rarity.SuperRare, 28, 1),
     AmmoItem.default("Assault Rifle", Rarity.SuperRare, 32, 1),
     AmmoItem.default("Battle Rifle", Rarity.UltraRare, 24, 1),
@@ -30,6 +32,8 @@ export const prefabs: { [type: string]: (Container | Item)[] } = {
     AmmoItem.default("Sentinel Gun", Rarity.UltraRare, 1, 1),
   ],
   'Disassmebly Drone': Object.values(weapons.Disassembly),
+  'Avian Drone': Object.values(weapons.Avian),
+  'Solver Drone': Object.values(weapons.Solver),
   'Healing': [
     new Healing("Bandage", 0.05, Rarity.Rare, "Humans", "4 HP", null, null),
     new Healing("First Aid Kit", 0.5, Rarity.VeryRare, "Humans", "10 HP", "Medicine check, difficulty is missing HP", null),
@@ -67,5 +71,8 @@ export const prefabs: { [type: string]: (Container | Item)[] } = {
   'Resources': [
     new Item("WD Parts", 5, Rarity.Rare),
     new Item("WD Body", 40, Rarity.SuperRare),
+    new Item("Industrial-Grade Glue", 0.1, Rarity.Uncommon),
+    new Item("Box of Screws", 2, Rarity.Common),
+    new Item("Tape", 0.1, Rarity.Common),
   ],
 }
