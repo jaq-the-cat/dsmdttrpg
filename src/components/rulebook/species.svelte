@@ -99,7 +99,8 @@
     <p>They can dump their current Used Oil reserve by using the Bathroom.</p>
     <p>
       Whenever they take damage, they roll a 1d(Total Damage). They lose that
-      amount in Fresh Oil.
+      amount in Fresh Oil down to 1. If they take damage while at 1 Oil, go down
+      to 0.
     </p>
     <p>
       At 0 Fresh Oil, take Max HP / 10 damage per turn until death or
@@ -234,7 +235,8 @@
     <p>At 0 Used Oil, the Drone gains 1 Heat per turn.</p>
     <p>
       Whenever they take damage, they roll a 1d(Total Damage). They lose that
-      amount in Used Oil.
+      amount in Used Oil down to 1. If they take damage while at 1 Oil, go down
+      to 0.
     </p>
     <h2>Absolute Solver</h2>
     <p>
@@ -356,8 +358,8 @@
       Limits vision to 3m.
     </p>
     <p>
-      +1 to Passive Perception and Investigation rolls due to their headband
-      sensors
+      +2 to Passive Perception and Investigation rolls while their headband
+      sensors are turned on.
     </p>
     <p>+1 to all Damage rolls.</p>
     <h2>Heat</h2>
@@ -397,7 +399,8 @@
     <p>At 0 Used Oil, the Drone gains 1 Heat per turn.</p>
     <p>
       Whenever they take damage, they roll a 1d(Total Damage). They lose that
-      amount in Used Oil.
+      amount in Used Oil down to 1. If they take damage while at 1 Oil, go down
+      to 0.
     </p>
     <h2>Absolute Solver</h2>
     <p>
@@ -408,18 +411,21 @@
       An Absolute Solver roll is different from regular Stats, with the roll
       bonus being Stat - 2, as opposed to Stat - 4, going up to +8 at 10.
     </p>
-    <p>For Disassmebly Drones, this is only used for Regenerate.</p>
+    <p>
+      For Disassmebly Drones, this is only used for Regenerate and the Nanite
+      Stinger.
+    </p>
     <h2>Abilities</h2>
     <h3>Eat</h3>
     <p>
       Can be used on a dead body (Human or Drone) to drain their entire Used Oil
-      or Blood reserve at once. Eating someone during combat takes 3 turns to
+      or Blood reserve at once. Eating someone during combat takes 2 turns to
       complete. Increases Heat by 2.
     </p>
     <h3>Regenerate (Absolute Solver > 1)</h3>
     <p>
       Regenerate your wounds with an Absolute Solver roll. Difficulty is your
-      missing HP.
+      missing HP up to 18.
     </p>
     <h3>Arm Weapons</h3>
     <p>
@@ -476,7 +482,8 @@
     <p>They can dump their current Used Oil reserve by using the Bathroom.</p>
     <p>
       Whenever they take damage, they roll a 1d(Total Damage). They lose that
-      amount in Fresh Oil.
+      amount in Used Oil down to 1. If they take damage while at 1 Oil, go down
+      to 0.
     </p>
     <p>
       At 0 Fresh Oil, take Max HP / 10 damage per turn until death or
@@ -522,16 +529,6 @@
     <p>Can be activated without spending an Action.</p>
     <p>Permits flight, but may not be used as a weapon or shield.</p>
     <p>When active, temporarily increases Agility by +1.</p>
-    <h3>Small Claws</h3>
-    <p>Melee, 1d6 + Strength + 4 Slash damage.</p>
-    <h3>Talon Dive</h3>
-    <p>Must be initiated from flight.</p>
-    <p>
-      Melee, 1d6 + Strength + 6 Slash damage. When used, move a maximum of 20
-      meters horizontally in the direction of the target.
-    </p>
-    <h3>Talon Strike</h3>
-    <p>Melee, 1d6 + Strength + 4 Slash damage.</p>
     <h3>Talon Carry</h3>
     <p>
       Avian Drones can pick up Heavy objects such as other Drones, heavy weapons
