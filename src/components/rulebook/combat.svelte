@@ -42,6 +42,22 @@
         check if they attempt to Dodge. From point blank range, only require a
         hit check if the enemy is aware and dodging.
       </li>
+      <li>Assassination</li>
+      <ul>
+        <li>
+          An Assassination is a special attack that, when performed from
+          Stealth, will not get you out of Stealth.
+        </li>
+        <li>
+          Examples of valid assassination scenarios are coming from a Hiding
+          spot, attacking someone out of combat, or attacking an enemy that is
+          unaware of you.
+        </li>
+        <li>
+          Any low-caliber Silenced weapon or knife can be used to perform an
+          Assassination.
+        </li>
+      </ul>
     </ul>
     <li>
       Targeted Attack<br />
