@@ -27,7 +27,11 @@ export const weapons = {
     "Sniper Rifle": RangedWeapon.loaded("Sniper Rifle", 5, Rarity.UltraRare, "Firearms", "24 Pierce", 50, 1, 4, 1, "+ 2 Hit under 10m, -1 Hit above 10m, -2 Hit above 20m"),
     "Improvised Railgun": RangedWeapon.loaded("Improvised Railgun", 1, Rarity.UltraRare, "Technology", "22 Energy", 15, 1, 1, 4, null),
     "JCJ Railgun": RangedWeapon.loaded("JCJ Railgun", 2, Rarity.Waow, "Technology", "28 Energy", 15, 1, 1, 2, null),
-    "Sentinel Gun": RangedWeapon.loaded("Sentinel Gun", 4, Rarity.SuperRare, "Technology", "Bootloops in a 5m cone", 5, 1, 1, 1, "Looking away costs your reaction"),
+    "Sentinel Gun": RangedWeapon.loaded("Sentinel Gun", 4, Rarity.UltraRare, "Technology", "Bootloops in a 5m cone", 5, 1, 1, 1, "Looking away costs 2 Reactions"),
+  },
+  'Sentinel': {
+    "Sentinel Flash": RangedWeapon.loaded("Sentinel Flash", null, Rarity.UltraRare, "Technology", "Bootloops in a 5m cone", 5, 1, 1, 1, "Looking away costs 2 Reactions"),
+    "Sentinel Bite": new MeleeWeapon("Sentinel Bite", null, Rarity.Rare, "1d6 + 4 Pierce", null),
   },
   'Throwable': {
     "Grenade": new Throwable("Grenade", 1, Rarity.SuperRare, "1d12 + Explosives + 4 Explosive", "1d15", "Explodes after 1 Turn."),
@@ -59,7 +63,7 @@ export const weapons = {
     'Wings': new MeleeWeapon("Wings", 0, 0, "None", "Increases Agility by +1."),
     'Small Claws': new MeleeWeapon("Small Claws", 0, 0, "1d6 + Strength + 4 Slash", null),
     'Talon Dive': new MeleeWeapon("Talon Dive", 0, 0, "1d6 + Strength + 6 Slash", "Must be initiated from flight. When used, move a maximum of 20 meters horizontally in the direction of the target."),
-    'Talon Strike': new MeleeWeapon("Talon Dive", 0, 0, "1d6 + Strength + 4 Slash", null),
+    'Talon Strike': new MeleeWeapon("Talon Strike", 0, 0, "1d6 + Strength + 4 Slash", null),
   },
   'Wasp': {
     'Stinger': new MeleeWeapon("Stinger", null, Rarity.Rare, "6 + Strength Pierce", "+ 1d12 if attacking a Drone"),

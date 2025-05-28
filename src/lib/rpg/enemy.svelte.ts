@@ -299,16 +299,16 @@ export const enemyLists: { [category: string]: { [enemy: string]: Enemy } } = {
     }, "Hive Mind"),
   },
   "Sentinel": {
-    "name": new Enemy(14, [weapons.Melee.Knife], [
-      weapons.Ranged.Pistol,
-      weapons.Ranged.Revolver,
-    ], {
-      "Strength": 1,
-      "Firearms": 3,
+    "Sentinel": new Enemy(24, [weapons.Sentinel["Sentinel Flash"], weapons.Sentinel["Sentinel Bite"]], [], {
+      "Strength": 2,
+      "Technology": 4,
+      "Stealth": -1,
+      "Acrobatics": 2,
+      "All Drones": 2,
     }, {
-      "Passive Perception": 14,
-      "Persuasion Resistance": 16,
-      "Intimidation Resistance": 16,
+      "Passive Perception": 12,
+      "Persuasion Resistance": 18,
+      "Intimidation Resistance": 99,
     }),
   },
   "Unique": {
