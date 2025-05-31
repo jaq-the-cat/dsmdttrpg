@@ -31,9 +31,6 @@ export const prefabs: { [type: string]: (Container | Item)[] } = {
     AmmoItem.default("JCJ Railgun", Rarity.Waow, 1, 2),
     AmmoItem.default("Sentinel Gun", Rarity.UltraRare, 1, 1),
   ],
-  'Disassmebly Drone': Object.values(weapons.Disassembly),
-  'Avian Drone': Object.values(weapons.Avian),
-  'Solver Drone': Object.values(weapons.Solver),
   'Healing': [
     new Healing("Bandage", 0.05, Rarity.Rare, "Humans", "4 HP", null, null),
     new Healing("First Aid Kit", 0.5, Rarity.VeryRare, "Humans", "10 HP", "Medicine check, difficulty is missing HP", null),
@@ -93,4 +90,7 @@ export const prefabs: { [type: string]: (Container | Item)[] } = {
     new Item("High Energy Capacitor", 0.2, Rarity.Rare),
     new Item("Low Energy Capacitor", 0.2, Rarity.Uncommon),
   ],
+  'Disassmebly Drone': Object.values(weapons.Disassembly),
+  'Avian Drone': Object.values(weapons.Avian),
+  'Solver Drone': Object.values(weapons.Solver),
 }

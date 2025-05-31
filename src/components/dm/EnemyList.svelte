@@ -45,7 +45,7 @@
         <h4>Stat Bonuses</h4>
         <div>
           {#each enemy[1].stats as stat}
-            <div>+{stat[1]} {stat[0]}</div>
+            <div>{stat[1] >= 0 ? "+" : "-"}{stat[1]} {stat[0]}</div>
           {/each}
         </div>
         <h4>Innate</h4>
