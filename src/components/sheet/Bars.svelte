@@ -1,6 +1,10 @@
 <script lang="ts">
   import { invalidText } from "$lib";
-  import { Character, getMaxHp, Species } from "$lib/rpg/character.svelte";
+  import {
+    Character,
+    getMaxHp,
+    Species,
+  } from "$lib/rpg/infra/character.svelte";
 
   let { character = $bindable() as Character } = $props();
 

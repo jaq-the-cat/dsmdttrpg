@@ -1,7 +1,7 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { db } from "$lib/db";
-  import { Character } from "$lib/rpg/character.svelte";
+  import { Character } from "$lib/rpg/infra/character.svelte";
   import { addDoc, collection } from "firebase/firestore";
   import Sheet from "../components/sheet/Sheet.svelte";
 

@@ -8,7 +8,7 @@
     MeleeWeapon,
     RangedWeapon,
     Throwable,
-  } from "$lib/rpg/items.svelte";
+  } from "$lib/rpg/infra/items.svelte";
 
   let {
     itemInspect = $bindable(),

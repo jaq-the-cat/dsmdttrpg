@@ -1,5 +1,5 @@
-import { MeleeWeapon, RangedWeapon, Throwable } from "./items.svelte";
-import { Rarity } from "./rarity.svelte";
+import { MeleeWeapon, RangedWeapon, Throwable } from "../infra/items.svelte";
+import { Rarity } from "../rarity.svelte";
 
 export const weapons = {
   'Melee': {

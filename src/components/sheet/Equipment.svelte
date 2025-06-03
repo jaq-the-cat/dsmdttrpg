@@ -1,8 +1,8 @@
 <script lang="ts">
   import { invalidText } from "$lib";
-  import { Character } from "$lib/rpg/character.svelte";
-  import { Container, Item } from "$lib/rpg/items.svelte";
-  import { prefabs } from "$lib/rpg/objectLists.svelte";
+  import { Character } from "$lib/rpg/infra/character.svelte";
+  import { Container, Item } from "$lib/rpg/infra/items.svelte";
+  import { prefabs } from "$lib/rpg/instances/objectLists.svelte";
   import EquipmentSlot from "./EquipmentSlot.svelte";
   import InspectItem from "./InspectItem.svelte";
 

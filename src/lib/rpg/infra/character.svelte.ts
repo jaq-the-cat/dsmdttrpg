@@ -2,7 +2,7 @@ import { db, objectToOrdered, orderedToObject, orderedToSvelte, svelteToOrdered,
 import { SvelteMap } from "svelte/reactivity";
 import { Container, pockets } from "./items.svelte";
 import { doc, setDoc, type Firestore } from "firebase/firestore";
-import { ItemList } from "./itemList.svelte";
+import { ItemDisplayList } from "./itemDisplayList";
 import type { About, Attribute, Bars, Proficiencies, Stats } from "./attributes.svelte";
 
 export enum Species {
@@ -141,7 +141,7 @@ export class Character {
     pockets(this)
   ]);
 
-  itemList: ItemList = $state(new ItemList(this.containers))
+  itemList: ItemDisplayList = $state(new ItemDisplayList(this.containers))
 
   left: string | null = $state(null);
   leftShoulder: string | null = $state(null);

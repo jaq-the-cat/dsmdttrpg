@@ -1,24 +1,5 @@
-import { MeleeWeapon, RangedWeapon, type Item } from "./items.svelte"
-import { prefabs } from "./objectLists.svelte"
-import { weapons } from "./weapons.svelte"
-
-class Enemy {
-  maxHp: number
-  description?: string
-  guaranteedWeapons: Item[]
-  possibleWeapons: Item[]
-  stats: [string, number][]
-  passive: [string, number][]
-
-  constructor(maxHp: number, guaranteedWeapons: Item[], possibleWeapons: Item[], stats: { [key: string]: number }, passive: { [key: string]: number }, description?: string) {
-    this.maxHp = maxHp;
-    this.guaranteedWeapons = guaranteedWeapons;
-    this.possibleWeapons = possibleWeapons;
-    this.stats = Object.entries(stats);
-    this.passive = Object.entries(passive);
-    this.description = description;
-  }
-}
+import { Enemy } from "../infra/enemy.svelte";
+import { weapons } from "./weapons.svelte";
 
 export const enemyLists: { [category: string]: { [enemy: string]: Enemy } } = {
   "Humans": {

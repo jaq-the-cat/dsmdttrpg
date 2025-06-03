@@ -1,8 +1,8 @@
 <script lang="ts">
   import { db } from "$lib/db";
-  import { AmmoItem, Container } from "$lib/rpg/items.svelte";
+  import { AmmoItem, Container } from "$lib/rpg/infra/items.svelte";
   import { getLoot, type WhatLoot } from "$lib/rpg/loot.svelte";
-  import { prefabs } from "$lib/rpg/objectLists.svelte";
+  import { prefabs } from "$lib/rpg/instances/objectLists.svelte";
   import { setDoc, doc } from "firebase/firestore";
   import { docStore } from "sveltefire";
 

@@ -3,7 +3,7 @@
     Character,
     getSpeciesModifiers,
     Species,
-  } from "$lib/rpg/character.svelte";
+  } from "$lib/rpg/infra/character.svelte";
   import Stats from "./Stats.svelte";
   import Proficiencies from "./Proficiencies.svelte";
   import Bars from "./Bars.svelte";

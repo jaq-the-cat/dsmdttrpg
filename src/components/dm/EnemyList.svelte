@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { enemyLists } from "$lib/rpg/enemy.svelte";
-  import type { Item } from "$lib/rpg/items.svelte";
+  import { enemyLists } from "$lib/rpg/infra/enemy.svelte";
+  import type { Item } from "$lib/rpg/infra/items.svelte";
   import WeaponInspect from "./WeaponInspect.svelte";
 
   let selectedEnemyList: string = $state("Humans");

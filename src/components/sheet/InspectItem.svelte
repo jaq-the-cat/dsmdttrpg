@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Character } from "$lib/rpg/character.svelte";
+  import type { Character } from "$lib/rpg/infra/character.svelte";
   import type {
     AmmoItem,
     Container,
@@ -9,7 +9,7 @@
     MeleeWeapon,
     RangedWeapon,
     Throwable,
-  } from "$lib/rpg/items.svelte";
+  } from "$lib/rpg/infra/items.svelte";
 
   let {
     itemInspect = $bindable(),

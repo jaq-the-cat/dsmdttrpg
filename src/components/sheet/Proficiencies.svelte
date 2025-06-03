@@ -5,8 +5,8 @@
     getProfModifier,
     getProfStat,
     Species,
-  } from "$lib/rpg/character.svelte";
-  import type { Proficiencies } from "$lib/rpg/attributes.svelte";
+  } from "$lib/rpg/infra/character.svelte";
+  import type { Proficiencies } from "$lib/rpg/infra/attributes.svelte";
 
   let { character = $bindable() as Character } = $props();
 

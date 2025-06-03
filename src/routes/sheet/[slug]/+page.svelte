@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Character } from "$lib/rpg/character.svelte";
+  import { Character } from "$lib/rpg/infra/character.svelte";
   import { db } from "$lib/db.js";
   import { docStore } from "sveltefire";
   import Sheet from "../../../components/sheet/Sheet.svelte";

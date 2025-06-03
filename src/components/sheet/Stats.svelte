@@ -4,7 +4,7 @@
     Character,
     getBaseMaxWeight,
     Species,
-  } from "$lib/rpg/character.svelte";
+  } from "$lib/rpg/infra/character.svelte";
 
   let { character = $bindable() as Character } = $props();
 

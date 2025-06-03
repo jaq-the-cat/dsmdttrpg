@@ -1,6 +1,6 @@
-import type { AmmoItem, Container, Item, LiquidContainer, RangedWeapon } from "./items.svelte"
+import type { AmmoItem, Container, Item, LiquidContainer, RangedWeapon } from "./infra/items.svelte"
 import { Rarity } from "./rarity.svelte"
-import { prefabs } from "./objectLists.svelte"
+import { prefabs } from "./instances/objectLists.svelte"
 
 export type WhatLoot = Item | RangedWeapon | AmmoItem | LiquidContainer | Container
 

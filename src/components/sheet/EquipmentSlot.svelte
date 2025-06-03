@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { Character } from "$lib/rpg/character.svelte";
+  import { Character } from "$lib/rpg/infra/character.svelte";
   import {
     allowedInSlot,
     Container,
     MeleeWeapon,
     type Item,
-  } from "$lib/rpg/items.svelte";
+  } from "$lib/rpg/infra/items.svelte";
 
   let {
     character = $bindable() as Character,

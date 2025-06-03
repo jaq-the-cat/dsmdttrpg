@@ -1,5 +1,5 @@
-import { AmmoItem, Container, Healing, Item, LiquidContainer, MeleeWeapon, RangedWeapon, Throwable } from "./items.svelte"
-import { Rarity } from "./rarity.svelte"
+import { AmmoItem, Container, Healing, Item, LiquidContainer, MeleeWeapon, RangedWeapon, Throwable } from "../infra/items.svelte"
+import { Rarity } from "../rarity.svelte"
 
 
 import { weapons } from "./weapons.svelte"
