@@ -21,8 +21,8 @@
     be further modified by having Proficiency, Expertise or something else
     affecting that check, such as Advantage.
   </p>
-  <p>Your Passive Perception is your Perception Stat divided by 2 plus 9.</p>
-  <p>Your Passive Dodge is you Agility Stat divided by 2 plus 9.</p>
+  <p>Your Passive Perception is 10 + your Perception modifier.</p>
+  <p>Your Passive Dodge is 10 + your Agility modifier.</p>
   <ul>
     <li>Athletics (Vitality)</li>
     <li>Acrobatics (Agility)</li>
@@ -43,11 +43,6 @@
     <li>Explosives (Intelligence + Dexterity)</li>
     <li>Medicine (Intelligence + Dexterity)</li>
     <li>Mechanics (Intelligence + Dexterity)</li>
-    <li>
-      Willpower (highest of Strength, Charisma or Intelligence)
-      <ul>
-        <li>Exclusive to Solver-enabled Drones</li>
-      </ul>
-    </li>
+    <li>Willpower (highest of Strength, Charisma or Intelligence)</li>
   </ul>
 </details>

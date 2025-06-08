@@ -50,23 +50,21 @@
   </div>
   <section class="profList">
     {#each Object.entries(character.proficiencies) as prof}
-      {#if !character.hideProficiency(prof[0])}
-        <span>{prof[0]} [{getProfStat(prof[0])}]</span>
-        <span>{getProfModifier(prof[1])}</span>
-        <select
-          bind:value={
-            () => character.proficiencies[prof[0]],
-            (v) => {
-              character.proficiencies[prof[0]] = v ?? " ";
-              character.upload("proficiencies", character.proficiencies);
-            }
+      <span>{prof[0]} [{getProfStat(prof[0])}]</span>
+      <span>{getProfModifier(prof[1])}</span>
+      <select
+        bind:value={
+          () => character.proficiencies[prof[0]],
+          (v) => {
+            character.proficiencies[prof[0]] = v ?? " ";
+            character.upload("proficiencies", character.proficiencies);
           }
-        >
-          {#each [" ", "P", "E"] as profLevel}
-            <option value={profLevel}>{profLevel}</option>
-          {/each}
-        </select>
-      {/if}
+        }
+      >
+        {#each [" ", "P", "E"] as profLevel}
+          <option value={profLevel}>{profLevel}</option>
+        {/each}
+      </select>
     {/each}
   </section>
 </div>

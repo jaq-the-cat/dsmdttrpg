@@ -1,17 +1,16 @@
 <script lang="ts">
-  import {
-    Character,
-    getSpeciesModifiers,
-    Species,
-  } from "$lib/rpg/infra/character.svelte";
+  import { Character, Species } from "$lib/rpg/infra/character.svelte";
   import Stats from "./Stats.svelte";
   import Proficiencies from "./Proficiencies.svelte";
   import Bars from "./Bars.svelte";
   import Speed from "./Speed.svelte";
   import Equipment from "./Equipment.svelte";
   import About from "./About.svelte";
+  import { initializeFromCharacterAndSpecies } from "$lib/rpg/infra/species/from.svelte";
+  import RulebookSnippet from "./RulebookSnippet.svelte";
 
   let { character = $bindable() as Character } = $props();
+  let snippetOpen = $state(true);
 </script>
 
 <main id="sheet">
@@ -20,10 +19,15 @@
     <select
       value={character.species}
       onchange={(ev) => {
-        character.species = ev.currentTarget.value as Species;
-        character.refresh();
+        const newCharacter = initializeFromCharacterAndSpecies(
+          character,
+          ev.currentTarget.value as Species
+        );
+        character = newCharacter;
         character.uploadMultiple({
           species: character.species,
+          proficiencies: character.proficiencies,
+          modifiers: character.modifiers,
           bars: character.bars,
           speed: character.speed,
         });
@@ -33,7 +37,7 @@
         <option value={species}>{species}</option>
       {/each}
     </select>
-    {#each getSpeciesModifiers(character.species) as modifText}
+    {#each character.modifiers as modifText}
       <ul>
         <li>{modifText}</li>
       </ul>

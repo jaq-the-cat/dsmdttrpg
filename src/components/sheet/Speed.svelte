@@ -8,13 +8,13 @@
   <h2>Speed</h2>
 
   <ul>
-    {#each character.speed as speedEntry}
+    {#each Object.entries(character.speed) as speedEntry}
       <li>
         <span>{speedEntry[0]}</span>
         <input
           bind:value={
-            () => character.speed.get(speedEntry[0]),
-            (v) => character.speed.set(speedEntry[0], v ?? 0)
+            () => character.speed[speedEntry[0]],
+            (v) => (character.speed[speedEntry[0]] = v ?? 0)
           }
           onfocusout={() => character.upload("speed", character.speed)}
           type="number"

@@ -1,3 +1,10 @@
+<script>
+  import DroneDeath from "./snippets/general/death/drone.svelte";
+  import HumanDeath from "./snippets/general/death/human.svelte";
+  import Proficiency from "./snippets/general/proficiency.svelte";
+  import Stealth from "./snippets/general/stealth.svelte";
+</script>
+
 <details>
   <summary> General Rules and Explanations </summary>
   <h2>Checks</h2>
@@ -10,106 +17,16 @@
     2-roll skill is instead used for damage, pick one of the stats to roll for,
     and only roll once.
   </p>
-  <h2>Proficiency and Expertise</h2>
-  <p>
-    With Proficiency, you get a +2 bonus to the relevant roll. With Expertise,
-    the bonus is +3.
-  </p>
+  <Proficiency />
   <h2>Advantage</h2>
   <p>
-    With Advantage, you can roll twice and pick the higher value. It is gained
-    by attacking a Stunned, Bootlooped or Unaware enemy.
+    With Advantage, you can retry a roll, but are then forced to use the second
+    value. It is gained by attacking a Stunned, Bootlooped or Unaware enemy.
   </p>
-  <h2>Critical Hits</h2>
-  <p>
-    A Critical Hit is an attack that deals double damage. It happens when the
-    player rolls a Nat 20 on their hit check or when they attack from Stealth.
-  </p>
-  <h2>Stealth and Noise</h2>
-  <p>Stealth is an important aspect of this game.</p>
-  <br />
-  <p>
-    Attacks coming from hiding deal a Critical Hit and cannot be blocked or
-    dodged. If it is the first round of turns in combat, and you begin hidden,
-    you automatically get the first turn. If you then also get a higher
-    Initiative roll than your opponent, you get to have a second turn before the
-    enemy can retaliate, but this time out of Stealth. This stacks with multiple
-    hidden members of a party, with you being able to take 4 turns (2 from
-    Stealth, 2 from higher Initiative) with 2 members before the enemy gets
-    their own.
-  </p>
-  <br />
-  <p>
-    While unseen, walking makes Loud Noise up to 2m away, and running up to 4m.
-    Walking while Crouching does not make any noise.
-  </p>
-  <br />
-  <p>
-    Loud Noises roll a 1d4 + DM-given modifiers dependant on what type of noise
-    it is, with baselines below. The resulting roll is also the range in meters
-    the noise can be heard from.
-  </p>
-  <br />
-  <p>
-    Enemies within 4m can hear any Loud Noise no matter what. The enemy's
-    Passive Perception is used to determine if they hear it. If they are
-    actively searching for someone, instead use an Investigation roll.
-  </p>
-  <br />
-  <ul>
-    <li>Gunshot: +10 + 1d4</li>
-    <li>Pistol Shot: +8 + 1d4</li>
-    <li>Screaming: +4 + 1d6</li>
-    <li>Striking Metal: +4 + 1d4</li>
-    <li>Talking: +2</li>
-    <li>Silenced Gunshot: +2</li>
-    <li>Striking Plastic: +2</li>
-    <li>Whispering: +1</li>
-  </ul>
-  <h2>Rate</h2>
-  <p>
-    Rate in a Weapon description means how many times it can hit per turn, with
-    the user having to roll hit and/or damage for each hit. Every subsequent hit
-    deals half of the original damage.
-  </p>
-  <h2>Melee Weapons</h2>
-  <p>
-    Melee weapons only need to do a hit check, using the Strength or Dexterity
-    Stat + Melee, if the attack is being blocked or dodged, but they have to do
-    a damage check in return.
-  </p>
-  <h2>Ranged Weapons</h2>
-  <p>
-    Ranged Weapons must first hit, then they can deal damage. The difficulty is
-    based on the target's Passive Dodge. Capacity means how many times the gun
-    can be shot until having to be reloaded or replaced with a different Arm
-    Weapon.
-  </p>
+  <Stealth />
   <h2>Death</h2>
-  <h3>Drones</h3>
-  <p>
-    Reaching 0 HP by taking exterior damage (not Hunger) and while not under the
-    influence of the Solver puts you in a Dead state. You can come back if your
-    core is carefully extracted and put in a new body by a Drone with
-    Proficiency or Expertise in Mechanics.
-  </p>
-  <p>
-    The extraction process requires a Work Hammer, Screwdriver and Bone Saw and
-    the insertion process requires a Work Hammer, Screwdriver, Bone Saw,
-    Industrial-Grade Glue and 2x Screws.
-  </p>
-  <p>
-    An extracted core can be kept alive by being fed 1x Fresh or Used Oil
-    (depending on which they need) every 30 minutes of real-life time. Failing
-    to do so kills that Drone permanently.
-  </p>
-  <h3>Humans</h3>
-  <p>
-    Reaching 0 HP by taking exterior damage (not Hunger) puts you in a Downed
-    state. You can roll for recovery up to 3 times per Downed state. A different
-    player can also try to help you using their Medicine bonus. Difficulty is 10
-    + your Vitality modifier. If successful, revive at 1 HP.
-  </p>
+  <DroneDeath />
+  <HumanDeath />
   <h2>Weight</h2>
   <p>Carrying Capacity is determined by your Species and Strength.</p>
   <p>Base Capacity at 0 Strength is 5kg.</p>

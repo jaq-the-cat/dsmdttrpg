@@ -4,6 +4,7 @@
   import { docStore } from "sveltefire";
   import Sheet from "../../../components/sheet/Sheet.svelte";
   import { goto } from "$app/navigation";
+  import { initializeFromSpecies } from "$lib/rpg/infra/species/from.svelte";
   let { data } = $props();
 
   let character: { char?: Character | null } = $state({
@@ -12,7 +13,8 @@
 
   let docRef = docStore(db.firestore!, `sheets/${data.slug}`);
   docRef.subscribe((value) => {
-    character.char = Character.deserialize(value);
+    if (!character.char) character.char = initializeFromSpecies(value.species);
+    Character.deserialize(value, character.char);
     if (character.char) character.char.id = data.slug;
   });
 

@@ -83,6 +83,14 @@ ul {
   padding: 0;
 }
 
+u {
+  text-decoration: none;
+}
+
+u:hover {
+  cursor: pointer;
+  text-shadow: #89c9358c 0px 0px 5px;
+}
 
 textarea {
   height: 8lh;

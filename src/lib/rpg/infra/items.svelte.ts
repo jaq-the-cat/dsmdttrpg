@@ -1,4 +1,4 @@
-import { getBaseMaxWeight, type Character } from "./character.svelte"
+import { type Character } from "./character.svelte"
 
 export class Item {
   type = "item"
@@ -449,4 +449,4 @@ export function allowedInSlot(item: Item | Container, slotName: string) {
 
 export const ddWeapon = (name: string) => new Item(name, null);
 
-export const pockets = (character: Character) => new Container("Pockets", getBaseMaxWeight(character), 0);
+export const pockets = (character: Character) => new Container("Pockets", character.getBaseMaxWeight(), 0);

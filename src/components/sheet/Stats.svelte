@@ -1,10 +1,6 @@
 <script lang="ts">
   import { invalidText } from "$lib";
-  import {
-    Character,
-    getBaseMaxWeight,
-    Species,
-  } from "$lib/rpg/infra/character.svelte";
+  import { Character } from "$lib/rpg/infra/character.svelte";
 
   let { character = $bindable() as Character } = $props();
 
@@ -30,7 +26,7 @@
 </script>
 
 <div id="stats">
-  <h2>Stats</h2>
+  <button>Stats</button>
   <p class="total">Total Points <span>{sum}</span></p>
   <section class="statList">
     {#each Object.entries(character.stats) as stat}
@@ -43,7 +39,7 @@
           (v) => {
             character.stats[stat[0]] = v!;
             if (stat[0] === "Strength") {
-              character.containers.at(0)!.carry = getBaseMaxWeight(character);
+              character.containers.at(0)!.carry = character.getBaseMaxWeight();
               character.maxWeight = character.getMaxWeight();
             }
           }
@@ -57,10 +53,10 @@
   </section>
   <div class="passive">
     <span>Passive Perception</span>
-    <span class="value">{9 + Math.floor(character.stats.Perception / 2)}</span>
+    <span class="value">{10 + character.stats.Perception - 4}</span>
 
     <span>Passive Dodge</span>
-    <span class="value">{9 + Math.floor(character.stats.Agility / 2)}</span>
+    <span class="value">{10 + character.stats.Agility - 4}</span>
   </div>
   <h2>Features & Abilities</h2>
   <textarea

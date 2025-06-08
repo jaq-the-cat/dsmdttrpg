@@ -2,8 +2,8 @@ import { db, objectToOrdered, orderedToObject, orderedToSvelte, svelteToOrdered,
 import { SvelteMap } from "svelte/reactivity";
 import { Container, pockets } from "./items.svelte";
 import { doc, setDoc, type Firestore } from "firebase/firestore";
-import { ItemDisplayList } from "./itemDisplayList";
-import type { About, Attribute, Bars, Proficiencies, Stats } from "./attributes.svelte";
+import { ItemDisplayList } from "./itemDisplayList.svelte";
+import type { About, Attribute, Bars, Proficiencies, Speed, Stats } from "./attributes.svelte";
 
 export enum Species {
   Human = "Human",
@@ -13,7 +13,7 @@ export enum Species {
   Worker = "Worker Drone",
 }
 
-export class Character {
+export abstract class Character {
   firestore?: Firestore
   id: string | undefined = $state(undefined);
 
@@ -93,6 +93,8 @@ export class Character {
   appearance: string = $state("");
   fna: string = $state("");
 
+  modifiers: string[] = []
+
   stats: Stats = $state({
     "Vitality": 6,
     "Agility": 6,
@@ -103,7 +105,7 @@ export class Character {
     "Intelligence": 6,
   })
 
-  proficiencies: Proficiencies = {
+  proficiencies: Proficiencies = $state({
     "Athletics": " ",
     "Acrobatics": " ",
     "Stealth": " ",
@@ -119,23 +121,12 @@ export class Character {
     "Medicine": " ",
     "Mechanics": " ",
     "Willpower": " ",
-  }
+  })
 
-  hideProficiency(key: string) {
-    if (key === "Willpower" && (this.species !== Species.Solver && this.species !== Species.Disassembly)) {
-      return true;
-    }
-    else if (key === "Flying" && (this.species !== Species.Solver && this.species !== Species.Disassembly && this.species !== Species.Avian)) {
-      return true;
-    }
-    return false;
-  }
-
-  bars: Bars = $state(getBars(this.species));
-  speed = $state(getSpeed(this.species));
+  abstract bars: Bars
+  abstract speed: Speed
 
   twoHanding = $state(false);
-  patched = $state(false);
 
   containers: Container[] = $state([
     pockets(this)
@@ -163,10 +154,17 @@ export class Character {
   }
 
   refresh() {
-    this.speed = getSpeed(this.species);
-    this.bars = getBars(this.species);
     this.maxWeight = this.getMaxWeight();
   }
+
+  serializeExtra(): { [key: string]: any } {
+    return {}
+  }
+
+  abstract getMaxHp(): number
+  abstract getBaseMaxWeight(): number
+
+  static from(other: Character) { };
 
   serialize() {
     return {
@@ -182,7 +180,7 @@ export class Character {
       stats: objectToOrdered(this.stats),
       proficiencies: objectToOrdered(this.proficiencies),
       bars: objectToOrdered(this.bars),
-      speed: svelteToOrdered(this.speed),
+      speed: objectToOrdered(this.speed),
 
       left: this.left,
       leftShoulder: this.leftShoulder,
@@ -191,15 +189,18 @@ export class Character {
       back: this.back,
       front: this.front,
 
-      patched: this.patched,
       twoHanding: this.twoHanding,
       containers: Container.serializeList(this.containers),
+
+      ...this.serializeExtra()
     }
   }
 
-  static deserialize(doc: any) {
+  deserializeExtra(doc: any) { };
+
+  static deserialize(doc: any, char: Character) {
     if (doc == null) return doc;
-    const char = new Character();
+
     if (doc.id) char.id = doc.id;
 
     char.overrides = {
@@ -215,10 +216,9 @@ export class Character {
     char.stats = orderedToObject(doc.stats ?? []);
     char.proficiencies = orderedToObject(doc.proficiencies ?? {}) as any;
     char.bars = orderedToObject(doc.bars ?? []);
-    char.speed = orderedToSvelte(doc.speed ?? []);
+    char.speed = orderedToObject(doc.speed ?? []);
     char.containers = Container.deserializeList(doc.containers);
 
-    char.patched = doc.patched ?? false;
     char.twoHanding = doc.twoHanding ?? false;
     char.maxWeight = char.getMaxWeight()
     char.itemList.refresh(char.containers)
@@ -231,130 +231,19 @@ export class Character {
     char.front = doc.front ?? null;
     char.back = doc.back ?? null;
 
+    char.deserializeExtra(doc)
+
     return char;
   }
 }
 
-export function getSpeed(species: Species) {
-  switch (species) {
-    case Species.Human:
-      return new SvelteMap([
-        ["Walk", 5],
-        ["Run", 8],
-        ["Jump", 2],
-        ["Swimming", 2],
-      ]);
-    case Species.Avian:
-      return new SvelteMap([
-        ["Walk", 5],
-        ["Run", 10],
-        ["Jump", 5],
-        ["Flight (Hor)", 30],
-        ["Flight (Ver)", 15],
-      ]);
-    case Species.Disassembly:
-      return new SvelteMap([
-        ["Walk", 5],
-        ["Run", 12],
-        ["Jump", 5],
-        ["Flight (Hor)", 20],
-        ["Flight (Ver)", 10],
-      ]);
-    case Species.Solver:
-      return new SvelteMap([
-        ["Walk", 5],
-        ["Run", 10],
-        ["Jump", 2],
-        ["Flight (Hor)", 20],
-        ["Flight (Ver)", 10],
-      ]);
-    case Species.Worker:
-      return new SvelteMap([
-        ["Walk", 5],
-        ["Run", 10],
-        ["Jump", 2],
-      ]);
-  }
-}
-
-export function getMaxHp(character: Character) {
-  if (character.overrides.maxHp) return character.overrides.maxHp as number;
-  switch (character.species) {
-    case Species.Human:
-      return Math.floor(6 + character.stats.Vitality * 1.4)
-    case Species.Avian:
-    case Species.Worker:
-    case Species.Solver:
-      return Math.floor(8 + character.stats.Vitality * 1.6)
-    case Species.Disassembly:
-      return Math.floor(10 + character.stats.Vitality * 2)
-  }
-}
-
-export function getBars(species: Species): Bars {
-  switch (species) {
-    case Species.Human:
-      return {
-        "Blood": 10,
-        "Sanity": 10,
-      }
-    case Species.Avian:
-    case Species.Worker:
-      return {
-        "Fresh Oil": 10,
-        "Used Oil": 0,
-        "Sanity": 10,
-      };
-    case Species.Solver:
-    case Species.Disassembly:
-      return {
-        "Used Oil": 9,
-        "Absolute Solver": 1,
-        "Heat": 0,
-      };
-  }
-}
-
-export function getBaseMaxWeight(character: Character) {
-  switch (character.species) {
-    case Species.Human:
-      return 5 + character.stats.Strength * 2
-    case Species.Avian:
-    case Species.Worker:
-    case Species.Solver:
-      return 5 + character.stats.Strength * 3
-    case Species.Disassembly:
-      return 5 + character.stats.Strength * 4
-  }
-}
-
-export function getSpeciesModifiers(species: Species) {
-  switch (species) {
-    case Species.Worker:
-      return [
-        "-1 Stealth while Visor is turned on. Toggle with an Action. Limits vision to 3m.",
-        "+1 Expertises during Character Creation and increase limit from 2 to 3."]
-    case Species.Avian:
-    case Species.Solver:
-      return [
-        "-1 Stealth while Visor is turned on. Toggle with an Action. Limits vision to 3m."]
-    case Species.Disassembly:
-      return [
-        "-2 Stealth while Visor and Headbands are turned on. Toggle with an Action. Limits vision to 3m.",
-        "+1 to Passive Perception and Investigation rolls due to their headband sensors",
-        "+1 to all Melee Damage rolls."]
-  }
-  return [];
-
-}
-
-export function getProfModifier(value: string) {
+export function getProfModifier(value?: string) {
   if (value === 'P') return '+2';
   else if (value === 'E') return '+3';
   return '  '
 }
 
-export function getProfStat(skill: string) {
+export function getProfStat(skill: keyof Proficiencies) {
   switch (skill) {
     case "Athletics":
       return "VIT"

@@ -1,11 +1,11 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { db } from "$lib/db";
-  import { Character } from "$lib/rpg/infra/character.svelte";
   import { addDoc, collection } from "firebase/firestore";
   import Sheet from "../components/sheet/Sheet.svelte";
+  import { WorkerDrone } from "$lib/rpg/infra/species/workerDrone.svelte";
 
-  let character = $state(new Character());
+  let character = $state(new WorkerDrone());
 
   async function save() {
     const doc = await addDoc(

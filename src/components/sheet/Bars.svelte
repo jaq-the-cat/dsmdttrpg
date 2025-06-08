@@ -1,21 +1,13 @@
 <script lang="ts">
   import { invalidText } from "$lib";
-  import {
-    Character,
-    getMaxHp,
-    Species,
-  } from "$lib/rpg/infra/character.svelte";
+  import { Character } from "$lib/rpg/infra/character.svelte";
 
   let { character = $bindable() as Character } = $props();
 
-  let maxHp = $derived(getMaxHp(character));
+  let maxHp = $derived(character.getMaxHp());
 
   function getMaxBarValue(value: string, character: Character) {
-    if (
-      value === "Used Oil" &&
-      "Absolute Solver" in character.bars &&
-      !character.patched
-    ) {
+    if (value === "Used Oil" && "Absolute Solver" in character.bars) {
       return 10 - character.bars["Absolute Solver"];
     }
     return 10;
