@@ -1,10 +1,5 @@
 <script lang="ts">
-  import { db } from "$lib/db";
-  import { enemyLists } from "$lib/rpg/infra/enemy.svelte";
-  import { Container } from "$lib/rpg/infra/items.svelte";
-  import { getLoot, type WhatLoot } from "$lib/rpg/loot.svelte";
-  import { setDoc, doc } from "firebase/firestore";
-  import { docStore } from "sveltefire";
+  import { enemyLists } from "$lib/rpg/instances/enemies.svelte";
 
   let selectedEnemyList: string = $state("Humans");
   let enemies = $derived(Object.entries(enemyLists[selectedEnemyList]));

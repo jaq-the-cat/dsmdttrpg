@@ -8,9 +8,11 @@
   import About from "./About.svelte";
   import { initializeFromCharacterAndSpecies } from "$lib/rpg/infra/species/from.svelte";
   import RulebookSnippet from "./RulebookSnippet.svelte";
+  import Innate from "./Innate.svelte";
+  import { innate } from "$lib/rpg/instances/innate.svelte";
 
   let { character = $bindable() as Character } = $props();
-  let snippetOpen = $state(true);
+  let items = $derived(innate[character.species]);
 </script>
 
 <main id="sheet">
@@ -47,6 +49,7 @@
   <Proficiencies bind:character />
   <Bars bind:character />
   <Speed bind:character />
+  <Innate {items} />
   <Equipment bind:character />
   <About bind:character />
 </main>
@@ -61,13 +64,18 @@
   }
 
   main {
-    grid-template-columns: 1fr 1fr 1fr minmax(max-content, 1fr);
-    grid-template-rows: min-content 8rem auto;
+    // grid-template-columns: 1fr 1fr 1fr minmax(max-content, 1fr);
+    grid-template-columns: 1fr 1fr 2fr 2fr;
+    grid-template-rows: repeat(min-content, 4);
+    // grid-template-areas:
+    //   "species speed bars          enemyList"
+    //   "about   speed bars          equipment"
+    //   "about   stats proficiencies equipment"
+    //   "about   stats proficiencies equipment";
     grid-template-areas:
-      "species speed bars          equipment"
-      "about   speed bars          equipment"
-      "about   stats proficiencies equipment"
-      "about   stats proficiencies equipment";
+      "species species   speed     bars         "
+      "about   about     stats     proficiencies"
+      "innate  equipment equipment equipment";
   }
 
   @media (max-width: 1720px) {
@@ -76,7 +84,7 @@
       grid-template-rows: repeat(min-content, 5);
       grid-template-areas:
         "species   bars      speed"
-        "species   bars      speed"
+        "species   innate    speed"
         "about     stats     proficiencies"
         "about     stats     proficiencies"
         "equipment equipment equipment";
@@ -94,6 +102,7 @@
         "about     proficiencies"
         "about     proficiencies"
         "bars      speed"
+        "innate    speed"
         "equipment equipment";
     }
   }
@@ -109,6 +118,7 @@
         "stats"
         "proficiencies"
         "bars"
+        "innate"
         "equipment";
     }
   }

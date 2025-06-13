@@ -170,6 +170,13 @@ export class RangedWeapon extends Item {
     return weapon;
   }
 
+  getAmmoItem() {
+    const ammo = this.ammo?.clone()
+    if (!ammo) return null;
+    ammo.current = ammo.capacity;
+    return ammo
+  }
+
   tryReload(containers: Container[], weapon: RangedWeapon) {
     let ammoContainerIndex = -1;
     let ammoIndex = -1;

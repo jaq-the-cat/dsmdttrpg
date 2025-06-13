@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { enemyLists } from "$lib/rpg/infra/enemy.svelte";
   import type { Item } from "$lib/rpg/infra/items.svelte";
-  import WeaponInspect from "./WeaponInspect.svelte";
+  import { enemyLists } from "$lib/rpg/instances/enemies.svelte";
+  import WeaponInspect from "../WeaponInspect.svelte";
 
   let selectedEnemyList: string = $state("Humans");
   let enemies = $derived(Object.entries(enemyLists[selectedEnemyList]));
@@ -10,6 +10,7 @@
 </script>
 
 <section id="enemyList">
+  <WeaponInspect bind:itemInspect />
   <h1>Enemy List</h1>
   <select bind:value={selectedEnemyList}>
     {#each Object.keys(enemyLists) as enemyListKey}
@@ -58,8 +59,6 @@
     {/each}
   {/if}
 </section>
-
-<WeaponInspect bind:itemInspect />
 
 <style lang="scss">
   #enemyList {

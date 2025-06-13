@@ -1,7 +1,6 @@
 <script lang="ts">
   import type {
     AmmoItem,
-    Container,
     Healing,
     Item,
     LiquidContainer,
@@ -23,12 +22,19 @@
       | Healing
       | null;
   } = $props();
+
+  let dialog: HTMLDialogElement = $state()!; // HTMLDialogElement
+
+  $effect(() => {
+    if (itemInspect) dialog.showModal();
+  });
 </script>
 
 {#if itemInspect}
-  <div
+  <dialog
     class="modal inspect"
-    style={itemInspect === null ? "display: none" : ""}
+    bind:this={dialog}
+    onclose={() => (itemInspect = null)}
   >
     <span class="itemToInspect">{itemInspect}</span>
     {#if itemInspect?.type === "melee"}
@@ -73,17 +79,18 @@
       {/if}
     {/if}
     <button class="cancel" onclick={() => (itemInspect = null)}>Close</button>
-  </div>
+  </dialog>
 {/if}
 
 <style lang="scss">
   .modal {
-    grid-area: enemyList;
-    width: 75%;
-    align-self: center;
-    justify-self: center;
-    opacity: 95%;
-    background-color: #080e00;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    min-width: 50ch;
+    max-width: min(40%, 40ch);
+
+    background-color: #070c01;
     padding: 20px;
     border: 1px solid #9fe644;
     box-shadow: 2px 2px 4px 0 #9fe644;
@@ -107,5 +114,9 @@
       width: 100%;
       padding: 10px 0;
     }
+  }
+
+  .modal::backdrop {
+    background: #0009;
   }
 </style>

@@ -26,7 +26,7 @@
 </script>
 
 <div id="stats">
-  <button>Stats</button>
+  <h2>Stats</h2>
   <p class="total">Total Points <span>{sum}</span></p>
   <section class="statList">
     {#each Object.entries(character.stats) as stat}

@@ -17,20 +17,8 @@ export const prefabs: { [type: string]: (Container | Item)[] } = {
   'Melee': Object.values(weapons.Melee),
   'Ranged': Object.values(weapons.Ranged),
   'Throwable': Object.values(weapons.Throwable),
-  'Ammo': [
-    AmmoItem.default("Pistol", Rarity.Rare, 12, 1),
-    AmmoItem.default("Revolver", Rarity.VeryRare, 6, 2),
-    AmmoItem.default("Submachine Gun", Rarity.VeryRare, 30, 1),
-    AmmoItem.default("Semi-Auto Shotgun", Rarity.SuperRare, 10, 1),
-    AmmoItem.default("Pump Shotgun", Rarity.SuperRare, 6, 1),
-    AmmoItem.default("Rifle", Rarity.SuperRare, 28, 1),
-    AmmoItem.default("Assault Rifle", Rarity.SuperRare, 32, 1),
-    AmmoItem.default("Battle Rifle", Rarity.UltraRare, 24, 1),
-    AmmoItem.default("Sniper Rifle", Rarity.Waow, 4, 1),
-    AmmoItem.default("Improvised Railgun", Rarity.SuperRare, 1, 4),
-    AmmoItem.default("JCJ Railgun", Rarity.Waow, 1, 2),
-    AmmoItem.default("Sentinel Gun", Rarity.UltraRare, 1, 1),
-  ],
+  'Ammo':
+    Object.values(weapons.Ranged).map(weapon => weapon.getAmmoItem()!),
   'Healing': [
     new Healing("Bandage", 0.05, Rarity.Rare, "Humans", "4 HP", null, null),
     new Healing("First Aid Kit", 0.5, Rarity.VeryRare, "Humans", "10 HP", "Medicine check, difficulty is missing HP", null),
@@ -90,7 +78,4 @@ export const prefabs: { [type: string]: (Container | Item)[] } = {
     new Item("High Energy Capacitor", 0.2, Rarity.Rare),
     new Item("Low Energy Capacitor", 0.2, Rarity.Uncommon),
   ],
-  'Disassmebly Drone': Object.values(weapons.Disassembly),
-  'Avian Drone': Object.values(weapons.Avian),
-  'Solver Drone': Object.values(weapons.Solver),
 }

@@ -61,11 +61,11 @@
 <select bind:value={slot}>
   <option value={null} onclick={() => unselected()}></option>
   {#each character.itemList.list as item}
-    {#if allowedInSlot(item, fieldName)}
-      <option value={item.id} onclick={() => selected(item)}
-        >{item.toString()}</option
-      >
-    {/if}
+    <!-- {#if allowedInSlot(item, fieldName)} -->
+    <option value={item.id} onclick={() => selected(item)}
+      >{item.toString()}</option
+    >
+    <!-- {/if} -->
   {/each}
 </select>
 

@@ -1,4 +1,5 @@
 import { Enemy } from "../infra/enemy.svelte";
+import { innate } from "./innate.svelte";
 import { weapons } from "./weapons.svelte";
 
 export const enemyLists: { [category: string]: { [enemy: string]: Enemy } } = {
@@ -21,7 +22,8 @@ export const enemyLists: { [category: string]: { [enemy: string]: Enemy } } = {
     "JCJ Mercenary [NC]": new Enemy(6, [
       weapons.Melee.Knife,
       weapons.Ranged.Pistol,
-      weapons.Ranged.Rifle
+      weapons.Ranged.Rifle,
+      weapons.Ranged["Pump Shotgun"],
     ], [], {
       "Firearms": 2,
     }, {
@@ -45,6 +47,7 @@ export const enemyLists: { [category: string]: { [enemy: string]: Enemy } } = {
       weapons.Ranged.Revolver,
       weapons.Ranged["Assault Rifle"],
       weapons.Ranged["Semi-Auto Shotgun"],
+      weapons.Ranged["JCJ Railgun"],
     ], [], {
       "Against Solver Drones": 1,
       "Against Disassembly Drones": 1,
@@ -159,7 +162,7 @@ export const enemyLists: { [category: string]: { [enemy: string]: Enemy } } = {
       weapons.Melee.Axe,
       weapons.Ranged["Sentinel Gun"],
       weapons.Throwable["EMP Grenade"],
-      weapons.Worker["Knife Tail"]
+      innate["Worker Drone"]["Knife Tail"]
     ], {
       "Strength": 2,
       "Stealth": 4,
@@ -171,9 +174,9 @@ export const enemyLists: { [category: string]: { [enemy: string]: Enemy } } = {
   },
   "Solver Drones": {
     "Solver Drone": new Enemy(12, [
-      weapons.Solver["Solver Translate"],
-      weapons.Solver["Solver Transform"],
-      weapons.Solver["Solver Teleport"]
+      innate["Solver Drone"]["Solver Translate"],
+      innate["Solver Drone"]["Solver Transform"],
+      innate["Solver Drone"]["Solver Teleport"]
     ], [], {
       "Absolute Solver": 2,
       "Stealth": 3,
@@ -183,10 +186,10 @@ export const enemyLists: { [category: string]: { [enemy: string]: Enemy } } = {
       "Intimidation Resistance": 14,
     }),
     "Controlled Solver Drone": new Enemy(14, [
-      weapons.Solver["Solver Tail"],
-      weapons.Solver["Solver Stabbies"],
+      innate["Solver Drone"]["Solver Tail"],
+      innate["Solver Drone"]["Solver Stabbies"],
     ], [
-      weapons.Solver["Solver Claws"],
+      innate["Solver Drone"]["Solver Claws"],
     ], {
       "Strength": 2,
       "Stealth": 3,
@@ -197,10 +200,10 @@ export const enemyLists: { [category: string]: { [enemy: string]: Enemy } } = {
       "Intimidation Resistance": 16,
     }),
     "Centipede Drone": new Enemy(14, [], [
-      weapons.Solver["Solver Translate"],
-      weapons.Solver["Solver Transform"],
-      weapons.Solver["[null]"],
-      weapons.Solver["Solver Stabbies"],
+      innate["Solver Drone"]["Solver Translate"],
+      innate["Solver Drone"]["Solver Transform"],
+      innate["Solver Drone"]["[null]"],
+      innate["Solver Drone"]["Solver Stabbies"],
     ], {
       "Strength": 5,
       "Absolute Solver": 5,
@@ -212,14 +215,14 @@ export const enemyLists: { [category: string]: { [enemy: string]: Enemy } } = {
   },
   "Disassembly Drones": {
     "Disassembly Drone": new Enemy(14, [
-      weapons.Disassembly.Claws,
-      weapons.Disassembly.Sword,
-      weapons.Disassembly.Chainsaw,
-      weapons.Disassembly.SMG,
-      weapons.Disassembly.Laser,
-      weapons.Disassembly.Missile,
-      weapons.Disassembly["Ninja Star"],
-      weapons.Disassembly.EMP,
+      innate["Disassembly Drone"].Claws,
+      innate["Disassembly Drone"].Sword,
+      innate["Disassembly Drone"].Chainsaw,
+      innate["Disassembly Drone"].SMG,
+      innate["Disassembly Drone"].Laser,
+      innate["Disassembly Drone"].Missile,
+      innate["Disassembly Drone"]["Ninja Star"],
+      innate["Disassembly Drone"].EMP,
     ], [], {
       "Strength": 2,
       "Dexterity": 2,
@@ -235,10 +238,10 @@ export const enemyLists: { [category: string]: { [enemy: string]: Enemy } } = {
   },
   "Non-Canon Species": {
     "Avian Drone": new Enemy(14, [
-      weapons.Avian.Wings,
-      weapons.Avian["Small Claws"],
-      weapons.Avian["Talon Dive"],
-      weapons.Avian["Talon Strike"],
+      innate["Avian Drone"].Wings,
+      innate["Avian Drone"]["Small Claws"],
+      innate["Avian Drone"]["Talon Dive"],
+      innate["Avian Drone"]["Talon Strike"],
     ], [], {
       "Strength": 2,
       "Flying": 2,
@@ -247,7 +250,7 @@ export const enemyLists: { [category: string]: { [enemy: string]: Enemy } } = {
       "Passive Perception": 16,
     }),
     "Wasp Drone (Worker)": new Enemy(30, [
-      weapons.Avian.Wings,
+      innate["Avian Drone"].Wings,
       weapons.Wasp.Stinger,
       weapons.Wasp["Wasp Bite"],
     ], [], {
@@ -259,17 +262,17 @@ export const enemyLists: { [category: string]: { [enemy: string]: Enemy } } = {
       "Passive Perception": 16,
     }, "Hive Mind"),
     "Wasp Drone (Disassembly)": new Enemy(40, [
-      weapons.Avian.Wings,
+      innate["Avian Drone"].Wings,
       weapons.Wasp.Stinger,
       weapons.Wasp["Wasp Bite"],
-      weapons.Disassembly.Claws,
-      weapons.Disassembly.Sword,
-      weapons.Disassembly.Chainsaw,
-      weapons.Disassembly.SMG,
-      weapons.Disassembly.Laser,
-      weapons.Disassembly.Missile,
-      weapons.Disassembly["Ninja Star"],
-      weapons.Disassembly.EMP,
+      innate["Disassembly Drone"].Claws,
+      innate["Disassembly Drone"].Sword,
+      innate["Disassembly Drone"].Chainsaw,
+      innate["Disassembly Drone"].SMG,
+      innate["Disassembly Drone"].Laser,
+      innate["Disassembly Drone"].Missile,
+      innate["Disassembly Drone"]["Ninja Star"],
+      innate["Disassembly Drone"].EMP,
     ], [], {
       "Strength": 4,
       "Agility": 2,

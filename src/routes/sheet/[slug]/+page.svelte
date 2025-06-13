@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Character } from "$lib/rpg/infra/character.svelte";
+  import { Character, Species } from "$lib/rpg/infra/character.svelte";
   import { db } from "$lib/db.js";
   import { docStore } from "sveltefire";
   import Sheet from "../../../components/sheet/Sheet.svelte";
@@ -13,6 +13,7 @@
 
   let docRef = docStore(db.firestore!, `sheets/${data.slug}`);
   docRef.subscribe((value) => {
+    if (!value) return;
     if (!character.char) character.char = initializeFromSpecies(value.species);
     Character.deserialize(value, character.char);
     if (character.char) character.char.id = data.slug;

@@ -2,7 +2,6 @@
   let { sheets = $bindable() as any } = $props();
 </script>
 
-<!-- <Collection ref="sheets" let:data> -->
 <section class="sheets">
   <h1>Sheets</h1>
   <ul>
@@ -14,8 +13,6 @@
     {/each}
   </ul>
 </section>
-
-<!-- </Collection> -->
 
 <style lang="scss">
   .sheets {
