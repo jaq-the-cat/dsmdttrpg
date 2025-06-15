@@ -8,21 +8,40 @@
 
 <details id="human">
   <summary>Human</summary>
-  <Human />
+  <div class="gap">
+    <Human />
+  </div>
 </details>
 <details id="worker">
   <summary>Worker Drone</summary>
-  <Worker />
+  <div class="gap">
+    <Worker />
+  </div>
 </details>
 <details id="solver">
   <summary>Solver Drone</summary>
-  <Solver />
+  <div class="gap">
+    <Solver />
+  </div>
 </details>
 <details id="disassembly">
   <summary>Disassembly Drone</summary>
-  <Disassembly />
+  <div class="gap">
+    <Disassembly />
+  </div>
 </details>
 <details id="avian">
   <summary>Avian Drone [NC]</summary>
-  <Avian />
+  <div class="gap">
+    <Avian />
+  </div>
 </details>
+
+<style lang="scss">
+  details .gap {
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+  }
+</style>

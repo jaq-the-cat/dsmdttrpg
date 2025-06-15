@@ -5,8 +5,7 @@
 </script>
 
 <div id="speed">
-  <h2>Speed</h2>
-
+  <h2 class="cardTitle">Speed</h2>
   <ul>
     {#each Object.entries(character.speed) as speedEntry}
       <li>

@@ -13,7 +13,7 @@
   being Stat - 2, as opposed to Stat - 4, going up to +8 at 10.
 </p>
 <p>
-  Absolute Solver goes up by +1 for every 10 Used Oil (1 whole Drone/Human) you
+  Absolute Solver goes up by 1 for every 10 Used Oil (1 whole Drone/Human) you
   consume.
 </p>
 <p>Having Absolute Solver above 8 turns the Drone's visor color to Yellow.</p>

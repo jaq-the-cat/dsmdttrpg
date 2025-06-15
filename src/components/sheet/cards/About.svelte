@@ -1,11 +1,16 @@
 <script lang="ts">
   import { Character } from "$lib/rpg/infra/character.svelte";
+  import RulebookSnippet from "./dialogs/RulebookSnippet.svelte";
+  import About from "../../rulebook/snippets/about.svelte";
 
   let { character = $bindable() as Character } = $props();
+  let aboutRb = $state(false);
 </script>
 
 <div id="about">
-  <h2>About</h2>
+  <RulebookSnippet title="About" bind:open={aboutRb}>
+    <About />
+  </RulebookSnippet>
   <ul>
     {#each Object.entries(character.about) as ss}
       <li>

@@ -1,6 +1,13 @@
 <script lang="ts">
   import { invalidText } from "$lib";
   import { Character } from "$lib/rpg/infra/character.svelte";
+  import AbsoluteSolver from "../../rulebook/snippets/species/reuse/absoluteSolver.svelte";
+  import Blood from "../../rulebook/snippets/species/reuse/blood.svelte";
+  import Heat from "../../rulebook/snippets/species/reuse/heat.svelte";
+  import OilFresh from "../../rulebook/snippets/species/reuse/oilFresh.svelte";
+  import OilSolver from "../../rulebook/snippets/species/reuse/oilSolver.svelte";
+  import Sanity from "../../rulebook/snippets/species/reuse/sanity.svelte";
+  import RulebookSnippet from "./dialogs/RulebookSnippet.svelte";
 
   let { character = $bindable() as Character } = $props();
 
@@ -12,6 +19,13 @@
     }
     return 10;
   }
+
+  let openFreshOil = $state(false);
+  let openUsedOil = $state(false);
+  let openBlood = $state(false);
+  let openSanity = $state(false);
+  let openAbsoluteSolver = $state(false);
+  let openHeat = $state(false);
 </script>
 
 <div id="bars">
@@ -32,7 +46,47 @@
     </li>
     {#each Object.entries(character.bars) as bar}
       <li>
-        <div>{bar[0]}</div>
+        <div>
+          {#if bar[0] === "Fresh Oil"}
+            <button onclick={() => (openFreshOil = !openFreshOil)}
+              >{bar[0]}</button
+            >
+            <RulebookSnippet bind:open={openFreshOil}>
+              <OilFresh />
+            </RulebookSnippet>
+          {:else if bar[0] === "Used Oil"}
+            <button onclick={() => (openUsedOil = !openUsedOil)}
+              >{bar[0]}</button
+            >
+            <RulebookSnippet bind:open={openUsedOil}>
+              <OilSolver />
+            </RulebookSnippet>
+          {:else if bar[0] === "Blood"}
+            <button onclick={() => (openBlood = !openBlood)}>{bar[0]}</button>
+            <RulebookSnippet bind:open={openBlood}>
+              <Blood />
+            </RulebookSnippet>
+          {:else if bar[0] === "Sanity"}
+            <button onclick={() => (openSanity = !openSanity)}>{bar[0]}</button>
+            <RulebookSnippet bind:open={openSanity}>
+              <Sanity />
+            </RulebookSnippet>
+          {:else if bar[0] === "Absolute Solver"}
+            <button onclick={() => (openAbsoluteSolver = !openAbsoluteSolver)}
+              >{bar[0]}</button
+            >
+            <RulebookSnippet bind:open={openAbsoluteSolver}>
+              <AbsoluteSolver />
+            </RulebookSnippet>
+          {:else if bar[0] === "Heat"}
+            <button onclick={() => (openHeat = !openHeat)}>{bar[0]}</button>
+            <RulebookSnippet bind:open={openHeat}>
+              <Heat />
+            </RulebookSnippet>
+          {:else}
+            {bar[0]}
+          {/if}
+        </div>
         <input
           style={character.bars[bar[0]] > getMaxBarValue(bar[0], character)
             ? invalidText
@@ -65,5 +119,10 @@
   }
   li {
     margin-bottom: 5px;
+
+    button {
+      display: inline;
+      margin-bottom: 5px;
+    }
   }
 </style>
