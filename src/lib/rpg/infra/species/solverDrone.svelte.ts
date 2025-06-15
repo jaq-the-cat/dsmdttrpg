@@ -41,32 +41,6 @@ export class SolverDrone extends Character {
     this.patched = doc.patched ?? false;
   }
 
-  static override from(other: Character) {
-    const obj = new SolverDrone()
-    obj.stats = other.stats;
-    for (let [k, v] of Object.entries(obj.proficiencies)) {
-      if (k in other.proficiencies)
-        obj.proficiencies[k] = other.proficiencies[k]
-    }
-    obj.about = other.about
-    obj.biography = other.biography
-    obj.appearance = other.appearance
-    obj.fna = other.fna
-
-    obj.twoHanding = other.twoHanding
-    obj.containers = other.containers
-    obj.itemList = other.itemList
-
-    obj.left = other.left
-    obj.leftShoulder = other.leftShoulder
-    obj.right = other.right
-    obj.rightShoulder = other.rightShoulder
-    obj.front = other.front
-    obj.back = other.back
-
-    return obj
-  }
-
   constructor() {
     super()
   }

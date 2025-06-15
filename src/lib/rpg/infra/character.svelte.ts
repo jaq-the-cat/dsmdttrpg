@@ -164,7 +164,34 @@ export abstract class Character {
   abstract getMaxHp(): number
   abstract getBaseMaxWeight(): number
 
-  static from(other: Character) { };
+  static trans(target: Character, source: Character) {
+    for (let k in target.proficiencies) {
+      if (k in source.proficiencies)
+        target.proficiencies[k] = source.proficiencies[k]
+    }
+    for (let k in target.bars) {
+      if (k in source.bars)
+        target.bars[k] = source.bars[k]
+    }
+    target.stats = source.stats
+    target.about = source.about
+    target.biography = source.biography
+    target.appearance = source.appearance
+    target.fna = source.fna
+
+    target.twoHanding = source.twoHanding
+    target.containers = source.containers
+    target.itemList = source.itemList
+
+    target.left = source.left
+    target.leftShoulder = source.leftShoulder
+    target.right = source.right
+    target.rightShoulder = source.rightShoulder
+    target.front = source.front
+    target.back = source.back
+
+    return target;
+  };
 
   serialize() {
     return {

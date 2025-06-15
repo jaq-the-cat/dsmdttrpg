@@ -22,14 +22,14 @@ export function initializeFromSpecies(species: Species): Character {
 export function initializeFromCharacterAndSpecies(character: Character, species: Species) {
   switch (species) {
     case Species.Avian:
-      return AvianDrone.from(character)
+      return Character.trans(new AvianDrone(), character)
     case Species.Disassembly:
-      return DisassemblyDrone.from(character)
+      return Character.trans(new DisassemblyDrone(), character)
     case Species.Human:
-      return Human.from(character)
+      return Character.trans(new Human(), character)
     case Species.Solver:
-      return SolverDrone.from(character)
+      return Character.trans(new SolverDrone(), character)
     case Species.Worker:
-      return WorkerDrone.from(character)
+      return Character.trans(new WorkerDrone(), character)
   }
 }
