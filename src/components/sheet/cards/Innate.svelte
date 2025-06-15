@@ -1,9 +1,6 @@
 <script lang="ts">
-  import { Character, Species } from "$lib/rpg/infra/character.svelte";
   import { Item } from "$lib/rpg/infra/items.svelte";
-  import { innate } from "$lib/rpg/instances/innate.svelte";
-  import WeaponInspect from "../WeaponInspect.svelte";
-  import InspectItem from "./InspectItem.svelte";
+  import WeaponInspect from "./dialogs/WeaponInspect.svelte";
 
   let { items = $bindable() } = $props();
 

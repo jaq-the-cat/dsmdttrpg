@@ -1,14 +1,14 @@
 <script lang="ts">
   import { Character, Species } from "$lib/rpg/infra/character.svelte";
-  import Stats from "./Stats.svelte";
-  import Proficiencies from "./Proficiencies.svelte";
-  import Bars from "./Bars.svelte";
-  import Speed from "./Speed.svelte";
-  import Equipment from "./Equipment.svelte";
-  import About from "./About.svelte";
+  import Stats from "./cards/Stats.svelte";
+  import Proficiencies from "./cards/Proficiencies.svelte";
+  import Bars from "./cards/Bars.svelte";
+  import Speed from "./cards/Speed.svelte";
+  import Equipment from "./cards/Equipment.svelte";
+  import About from "./cards/About.svelte";
   import { initializeFromCharacterAndSpecies } from "$lib/rpg/infra/species/from.svelte";
-  import RulebookSnippet from "./RulebookSnippet.svelte";
-  import Innate from "./Innate.svelte";
+  import RulebookSnippet from "./cards/dialogs/RulebookSnippet.svelte";
+  import Innate from "./cards/Innate.svelte";
   import { innate } from "$lib/rpg/instances/innate.svelte";
   import SpeciesRb from "../rulebook/snippets/species/species.svelte";
 

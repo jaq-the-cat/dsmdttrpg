@@ -4,7 +4,7 @@
   import { Container, Item } from "$lib/rpg/infra/items.svelte";
   import { prefabs } from "$lib/rpg/instances/objectLists.svelte";
   import EquipmentSlot from "./EquipmentSlot.svelte";
-  import InspectItem from "./InspectItem.svelte";
+  import InspectItem from "./dialogs/InspectItem.svelte";
 
   let { character = $bindable() as Character } = $props();
 

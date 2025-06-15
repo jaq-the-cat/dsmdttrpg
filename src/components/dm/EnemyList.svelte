@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Item } from "$lib/rpg/infra/items.svelte";
   import { enemyLists } from "$lib/rpg/instances/enemies.svelte";
-  import WeaponInspect from "../WeaponInspect.svelte";
+  import WeaponInspect from "../sheet/cards/dialogs/WeaponInspect.svelte";
 
   let selectedEnemyList: string = $state("Humans");
   let enemies = $derived(Object.entries(enemyLists[selectedEnemyList]));

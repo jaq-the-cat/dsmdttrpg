@@ -7,7 +7,7 @@
     Species,
   } from "$lib/rpg/infra/character.svelte";
   import type { Proficiencies } from "$lib/rpg/infra/attributes.svelte";
-  import RulebookSnippet from "./RulebookSnippet.svelte";
+  import RulebookSnippet from "./dialogs/RulebookSnippet.svelte";
   import Proficiency from "../rulebook/snippets/general/proficiency.svelte";
 
   let { character = $bindable() as Character } = $props();

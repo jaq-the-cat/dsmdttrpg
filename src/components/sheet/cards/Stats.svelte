@@ -1,8 +1,8 @@
 <script lang="ts">
   import { invalidText } from "$lib";
   import { Character } from "$lib/rpg/infra/character.svelte";
-  import Attributes from "../rulebook/snippets/general/attributes.svelte";
-  import RulebookSnippet from "./RulebookSnippet.svelte";
+  import Attributes from "../../rulebook/snippets/general/attributes.svelte";
+  import RulebookSnippet from "./dialogs/RulebookSnippet.svelte";
 
   let { character = $bindable() as Character } = $props();
 
