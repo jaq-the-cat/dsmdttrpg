@@ -1,26 +1,38 @@
 <script lang="ts">
-  let { open = $bindable(true), children } = $props();
+  let {
+    title = $bindable() as string,
+    open = $bindable() as null | unknown,
+    children,
+  } = $props();
 </script>
 
-<div class="modal inspect" style={open ? "" : "display: none"}>
+<button class="rulebook" onclick={() => (open = !open)}>{title}</button>
+<br />
+<modal class="modal" style={open ? "" : "display: none"}>
   {@render children?.()}
-</div>
+  <button onclick={() => (open = null)}>Close</button>
+</modal>
 
 <style lang="scss">
   .modal {
-    grid-area: equipment;
-    width: 75%;
-    margin-top: 5rem;
-    align-self: flex-start;
-    justify-self: center;
-    opacity: 95%;
-    background-color: #080e00;
-    padding: 20px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 50ch;
+    max-width: min(40%, 40ch);
+    background-color: #070c01;
+
+    padding: 30px;
     border: 1px solid #9fe644;
     box-shadow: 2px 2px 4px 0 #9fe644;
     display: flex;
     flex-direction: column;
 
-    row-gap: 5px;
+    row-gap: 20px;
+  }
+
+  .modal::backdrop {
+    background: #0009;
   }
 </style>

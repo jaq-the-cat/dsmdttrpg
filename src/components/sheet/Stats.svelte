@@ -1,15 +1,18 @@
 <script lang="ts">
   import { invalidText } from "$lib";
   import { Character } from "$lib/rpg/infra/character.svelte";
+  import Attributes from "../rulebook/snippets/general/attributes.svelte";
+  import RulebookSnippet from "./RulebookSnippet.svelte";
 
   let { character = $bindable() as Character } = $props();
+
+  let rulebook = $state(false);
 
   let sum = $derived(
     Object.values(character.stats).reduce((total, value) => total + value)
   );
 
   export function statSumInvalid(sum: number) {
-    // return sum !== 42;
     return false;
   }
 
@@ -26,7 +29,9 @@
 </script>
 
 <div id="stats">
-  <h2>Stats</h2>
+  <RulebookSnippet title="Attributes" bind:open={rulebook}>
+    <Attributes />
+  </RulebookSnippet>
   <p class="total">Total Points <span>{sum}</span></p>
   <section class="statList">
     {#each Object.entries(character.stats) as stat}

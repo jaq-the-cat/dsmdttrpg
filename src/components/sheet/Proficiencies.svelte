@@ -7,6 +7,8 @@
     Species,
   } from "$lib/rpg/infra/character.svelte";
   import type { Proficiencies } from "$lib/rpg/infra/attributes.svelte";
+  import RulebookSnippet from "./RulebookSnippet.svelte";
+  import Proficiency from "../rulebook/snippets/general/proficiency.svelte";
 
   let { character = $bindable() as Character } = $props();
 
@@ -24,10 +26,14 @@
 
   const proficiencyCap = 4;
   let expertCap = $derived(character.species === Species.Worker ? 3 : 2);
+
+  let rulebook = $state(false);
 </script>
 
 <div id="proficiencies">
-  <h2>Proficiencies</h2>
+  <RulebookSnippet title="Skills" bind:open={rulebook}>
+    <Proficiency />
+  </RulebookSnippet>
   <div>
     <p>
       <span>Proficient</span>
@@ -84,10 +90,6 @@
     > div > p {
       display: flex;
       justify-content: space-between;
-    }
-
-    h2 {
-      margin: 0;
     }
 
     p {

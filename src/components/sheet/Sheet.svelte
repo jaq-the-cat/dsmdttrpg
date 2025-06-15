@@ -10,14 +10,19 @@
   import RulebookSnippet from "./RulebookSnippet.svelte";
   import Innate from "./Innate.svelte";
   import { innate } from "$lib/rpg/instances/innate.svelte";
+  import SpeciesRb from "../rulebook/snippets/species/species.svelte";
 
   let { character = $bindable() as Character } = $props();
   let items = $derived(innate[character.species]);
+
+  let speciesRb = $state(false);
 </script>
 
 <main id="sheet">
   <div id="species">
-    <h2>Species</h2>
+    <RulebookSnippet title="Species" bind:open={speciesRb}>
+      <SpeciesRb />
+    </RulebookSnippet>
     <select
       value={character.species}
       onchange={(ev) => {
@@ -66,7 +71,6 @@
   main {
     // grid-template-columns: 1fr 1fr 1fr minmax(max-content, 1fr);
     grid-template-columns: 1fr 1fr 2fr 2fr;
-    grid-template-rows: repeat(min-content, 4);
     // grid-template-areas:
     //   "species speed bars          enemyList"
     //   "about   speed bars          equipment"

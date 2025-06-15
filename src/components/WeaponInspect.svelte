@@ -31,11 +31,7 @@
 </script>
 
 {#if itemInspect}
-  <dialog
-    class="modal inspect"
-    bind:this={dialog}
-    onclose={() => (itemInspect = null)}
-  >
+  <dialog class="modal" bind:this={dialog} onclose={() => (itemInspect = null)}>
     <span class="itemToInspect">{itemInspect}</span>
     {#if itemInspect?.type === "melee"}
       <h2>Damage</h2>
@@ -89,8 +85,8 @@
     transform: translateY(-50%);
     min-width: 50ch;
     max-width: min(40%, 40ch);
-
     background-color: #070c01;
+
     padding: 20px;
     border: 1px solid #9fe644;
     box-shadow: 2px 2px 4px 0 #9fe644;
